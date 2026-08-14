@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DisclaimerBanner } from "@/components/shell/DisclaimerBanner";
 import { SpriteIcons } from "@/components/north/SpriteIcons";
+import { PageTransition } from "@/components/motion/PageTransition";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-black text-neue">
+        <PageTransition />
         <SpriteIcons />
         <DisclaimerBanner />
         {children}
