@@ -1,44 +1,57 @@
+import { ProductMock } from "@/components/ui/ProductMock";
+import { BoxedTitle } from "@/components/north/BoxedTitle";
+import { GridFrame } from "@/components/north/GridFrame";
+import { HeaderBar } from "@/components/north/HeaderBar";
+import { Reveal } from "@/components/motion/Reveal";
 import type { audiences } from "@/lib/messaging";
-import { CAMPAIGN_LINE } from "@/lib/messaging";
+import Link from "next/link";
 
 type Audience = (typeof audiences)[keyof typeof audiences];
 
 export function RoleHero({ audience }: { audience: Audience }) {
+  const headline = audience.headline.split(". ");
+  const lines =
+    headline.length > 1
+      ? [headline[0] + ".", headline.slice(1).join(". ")]
+      : [audience.headline];
+
   return (
-    <div className="kit-frame overflow-hidden bg-black constellation">
-      <div className="relative grid min-w-0 gap-8 p-5 sm:p-8 md:grid-cols-[1.2fr_0.8fr] md:items-end md:p-12">
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
-        <div className="relative">
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-mint">
+    <GridFrame borders="trb" ink="mint" strength={40}>
+      <div className="relative overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/north/hero.jpg"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-[center_32%] opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/40" />
+        <Reveal className="relative p-5 sm:p-8 md:p-10">
+          <HeaderBar />
+          <p className="mt-8 font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
             Noros for {audience.shortLabel}
-          </div>
-          <h2 className="t3 mt-3 max-w-[16ch] text-white [overflow-wrap:break-word] [text-wrap:balance]">
-            {audience.headline}
-          </h2>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-neue md:text-base">
-            {audience.subhead}
           </p>
-          <ul className="mt-6 space-y-2 text-sm text-neue">
+          <BoxedTitle size="t2" className="mt-4" lines={lines} />
+          <p className="t6 mt-6 max-w-xl text-white/90">{audience.subhead}</p>
+          <ul className="mt-6 max-w-xl space-y-2 font-mono text-[11px] tracking-[0.04em] text-neue uppercase">
             {audience.proofPoints.map((p) => (
-              <li key={p} className="flex gap-2">
-                <span className="text-mint">✦</span>
-                {p}
-              </li>
+              <li key={p}>— {p}</li>
             ))}
           </ul>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <span className="btn-primary">{audience.cta}</span>
-            <span className="btn-ghost border-white/25 text-white">Meet Noros</span>
+          <div className="accent-mint mt-8 max-w-[36rem]">
+            <div className="button-rail flex h-14 items-stretch gap-2 rounded-[8rem] p-1.5 sm:h-16 sm:p-2 md:h-24 md:gap-4 md:p-4">
+              <Link href="/#trial" className="hero-cta hero-cta-trial">
+                {audience.cta}
+              </Link>
+              <Link href="/campaign/meet" className="hero-cta hero-cta-demo">
+                Meet Noros
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className="relative rounded-2xl border border-white/10 bg-zenit p-5">
-          <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-neue/70">
-            Campaign line
+          <div className="mt-10">
+            <ProductMock autoPlay />
           </div>
-          <p className="mt-2 text-xl font-medium tracking-tight text-white">{CAMPAIGN_LINE}</p>
-          <p className="mt-3 text-xs text-neue">{audience.emphasis}</p>
-        </div>
+        </Reveal>
       </div>
-    </div>
+    </GridFrame>
   );
 }

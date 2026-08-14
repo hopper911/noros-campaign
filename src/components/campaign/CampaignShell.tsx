@@ -1,5 +1,6 @@
 import { CampaignNav } from "@/components/campaign/CampaignNav";
-import { CAMPAIGN_LINE } from "@/lib/messaging";
+import { SiteFooter } from "@/components/landing/SiteFooter";
+import { SiteNav } from "@/components/landing/SiteNav";
 import Link from "next/link";
 
 const links = [
@@ -28,28 +29,34 @@ export function CampaignShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-black text-neue">
-      <div className="no-print border-b border-white/10 bg-zenit/80">
-        <div className="mx-auto flex max-w-[1600px] flex-col gap-3 px-site py-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+    <>
+      <SiteNav />
+      <div className="border-b border-white/10 bg-black">
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-3 px-site py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
-            <Link href="/" className="text-xs text-neue/70 hover:text-mint">
+            <Link
+              href="/"
+              className="font-mono text-[10px] tracking-[0.16em] text-neue uppercase hover:text-white"
+            >
               ← Landing recreation
             </Link>
             <h1 className="mt-1 text-lg font-medium tracking-tight text-white sm:text-xl">
               {title}
             </h1>
-            <p className="text-xs text-neue/70">{CAMPAIGN_LINE}</p>
           </div>
-          <Link
-            href="/campaign"
-            className="btn-ghost !h-10 !px-4 shrink-0 self-start text-xs border-white/20 text-white"
-          >
-            Kit hub
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/campaign" className="btn-nav">
+              Kit hub
+            </Link>
+            <Link href="/#trial" className="btn-trial">
+              Free trial
+            </Link>
+          </div>
         </div>
         <CampaignNav links={links} />
       </div>
-      <div className="mx-auto max-w-[1600px] min-w-0 overflow-x-clip px-site py-10 md:py-14">{children}</div>
-    </div>
+      <main className="min-w-0 overflow-x-clip bg-black px-site py-site">{children}</main>
+      <SiteFooter />
+    </>
   );
 }

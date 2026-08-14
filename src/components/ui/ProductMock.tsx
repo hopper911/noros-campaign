@@ -1,135 +1,199 @@
 "use client";
 
+import { SpendChart } from "@/components/north/SpendChart";
+import { useReducedMotion } from "motion/react";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+const scenarios = [
+  {
+    id: "jump",
+    label: "Spend jump",
+    prompt: "Why did AWS spend jump 18% this week?",
+    answer:
+      "EC2 in us-east-1 drove +$42.6k. Top drivers: m6i.4xlarge fleet (+31%) and unattached EBS (+$8.2k).",
+    rec: "Rightsize 14 instances and reclaim idle volumes — est. $11.4k / mo.",
+    highlight: "ec2",
+  },
+  {
+    id: "anomaly",
+    label: "Anomaly",
+    prompt: "Any cost anomalies I should know about?",
+    answer:
+      "S3 in us-west-2 spiked +$9.1k vs the trailing 4-week baseline. Prefix logs/ accounted for 72% of the delta.",
+    rec: "Lifecycle on logs/ older than 30 days — est. $6.2k / mo.",
+    highlight: "s3",
+  },
+  {
+    id: "savings",
+    label: "Savings",
+    prompt: "Where can we save this quarter?",
+    answer:
+      "Compute Savings Plans coverage is 61%. Closing the gap on the m6i family is the largest lever.",
+    rec: "1-year No Upfront SP on remaining compute — est. $18.7k / mo.",
+    highlight: "sp",
+  },
+] as const;
+
+type Scenario = (typeof scenarios)[number];
+
 export function ProductMock({
   compact = false,
-  tone = "dark",
+  autoPlay = false,
 }: {
   compact?: boolean;
-  tone?: "dark" | "light";
+  autoPlay?: boolean;
 }) {
-  const light = tone === "light";
+  const reduce = useReducedMotion();
+  const [scenario, setScenario] = useState<Scenario>(scenarios[0]);
+  const [typed, setTyped] = useState(autoPlay ? "" : scenarios[0].prompt);
+  const [showUser, setShowUser] = useState(!autoPlay);
+  const [showAnswer, setShowAnswer] = useState(!autoPlay);
+  const [grow, setGrow] = useState(!autoPlay);
+  const [playing, setPlaying] = useState(false);
+  const timers = useRef<number[]>([]);
+  const started = useRef(false);
 
-  return (
-    <div
-      className={`relative overflow-hidden rounded-2xl border p-4 md:p-5 ${
-        light
-          ? "border-black/15 bg-black text-neue"
-          : "border-white/10 bg-zenit text-neue"
-      } ${compact ? "!p-3" : ""}`}
-    >
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-red/80" />
-          <span className="h-2 w-2 rounded-full bg-warning/80" />
-          <span className="h-2 w-2 rounded-full bg-green/80" />
-          <span className="ml-2 font-mono text-[11px] uppercase tracking-[0.14em] text-neue">
-            Noros · AI Agent
-          </span>
-        </div>
-        <span className="rounded-full bg-mint/15 px-2 py-0.5 text-[10px] text-mint">
-          AWS · GCP · Azure
-        </span>
-      </div>
+  const clearTimers = () => {
+    timers.current.forEach((id) => window.clearTimeout(id));
+    timers.current = [];
+  };
 
-      <div className={`grid gap-3 ${compact ? "" : "md:grid-cols-[1.1fr_0.9fr]"}`}>
-        <div className="space-y-2.5">
-          <ChatBubble who="you">Why did AWS spend jump 18% this week?</ChatBubble>
-          <ChatBubble who="noros">
-            EC2 in us-east-1 drove +$42.6k. Top drivers: m6i.4xlarge fleet (+31%) and
-            unattached EBS (+$8.2k).
-          </ChatBubble>
-          <ChatBubble who="you">Show me the chart and what to do.</ChatBubble>
-          <ChatBubble who="noros">
-            Chart ready. Recommend: rightsize 14 instances, reclaim idle volumes — est.
-            $11.4k / mo.
-          </ChatBubble>
-        </div>
+  const wait = (ms: number) =>
+    new Promise<void>((resolve) => {
+      const id = window.setTimeout(resolve, ms);
+      timers.current.push(id);
+    });
 
-        {!compact && (
-          <div className="rounded-xl border border-white/10 bg-black/50 p-3">
-            <div className="flex items-center justify-between text-[11px] text-neue">
-              <span>Weekly spend · AWS</span>
-              <span className="text-red">+18%</span>
-            </div>
-            <MiniChart />
-            <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
-              <Stat label="EC2 delta" value="+$42.6k" tone="danger" />
-              <Stat label="Savings est." value="$11.4k/mo" tone="success" />
-            </div>
-          </div>
-        )}
-      </div>
+  const play = useCallback(
+    async (next: Scenario) => {
+      clearTimers();
+      setScenario(next);
+      setTyped("");
+      setShowUser(false);
+      setShowAnswer(false);
+      setGrow(false);
+      setPlaying(true);
 
-      <div className="mt-3 flex items-center gap-2 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5">
-        <span className="text-mint">✦</span>
-        <span className="flex-1 text-xs text-neue/80">Ask Noros anything about cloud spend…</span>
-        <span className="rounded-lg bg-mint px-2.5 py-1 text-[10px] font-medium text-black">
-          Ask
-        </span>
-      </div>
-    </div>
+      if (reduce) {
+        setTyped(next.prompt);
+        setShowUser(true);
+        setShowAnswer(true);
+        setGrow(true);
+        setPlaying(false);
+        return;
+      }
+
+      for (let i = 1; i <= next.prompt.length; i++) {
+        setTyped(next.prompt.slice(0, i));
+        await wait(22);
+      }
+      await wait(280);
+      setShowUser(true);
+      await wait(420);
+      setShowAnswer(true);
+      setGrow(true);
+      await wait(600);
+      setPlaying(false);
+    },
+    [reduce],
   );
-}
 
-function ChatBubble({
-  who,
-  children,
-}: {
-  who: "you" | "noros";
-  children: React.ReactNode;
-}) {
-  const mine = who === "you";
+  useEffect(() => {
+    if (!autoPlay || started.current) return;
+    started.current = true;
+    const id = window.setTimeout(() => {
+      void play(scenarios[0]);
+    }, 400);
+    return () => {
+      window.clearTimeout(id);
+      clearTimers();
+    };
+  }, [autoPlay, play]);
+
   return (
-    <div className={`flex ${mine ? "justify-end" : "justify-start"}`}>
+    <div className="overflow-hidden rounded-[0.4rem] bg-black/30 p-2 backdrop-blur-xl md:rounded-[1.6rem] md:p-6">
       <div
-        className={`max-w-[95%] rounded-2xl px-3 py-2 text-xs leading-relaxed ${
-          mine
-            ? "rounded-br-md bg-nebula/30 text-white"
-            : "rounded-bl-md border border-white/10 bg-black/50 text-neue"
+        className={`rounded-[0.2rem] border border-white/10 bg-[#1a2228] md:rounded-[0.8rem] ${
+          compact ? "p-3" : "p-3 sm:p-4 md:p-5"
         }`}
       >
-        {!mine && (
-          <div className="mb-1 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-mint">
-            Noros
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <div className="font-mono text-[10px] tracking-[0.16em] text-neue uppercase">
+            Noros · AI Agent
           </div>
-        )}
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function MiniChart() {
-  const bars = [38, 42, 40, 45, 44, 52, 61];
-  return (
-    <div className="mt-3 flex h-28 items-end gap-1.5">
-      {bars.map((h, i) => (
-        <div key={i} className="flex flex-1 flex-col items-center gap-1">
-          <div
-            className={`w-full rounded-t-sm ${
-              i === bars.length - 1 ? "bg-mint" : "bg-nebula/50"
-            }`}
-            style={{ height: `${h}%` }}
-          />
+          <div className="flex items-center gap-2">
+            <span className="rounded-full border border-white/15 px-2 py-0.5 font-mono text-[10px] tracking-[0.08em] text-neue uppercase">
+              AWS · GCP · Azure
+            </span>
+            <button
+              type="button"
+              className="btn-nav !h-8 !px-3 !text-[10px]"
+              onClick={() => void play(scenario)}
+              disabled={playing}
+            >
+              {playing ? "Playing" : "Play demo"}
+            </button>
+          </div>
         </div>
-      ))}
-    </div>
-  );
-}
 
-function Stat({
-  label,
-  value,
-  tone,
-}: {
-  label: string;
-  value: string;
-  tone: "danger" | "success";
-}) {
-  return (
-    <div className="rounded-lg border border-white/10 bg-zenit/80 px-2.5 py-2">
-      <div className="text-neue/70">{label}</div>
-      <div className={tone === "danger" ? "text-red" : "text-green"}>{value}</div>
+        <div className={`grid min-w-0 gap-4 ${compact ? "" : "lg:grid-cols-[1.05fr_0.95fr]"}`}>
+          <div className="flex min-w-0 flex-col">
+            <div className={`space-y-2.5 ${compact ? "min-h-[8rem]" : "min-h-[11rem]"}`}>
+              {showUser && (
+                <div className="flex justify-end">
+                  <div className="max-w-[95%] rounded-2xl rounded-br-md bg-neue px-3 py-2 text-xs leading-relaxed text-black">
+                    {scenario.prompt}
+                  </div>
+                </div>
+              )}
+              {showAnswer && (
+                <div className="flex justify-start">
+                  <div className="max-w-[95%] rounded-2xl rounded-bl-md border border-white/10 bg-black/50 px-3 py-2 text-xs leading-relaxed text-neue">
+                    <div className="mb-1 font-mono text-[10px] tracking-[0.12em] text-mint uppercase">
+                      Noros
+                    </div>
+                    <p>{scenario.answer}</p>
+                    <p className="mt-2 text-mint">{scenario.rec}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="accent-mint mt-4">
+              <div className="button-rail flex h-12 items-stretch gap-1.5 rounded-[8rem] p-1.5">
+                <div className="flex flex-1 items-center px-3 font-mono text-[10px] tracking-[0.06em] text-black uppercase sm:text-[11px]">
+                  {typed || "Ask Noros anything about cloud spend…"}
+                </div>
+                <span className="hero-cta hero-cta-demo !flex-none px-4">Ask</span>
+              </div>
+            </div>
+
+            {!compact && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {scenarios.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    className="nav-item !h-8 !text-[10px]"
+                    data-open={scenario.id === s.id ? "true" : undefined}
+                    onClick={() => void play(s)}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {!compact && (
+            <SpendChart
+              compact
+              grow={grow}
+              highlightSeries={showAnswer ? scenario.highlight : null}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

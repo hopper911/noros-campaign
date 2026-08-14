@@ -1,4 +1,7 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
+import { GridFrame } from "@/components/north/GridFrame";
+import { HeaderBar } from "@/components/north/HeaderBar";
+import { Reveal } from "@/components/motion/Reveal";
 import { DISCLAIMER } from "@/lib/messaging";
 
 const frames = [
@@ -19,29 +22,34 @@ const frames = [
 export default function FigmaBoardsPage() {
   return (
     <CampaignShell title="Figma design boards">
-      <div className="kit-frame p-6 md:p-8">
-        <p className="text-sm text-muted">
-          Figma file created for exportable campaign frames. Cover + messaging framework
-          boards are in-file; remaining frames mirror the Next.js kit compositions below
-          (Starter MCP rate limit paused further writes).
-        </p>
-        <a
-          href="https://www.figma.com/design/CTMlP9TsdTpS9MrKtaAp0m"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 inline-flex text-sm text-nebula-bright hover:underline"
-        >
-          Open Noros Campaign Kit — Portfolio →
-        </a>
-        <ul className="mt-8 space-y-2 text-sm text-star/85">
-          {frames.map((f) => (
-            <li key={f} className="border-l border-nebula/30 pl-3">
-              {f}
-            </li>
-          ))}
-        </ul>
-        <p className="mt-8 text-[11px] text-muted">{DISCLAIMER}</p>
-      </div>
+      <GridFrame borders="trb" ink="mint" strength={40}>
+        <Reveal className="p-5 sm:p-8 md:p-10">
+          <HeaderBar />
+          <p className="mt-8 font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
+            Exportable campaign frames
+          </p>
+          <p className="t6 mt-4 max-w-2xl text-neue">
+            Figma file created for exportable campaign frames. Cover + messaging framework
+            boards are in-file; remaining frames mirror the Next.js kit compositions below.
+          </p>
+          <a
+            href="https://www.figma.com/design/CTMlP9TsdTpS9MrKtaAp0m"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-nav mt-6"
+          >
+            Open Figma file
+          </a>
+          <ul className="mt-8 space-y-2 text-[15px] text-neue">
+            {frames.map((f) => (
+              <li key={f} className="border-l border-mint/40 pl-3">
+                {f}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 font-mono text-[11px] text-neue/70 uppercase">{DISCLAIMER}</p>
+        </Reveal>
+      </GridFrame>
     </CampaignShell>
   );
 }

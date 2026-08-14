@@ -11,23 +11,20 @@ export function CampaignNav({
   const pathname = usePathname();
 
   return (
-    <div className="mx-auto flex max-w-[1600px] flex-wrap gap-1.5 px-site pb-3">
+    <nav className="mx-auto flex max-w-[1440px] flex-wrap gap-1 px-site pb-3" aria-label="Campaign kit">
       {links.map((l) => {
         const active = pathname === l.href;
         return (
           <Link
             key={l.href}
             href={l.href}
-            className={`rounded-full border px-3 py-1.5 text-[11px] leading-none ${
-              active
-                ? "border-mint/70 bg-mint/10 text-mint"
-                : "border-white/15 text-neue hover:border-mint/50 hover:text-mint"
-            }`}
+            className="nav-item"
+            data-open={active ? "true" : undefined}
           >
             {l.label}
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }

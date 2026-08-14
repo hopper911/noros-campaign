@@ -73,9 +73,9 @@ export function SiteNav() {
                       <ul className="space-y-1.5 font-mono text-[11px] tracking-[0.08em] text-neue uppercase">
                         {items.map((item) => (
                           <li key={item}>
-                            <a href="#features" className="hover:text-white">
+                            <Link href="/#features" className="hover:text-white">
                               {item}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -104,9 +104,9 @@ export function SiteNav() {
                   <ul className="space-y-2 font-mono text-[11px] tracking-[0.1em] text-neue uppercase">
                     {integrations.map((item) => (
                       <li key={item}>
-                        <a href="#integrations" className="hover:text-white">
+                        <Link href="/#integrations" className="hover:text-white">
                           {item}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -114,23 +114,23 @@ export function SiteNav() {
               )}
             </div>
 
-            <a href="#why" className="nav-item">
+            <Link href="/#why" className="nav-item">
               Why North
-            </a>
-            <a href="#pricing" className="nav-item">
+            </Link>
+            <Link href="/#pricing" className="nav-item">
               Pricing
-            </a>
+            </Link>
           </nav>
 
-          <a href="#sign-in" className="btn-nav hidden lg:inline-flex">
+          <Link href="/#sign-in" className="btn-nav hidden lg:inline-flex">
             Sign In
-          </a>
-          <a href="#demo" className="btn-nav hidden md:inline-flex">
+          </Link>
+          <Link href="/#demo" className="btn-nav hidden md:inline-flex">
             Free Demo
-          </a>
-          <a href="#trial" className="btn-trial hidden sm:inline-flex">
+          </Link>
+          <Link href="/#trial" className="btn-trial hidden sm:inline-flex">
             Free trial
-          </a>
+          </Link>
           <button
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white lg:hidden"
@@ -171,53 +171,53 @@ export function SiteNav() {
             {Object.values(features)
               .flat()
               .map((item) => (
-                <a
+                <Link
                   key={item}
-                  href="#features"
+                  href="/#features"
                   className="rounded-lg px-2 py-2.5 font-mono text-[12px] tracking-[0.08em] text-white uppercase"
                   onClick={closeMenu}
                 >
                   {item}
-                </a>
+                </Link>
               ))}
             <p className="mt-3 px-2 font-mono text-[10px] tracking-[0.16em] text-neue uppercase">
               Integrations
             </p>
             {integrations.map((item) => (
-              <a
+              <Link
                 key={item}
-                href="#integrations"
+                href="/#integrations"
                 className="rounded-lg px-2 py-2.5 font-mono text-[12px] tracking-[0.08em] text-white uppercase"
                 onClick={closeMenu}
               >
                 {item}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#why"
+            <Link
+              href="/#why"
               className="mt-2 rounded-lg px-2 py-2.5 text-sm text-white"
               onClick={closeMenu}
             >
               Why North
-            </a>
-            <a
-              href="#pricing"
+            </Link>
+            <Link
+              href="/#pricing"
               className="rounded-lg px-2 py-2.5 text-sm text-white"
               onClick={closeMenu}
             >
               Pricing
-            </a>
+            </Link>
           </div>
           <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 sm:flex-row">
-            <a href="#sign-in" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
+            <Link href="/#sign-in" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
               Sign In
-            </a>
-            <a href="#demo" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
+            </Link>
+            <Link href="/#demo" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
               Free Demo
-            </a>
-            <a href="#trial" className="btn-trial w-full sm:w-auto" onClick={closeMenu}>
+            </Link>
+            <Link href="/#trial" className="btn-trial w-full sm:w-auto" onClick={closeMenu}>
               Free trial
-            </a>
+            </Link>
           </div>
         </nav>
       )}

@@ -1,30 +1,55 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
+import { GridFrame } from "@/components/north/GridFrame";
+import { HeaderBar } from "@/components/north/HeaderBar";
+import { RevealItem, RevealStagger } from "@/components/motion/Reveal";
 import { storyboardFrames } from "@/lib/messaging";
 
 export default function StoryboardPage() {
   return (
     <CampaignShell title="30-second motion storyboard">
-      <p className="mb-8 max-w-2xl text-sm text-muted">
-        Six beats. Calm motion: type → answer → alert → three seats → dashboard → CTA.
-      </p>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <GridFrame borders="tr" ink="mint" strength={40}>
+        <div className="p-5 sm:p-8 md:p-10">
+          <HeaderBar />
+          <p className="mt-8 font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
+            Six beats
+          </p>
+          <p className="t6 mt-4 max-w-2xl text-neue">
+            Calm motion: type → answer → alert → three seats → dashboard → CTA.
+          </p>
+        </div>
+      </GridFrame>
+      <RevealStagger className="grid sm:grid-cols-2 lg:grid-cols-3">
         {storyboardFrames.map((frame, i) => (
-          <article key={frame.t} className="kit-frame overflow-hidden">
-            <div className="aspect-video constellation relative border-b border-border">
-              <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
-                <span className="font-display text-4xl text-nebula/40">{i + 1}</span>
-              </div>
-            </div>
-            <div className="p-4">
-              <div className="text-[10px] uppercase tracking-[0.14em] text-nebula-bright">
-                {frame.t}
-              </div>
-              <h3 className="mt-1 font-semibold text-star">{frame.title}</h3>
-              <p className="mt-2 text-xs leading-relaxed text-muted">{frame.visual}</p>
-            </div>
-          </article>
+          <RevealItem key={frame.t}>
+            <GridFrame borders="rb" ink="mint" strength={40}>
+              <article>
+                <div className="relative aspect-video overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/north/hero.jpg"
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover opacity-35"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                    <span className="text-5xl font-medium tracking-tight text-white/30">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <div className="font-mono text-[10px] tracking-[0.14em] text-mint uppercase">
+                    {frame.t}
+                  </div>
+                  <h3 className="mt-2 text-lg font-medium tracking-tight text-white">
+                    {frame.title}
+                  </h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-neue">{frame.visual}</p>
+                </div>
+              </article>
+            </GridFrame>
+          </RevealItem>
         ))}
-      </div>
+      </RevealStagger>
     </CampaignShell>
   );
 }
