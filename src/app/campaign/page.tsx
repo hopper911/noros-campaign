@@ -43,11 +43,11 @@ export default function CampaignHubPage() {
             {DISCLAIMER}
           </p>
           <div className="accent-mint mt-8 max-w-[36rem]">
-            <div className="button-rail flex h-14 items-stretch gap-2 rounded-[8rem] p-1.5 sm:h-16 sm:p-2 md:h-24 md:gap-4 md:p-4">
-              <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
+            <div className="button-rail flex h-11 items-stretch gap-1.5 rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
+              <Link href="/campaign/meet" className="hero-cta hero-cta-compact hero-cta-trial">
                 Meet Noros
               </Link>
-              <Link href="/campaign/meet" className="hero-cta hero-cta-demo">
+              <Link href="/campaign/meet" className="hero-cta hero-cta-compact hero-cta-demo">
                 Free Demo
               </Link>
             </div>

@@ -159,13 +159,18 @@ export function ProductMock({
               )}
             </div>
 
-            <div className="accent-mint mt-4">
-              <div className="button-rail flex h-12 items-stretch gap-1.5 rounded-[8rem] p-1.5">
-                <div className="flex flex-1 items-center px-3 font-mono text-[10px] tracking-[0.06em] text-black uppercase sm:text-[11px]">
-                  {typed || "Ask Noros anything about cloud spend…"}
-                </div>
-                <span className="hero-cta hero-cta-demo !flex-none px-4">Ask</span>
-              </div>
+            <div className="mt-4 flex h-10 min-w-0 items-center gap-1.5 rounded-full bg-mint px-1.5 sm:h-11">
+              <p className="min-w-0 flex-1 truncate px-3 text-[11px] leading-none tracking-normal text-black sm:text-xs">
+                {typed || "Ask Noros anything about cloud spend…"}
+              </p>
+              <button
+                type="button"
+                className="inline-flex h-8 shrink-0 items-center justify-center rounded-full bg-black px-3.5 text-[10px] font-medium tracking-[0.08em] text-mint uppercase"
+                onClick={() => void play(scenario)}
+                disabled={playing}
+              >
+                Ask
+              </button>
             </div>
 
             {!compact && (

@@ -29,11 +29,11 @@ export default function EventPage() {
               The AI for cloud operators—answers, alerts, and dashboards through conversation.
             </p>
             <div className="accent-mint mt-8 w-full max-w-[28rem]">
-              <div className="button-rail flex h-14 items-stretch gap-2 rounded-[8rem] p-1.5 sm:h-16">
-                <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
+              <div className="button-rail flex h-11 items-stretch gap-1.5 rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
+                <Link href="/campaign/meet" className="hero-cta hero-cta-compact hero-cta-trial">
                   Ask Noros
                 </Link>
-                <span className="hero-cta hero-cta-demo">Booth 14</span>
+                <span className="hero-cta hero-cta-compact hero-cta-demo">Booth 14</span>
               </div>
             </div>
             <p className="absolute bottom-4 left-0 right-0 px-6 font-mono text-[10px] tracking-[0.06em] text-neue/50 uppercase">

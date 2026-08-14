@@ -49,8 +49,8 @@ export default function EmailPage() {
               another quarter of spreadsheet archaeology.
             </p>
             <div className="accent-mint max-w-sm pt-2">
-              <div className="button-rail flex h-14 items-stretch rounded-[8rem] p-1.5">
-                <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
+              <div className="button-rail flex h-11 items-stretch rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
+                <Link href="/campaign/meet" className="hero-cta hero-cta-compact hero-cta-trial">
                   Free Demo
                 </Link>
               </div>
