@@ -2,9 +2,11 @@ import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { RevealItem, RevealStagger } from "@/components/motion/Reveal";
-import { storyboardFrames } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 
-export default function StoryboardPage() {
+export default async function StoryboardPage() {
+  const { storyboardFrames, landing } = await getSiteContent();
+
   return (
     <CampaignShell title="30-second motion storyboard">
       <GridFrame borders="tr" ink="mint" strength={40}>
@@ -26,7 +28,7 @@ export default function StoryboardPage() {
                 <div className="relative aspect-video overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/north/hero.jpg"
+                    src={landing.heroImageUrl}
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover opacity-35"
                   />

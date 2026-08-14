@@ -8,20 +8,24 @@ import { PricingSection } from "@/components/landing/PricingSection";
 import { ClosingCta } from "@/components/landing/ClosingCta";
 import { FAQ } from "@/components/landing/FAQ";
 import { SiteFooter } from "@/components/landing/SiteFooter";
+import { getSiteContent } from "@/lib/get-site-content";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const content = await getSiteContent();
+  const { landing } = content;
+
   return (
     <>
       <SiteNav />
       <main className="min-w-0 overflow-x-clip">
-        <Hero />
-        <ValueProps />
-        <FeatureBlocks />
-        <Testimonials />
+        <Hero hero={landing.hero} imageUrl={landing.heroImageUrl} />
+        <ValueProps value={landing.value} />
+        <FeatureBlocks features={landing.features} />
+        <Testimonials testimonials={landing.testimonials} />
         <IntegrationsBand />
         <PricingSection />
-        <ClosingCta />
-        <FAQ />
+        <ClosingCta cta={landing.cta} />
+        <FAQ faqs={landing.faqs} />
       </main>
       <SiteFooter />
     </>

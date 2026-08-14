@@ -1,11 +1,10 @@
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { Reveal } from "@/components/motion/Reveal";
-import { landingCopy } from "@/lib/messaging";
+import type { LandingContent } from "@/lib/site-content";
 import Link from "next/link";
 
-export function ClosingCta() {
-  const { cta } = landingCopy;
+export function ClosingCta({ cta }: { cta: LandingContent["cta"] }) {
   return (
     <section className="bg-section-black py-site">
       <div className="px-site">

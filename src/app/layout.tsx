@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     "Independent portfolio recreation of the Noros AI Agent page. Not commissioned by or affiliated with North.Cloud.",
 };
 
+export const dynamic = "force-dynamic";
+
 export const viewport: Viewport = {
   themeColor: "#212121",
   width: "device-width",

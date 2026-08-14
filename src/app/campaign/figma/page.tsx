@@ -2,7 +2,7 @@ import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { DISCLAIMER } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 
 const frames = [
   "00 Cover (created in Figma)",
@@ -19,7 +19,8 @@ const frames = [
   "Role heroes — mirror /campaign/cfo · /finops · /engineers",
 ];
 
-export default function FigmaBoardsPage() {
+export default async function FigmaBoardsPage() {
+  const { disclaimer } = await getSiteContent();
   return (
     <CampaignShell title="Figma design boards">
       <GridFrame borders="trb" ink="mint" strength={40}>
@@ -47,7 +48,7 @@ export default function FigmaBoardsPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-8 font-mono text-[11px] text-neue/70 uppercase">{DISCLAIMER}</p>
+          <p className="mt-8 font-mono text-[11px] text-neue/70 uppercase">{disclaimer}</p>
         </Reveal>
       </GridFrame>
     </CampaignShell>

@@ -2,10 +2,11 @@ import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { RevealItem, RevealStagger } from "@/components/motion/Reveal";
-import { audiences } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
 
-export default function AdsPage() {
+export default async function AdsPage() {
+  const { audiences } = await getSiteContent();
   const ads = [audiences.cfo, audiences.finops, audiences.engineer];
 
   return (
@@ -29,7 +30,7 @@ export default function AdsPage() {
                 <div className="relative aspect-[1.91/1] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/north/hero.jpg"
+                    src={ad.adImageUrl}
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover"
                   />

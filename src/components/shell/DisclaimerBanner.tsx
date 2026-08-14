@@ -1,13 +1,14 @@
-import { DISCLAIMER } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
 
-export function DisclaimerBanner() {
+export async function DisclaimerBanner() {
+  const { disclaimer } = await getSiteContent();
   return (
     <div className="no-print relative z-[60] border-b border-white/10 bg-black px-3 py-2 text-[11px] leading-snug text-neue sm:px-4 sm:text-center md:text-xs">
       <p>
         <span className="font-medium text-mint">Portfolio add-on</span>
         <span className="mx-2 text-white/20">·</span>
-        {DISCLAIMER}
+        {disclaimer}
       </p>
       <Link
         href="/campaign"

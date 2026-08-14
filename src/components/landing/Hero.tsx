@@ -2,18 +2,23 @@
 
 import { BoxedH1 } from "@/components/north/BoxedTitle";
 import { NorosMark } from "@/components/north/Marks";
-import { landingCopy } from "@/lib/messaging";
+import { boxedLines, type LandingContent } from "@/lib/site-content";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 
-export function Hero() {
-  const { hero } = landingCopy;
+export function Hero({
+  hero,
+  imageUrl,
+}: {
+  hero: LandingContent["hero"];
+  imageUrl: string;
+}) {
   const reduce = useReducedMotion();
 
   return (
     <section className="heroFeature accent-mint relative overflow-hidden bg-black">
       <motion.img
-        src="/north/hero.jpg"
+        src={imageUrl}
         alt=""
         className="absolute inset-0 h-full w-full object-cover object-[center_32%] sm:object-center"
         initial={reduce ? false : { scale: 1 }}
@@ -37,7 +42,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.08 }}
         >
-          <BoxedH1 lines={["The AI for", "cloud operators."]} />
+          <BoxedH1 lines={boxedLines(hero.headline)} />
         </motion.div>
 
         <motion.p
@@ -56,10 +61,10 @@ export function Hero() {
           transition={{ delay: 0.22 }}
         >
           <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
-            Free trial
+            {hero.primaryCta}
           </Link>
           <Link href="/campaign/meet" className="hero-cta hero-cta-demo">
-            Free Demo
+            {hero.secondaryCta}
           </Link>
         </motion.div>
 

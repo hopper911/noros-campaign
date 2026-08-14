@@ -1,10 +1,10 @@
 "use client";
 
 import { GridFrame } from "@/components/north/GridFrame";
-import { landingCopy } from "@/lib/messaging";
+import type { LandingContent } from "@/lib/site-content";
 import { useState } from "react";
 
-export function FAQ() {
+export function FAQ({ faqs }: { faqs: LandingContent["faqs"] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -20,7 +20,7 @@ export function FAQ() {
         </GridFrame>
         <GridFrame borders="trb" ink="mint" strength={40}>
           <div className="divide-y divide-white/10">
-            {landingCopy.faqs.map((faq, i) => {
+            {faqs.map((faq, i) => {
               const isOpen = open === i;
               return (
                 <div key={faq.q} className="px-6 md:px-10">

@@ -16,6 +16,21 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) for the landing recreation.
 Campaign kit hub: [http://localhost:3000/campaign](http://localhost:3000/campaign)
 
+## Admin CMS
+
+Password-gated editor at `/admin` (not in the public nav). Copy and ad images live in **Neon Postgres**, so edits survive Vercel deploys.
+
+Create a Neon project, then set these on Vercel (Production + Preview) and in `.env.local`. A [neon.new](https://neon.new) database works for local testing; **claim it within 72 hours** or it expires. Production should use a claimed or standard Neon project.
+
+| Variable | Purpose |
+|----------|---------|
+| `DATABASE_URL` | Pooled Neon connection string (host includes `-pooler`) |
+| `ADMIN_PASSWORD` | Shared password for `/admin` |
+
+Copy `.env.example` to `.env.local` for local work. Never commit secrets.
+
+Tables are created automatically on first request (`site_content` JSONB + `media` bytea). If the database is down, public pages fall back to `src/lib/messaging.ts`.
+
 ## Routes
 
 | Route | Deliverable |
@@ -34,6 +49,7 @@ Campaign kit hub: [http://localhost:3000/campaign](http://localhost:3000/campaig
 | `/campaign/announce` | Executive announcement |
 | `/campaign/figma` | Figma boards index |
 | `/campaign/cfo` `/finops` `/engineers` | Role heroes |
+| `/admin` | CMS (password) |
 
 ## Figma
 
@@ -51,6 +67,6 @@ Landing `/` is a structural clone of the live AI Agent page:
 
 ## Stack
 
-Next.js App Router · TypeScript · Tailwind CSS v4 · Motion
+Next.js App Router · TypeScript · Tailwind CSS v4 · Motion · Neon Postgres (Drizzle)
 
 See [BRIEF.md](BRIEF.md) for the full assignment checklist.

@@ -2,10 +2,9 @@ import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { landingCopy } from "@/lib/messaging";
+import { boxedLines, type LandingContent } from "@/lib/site-content";
 
-export function ValueProps() {
-  const { value } = landingCopy;
+export function ValueProps({ value }: { value: LandingContent["value"] }) {
   return (
     <section className="bigStatement bg-section-mint py-site">
       <div className="px-site">
@@ -20,7 +19,7 @@ export function ValueProps() {
               <BoxedTitle
                 size="t1"
                 align="split"
-                lines={[value.eyebrow.split(".")[0] + ".", "Sharper decisions."]}
+                lines={boxedLines(value.eyebrow)}
               />
               <p className="t6 mt-8 max-w-[34rem] text-black/80">
                 Ask anything about your cloud spend in plain language, with no queries,

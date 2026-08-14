@@ -3,10 +3,10 @@ import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import type { audiences } from "@/lib/messaging";
+import type { AudienceContent } from "@/lib/site-content";
 import Link from "next/link";
 
-type Audience = (typeof audiences)[keyof typeof audiences];
+type Audience = AudienceContent;
 
 export function RoleHero({ audience }: { audience: Audience }) {
   const headline = audience.headline.split(". ");
@@ -20,7 +20,7 @@ export function RoleHero({ audience }: { audience: Audience }) {
       <div className="relative overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/north/hero.jpg"
+          src={audience.adImageUrl}
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-[center_32%] opacity-50"
         />

@@ -3,10 +3,12 @@ import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { CAMPAIGN_LINE, DISCLAIMER, audiences } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
+import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
-export default function BriefPage() {
+export default async function BriefPage() {
+  const { campaignLine, disclaimer, audiences } = await getSiteContent();
   return (
     <CampaignShell title="Two-page solution brief">
       <p className="no-print mb-6 font-mono text-[11px] tracking-[0.14em] text-neue uppercase">
@@ -25,14 +27,14 @@ export default function BriefPage() {
                 </div>
               </div>
               <div className="max-w-[14rem] text-left font-mono text-[10px] leading-snug text-neue/70 uppercase sm:text-right">
-                {DISCLAIMER}
+                {disclaimer}
               </div>
             </header>
 
             <BoxedTitle
               size="t2"
               className="mt-8"
-              lines={["Ask your cloud", "what it costs—and why."]}
+              lines={boxedLines(campaignLine)}
             />
             <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-neue">
               Noros is an AI-powered cloud operations assistant. Finance, FinOps, and
@@ -69,7 +71,7 @@ export default function BriefPage() {
               Built for three seats
             </h2>
             <div className="mt-6 grid gap-5">
-              {(Object.values(audiences) as (typeof audiences)[keyof typeof audiences][]).map(
+              {Object.values(audiences).map(
                 (a) => (
                   <div key={a.id} className="border-l border-mint/40 pl-4">
                     <div className="text-sm font-medium text-white">{a.label}</div>
@@ -103,7 +105,7 @@ export default function BriefPage() {
             <div className="mt-10 border border-white/10 p-5">
               <div className="text-lg font-medium text-white">Next step</div>
               <p className="mt-2 text-[15px] text-neue">
-                See a 5-minute demo—or ask Noros what your cloud costs, and why. {CAMPAIGN_LINE}
+                See a 5-minute demo—or ask Noros what your cloud costs, and why. {campaignLine}
               </p>
               <Link href="/campaign/meet" className="btn-trial mt-4">
                 Ask Noros
@@ -111,7 +113,7 @@ export default function BriefPage() {
             </div>
 
             <p className="mt-10 font-mono text-[11px] text-neue/70 uppercase">
-              Page 2 of 2 · {DISCLAIMER}
+              Page 2 of 2 · {disclaimer}
             </p>
           </Reveal>
         </GridFrame>

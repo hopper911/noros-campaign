@@ -2,9 +2,11 @@ import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { carouselSlides } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 
-export default function CarouselPage() {
+export default async function CarouselPage() {
+  const { carouselSlides, campaignLine, landing } = await getSiteContent();
+
   return (
     <CampaignShell title="Five-slide LinkedIn carousel">
       <GridFrame borders="tr" ink="mint" strength={40}>
@@ -29,7 +31,7 @@ export default function CarouselPage() {
                 <div className="relative h-full">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/north/hero.jpg"
+                    src={landing.heroImageUrl}
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover opacity-40"
                   />
@@ -49,7 +51,7 @@ export default function CarouselPage() {
                       <p className="mt-3 text-sm leading-relaxed text-neue">{slide.body}</p>
                     </div>
                     <div className="font-mono text-[10px] tracking-[0.08em] text-neue/70 uppercase">
-                      Ask your cloud what it costs—and why.
+                      {campaignLine}
                     </div>
                   </div>
                 </div>

@@ -3,7 +3,7 @@
 import { FeatureStepper } from "@/components/landing/FeatureStepper";
 import { GridFrame } from "@/components/north/GridFrame";
 import { Reveal } from "@/components/motion/Reveal";
-import { landingCopy } from "@/lib/messaging";
+import type { LandingContent } from "@/lib/site-content";
 import { useState } from "react";
 
 const themes = [
@@ -27,10 +27,10 @@ const themes = [
   },
 ];
 
-export function FeatureBlocks() {
+export function FeatureBlocks({ features }: { features: LandingContent["features"] }) {
   return (
     <section id="features" className="scroll-mt-28">
-      {landingCopy.features.map((feature, idx) => {
+      {features.map((feature, idx) => {
         const theme = themes[idx];
         const onLight = theme.section !== "bg-section-black";
         const header = (
@@ -95,7 +95,7 @@ function StillFeature({
   onLight,
   header,
 }: {
-  feature: (typeof landingCopy.features)[number];
+  feature: LandingContent["features"][number];
   theme: (typeof themes)[number];
   onLight: boolean;
   header: React.ReactNode;

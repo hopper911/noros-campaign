@@ -4,17 +4,19 @@ import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { CAMPAIGN_LINE } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
+import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
-export default function MeetPage() {
+export default async function MeetPage() {
+  const { campaignLine, product, landing } = await getSiteContent();
   return (
     <CampaignShell title="Meet Noros — landing hero">
       <GridFrame borders="trb" ink="mint" strength={40}>
         <div className="relative overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/north/hero.jpg"
+            src={landing.heroImageUrl}
             alt=""
             className="absolute inset-0 h-full w-full object-cover object-[center_32%] opacity-55"
           />
@@ -28,9 +30,9 @@ export default function MeetPage() {
               <BoxedTitle
                 size="t2"
                 className="mt-4"
-                lines={["The AI for", "cloud operators."]}
+                lines={boxedLines(product.tagline)}
               />
-              <p className="t6 mt-6 text-white">{CAMPAIGN_LINE}</p>
+              <p className="t6 mt-6 text-white">{campaignLine}</p>
               <p className="mt-3 max-w-md font-mono text-[11px] leading-relaxed tracking-[0.04em] text-neue uppercase">
                 Answers, anomalies, and dashboards—through conversation, grounded in your
                 real multi-cloud spend.

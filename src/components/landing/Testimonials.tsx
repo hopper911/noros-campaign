@@ -1,10 +1,13 @@
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { Reveal } from "@/components/motion/Reveal";
-import { landingCopy } from "@/lib/messaging";
+import { boxedLines, type LandingContent } from "@/lib/site-content";
 
-export function Testimonials() {
-  const { testimonials } = landingCopy;
+export function Testimonials({
+  testimonials,
+}: {
+  testimonials: LandingContent["testimonials"];
+}) {
   return (
     <section id="why" className="scroll-mt-28 bg-section-black py-site">
       <div className="px-site">
@@ -13,7 +16,7 @@ export function Testimonials() {
             <BoxedTitle
               size="t5"
               align="split"
-              lines={["An AI teammate", "that pulls its weight."]}
+              lines={boxedLines(testimonials.title)}
             />
             <div className="relative mt-8 min-h-[7rem] overflow-hidden aspect-[16/8] md:aspect-[2560/920]">
               {/* eslint-disable-next-line @next/next/no-img-element */}

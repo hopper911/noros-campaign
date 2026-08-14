@@ -2,10 +2,12 @@ import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { Reveal } from "@/components/motion/Reveal";
-import { CAMPAIGN_LINE, DISCLAIMER } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
+import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
-export default function AnnouncePage() {
+export default async function AnnouncePage() {
+  const { campaignLine, disclaimer, landing, product } = await getSiteContent();
   return (
     <CampaignShell title="Executive announcement graphic">
       <div className="grid lg:grid-cols-2">
@@ -14,7 +16,7 @@ export default function AnnouncePage() {
             <article className="relative aspect-square overflow-hidden lg:aspect-auto lg:min-h-[28rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/north/hero.jpg"
+                src={landing.heroImageUrl}
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
@@ -28,14 +30,14 @@ export default function AnnouncePage() {
                   <BoxedTitle
                     size="t2"
                     className="mt-2"
-                    lines={["Ask your cloud", "what it costs—and why."]}
+                    lines={boxedLines(campaignLine)}
                   />
                   <p className="mt-4 max-w-md text-[15px] text-neue">
                     AI FinOps for finance, FinOps, and engineering—one conversation layer on
                     multi-cloud spend.
                   </p>
                 </div>
-                <p className="font-mono text-[10px] text-neue/70 uppercase">{DISCLAIMER}</p>
+                <p className="font-mono text-[10px] text-neue/70 uppercase">{disclaimer}</p>
               </div>
             </article>
           </Reveal>
@@ -57,7 +59,7 @@ export default function AnnouncePage() {
                 </p>
                 <h2 className="t2 mt-3 max-w-lg text-white">Introducing Noros</h2>
                 <p className="t6 mt-3 max-w-md text-white">
-                  The AI for cloud operators. {CAMPAIGN_LINE}
+                  {product.tagline} {campaignLine}
                 </p>
                 <Link href="/campaign/meet" className="btn-nav mt-6 w-fit">
                   Read the launch note

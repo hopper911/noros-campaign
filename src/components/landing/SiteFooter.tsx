@@ -1,9 +1,10 @@
-import { DISCLAIMER } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 import { GridFrame } from "@/components/north/GridFrame";
 import { NorthLogo } from "@/components/north/Marks";
 import Link from "next/link";
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const { disclaimer } = await getSiteContent();
   return (
     <footer className="bg-black text-neue">
       <div className="px-site py-site">
@@ -92,7 +93,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-white/10 px-site py-5 text-center text-[11px] text-neue/70">
         <p>© 2026 North Cloud Holdings Inc. — Recreated for portfolio purposes only.</p>
-        <p className="mx-auto mt-2 max-w-3xl">{DISCLAIMER}</p>
+        <p className="mx-auto mt-2 max-w-3xl">{disclaimer}</p>
       </div>
     </footer>
   );

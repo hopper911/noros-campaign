@@ -3,10 +3,11 @@ import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { CAMPAIGN_LINE, DISCLAIMER } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
 
-export default function LaunchPage() {
+export default async function LaunchPage() {
+  const { campaignLine, disclaimer, landing, product } = await getSiteContent();
   return (
     <CampaignShell title="Product Hunt–style launch assets">
       <div className="grid lg:grid-cols-2">
@@ -19,13 +20,13 @@ export default function LaunchPage() {
             <div className="relative mt-4 aspect-[2/1] overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/north/hero.jpg"
+                src={landing.heroImageUrl}
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-black/40 to-transparent p-5">
                 <div className="text-mint">Noros</div>
-                <h2 className="text-2xl font-medium tracking-tight text-white">{CAMPAIGN_LINE}</h2>
+                <h2 className="text-2xl font-medium tracking-tight text-white">{campaignLine}</h2>
               </div>
             </div>
           </Reveal>
@@ -38,9 +39,9 @@ export default function LaunchPage() {
             </p>
             <div className="mt-4 space-y-3">
               {[
-                "The AI for cloud operators.",
+                product.tagline,
                 "Chat with your cloud.",
-                "Ask your cloud what it costs—and why.",
+                campaignLine,
               ].map((t) => (
                 <div
                   key={t}
@@ -69,7 +70,7 @@ export default function LaunchPage() {
               <Link href="/campaign/meet" className="btn-trial mt-6">
                 Free trial
               </Link>
-              <p className="mt-4 font-mono text-[10px] text-neue/70 uppercase">{DISCLAIMER}</p>
+              <p className="mt-4 font-mono text-[10px] text-neue/70 uppercase">{disclaimer}</p>
             </Reveal>
           </GridFrame>
         </div>

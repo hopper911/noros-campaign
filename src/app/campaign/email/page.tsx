@@ -2,10 +2,11 @@ import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { CAMPAIGN_LINE, DISCLAIMER } from "@/lib/messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
 
-export default function EmailPage() {
+export default async function EmailPage() {
+  const { campaignLine, disclaimer, landing } = await getSiteContent();
   return (
     <CampaignShell title="Launch email">
       <GridFrame borders="trb" ink="mint" strength={40}>
@@ -13,7 +14,7 @@ export default function EmailPage() {
           <div className="relative overflow-hidden px-6 py-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/north/hero.jpg"
+              src={landing.heroImageUrl}
               alt=""
               className="absolute inset-0 h-full w-full object-cover opacity-30"
             />
@@ -29,7 +30,7 @@ export default function EmailPage() {
 
           <div className="space-y-5 px-6 py-8 text-[15px] leading-relaxed text-neue">
             <p className="font-mono text-[11px] tracking-[0.08em] text-neue/70 uppercase">
-              Subject: {CAMPAIGN_LINE}
+              Subject: {campaignLine}
             </p>
             <p>Hi {"{{first_name}}"},</p>
             <p>
@@ -37,7 +38,7 @@ export default function EmailPage() {
               AI for cloud operators. Ask questions about AWS, Azure, and GCP spend in plain
               language. Get answers with reasoning, charts, and the next action.
             </p>
-            <p className="text-xl font-medium tracking-tight text-white">{CAMPAIGN_LINE}</p>
+            <p className="text-xl font-medium tracking-tight text-white">{campaignLine}</p>
             <p>Whether you sit in finance, FinOps, or engineering:</p>
             <ul className="space-y-1 font-mono text-[11px] tracking-[0.04em] text-neue uppercase">
               <li>— CFOs get forecast confidence and savings they can defend</li>
@@ -68,7 +69,7 @@ export default function EmailPage() {
           </div>
 
           <div className="border-t border-white/10 px-6 py-4 font-mono text-[10px] leading-snug text-neue/70 uppercase">
-            {DISCLAIMER}
+            {disclaimer}
           </div>
         </Reveal>
       </GridFrame>
