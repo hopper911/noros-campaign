@@ -37,7 +37,7 @@ export function FeatureStepper({
       {header}
       <div className="grid min-w-0 items-start gap-0 lg:grid-cols-[1.35fr_0.65fr]">
         <div className="min-w-0 p-3 sm:p-4 md:p-8 lg:sticky lg:top-24">
-          <SpendChart />
+          <SpendChart highlightSeries={active === 1 ? "ec2" : active === 2 ? "sp" : null} />
         </div>
 
         <ol className="relative border-l border-dotted border-black/25">
@@ -47,8 +47,8 @@ export function FeatureStepper({
               ref={(el) => {
                 itemRefs.current[i] = el;
               }}
-              className={`relative min-w-0 border-b border-dotted border-black/25 px-4 py-8 transition-opacity sm:px-6 md:px-8 md:py-10 ${
-                active === i ? "opacity-100" : "opacity-45"
+              className={`relative min-w-0 border-b border-dotted border-black/25 px-4 py-8 transition-colors sm:px-6 md:px-8 md:py-10 ${
+                active === i ? "bg-black/5" : ""
               }`}
             >
               <Cross className="top-0 left-0 -translate-x-1/2 -translate-y-1/2" />
@@ -56,11 +56,20 @@ export function FeatureStepper({
                 type="button"
                 className="w-full text-left"
                 onClick={() => setActive(i)}
+                aria-current={active === i ? "true" : undefined}
               >
-                <span className="block text-4xl font-medium tracking-tight text-black md:text-5xl">
+                <span
+                  className={`block text-4xl font-medium tracking-tight md:text-5xl ${
+                    active === i ? "text-black" : "text-black/70"
+                  }`}
+                >
                   {beat.n}
                 </span>
-                <h3 className="mt-4 text-xl font-medium tracking-tight text-black">
+                <h3
+                  className={`mt-4 text-xl font-medium tracking-tight ${
+                    active === i ? "text-black" : "text-black/70"
+                  }`}
+                >
                   {beat.title}
                 </h3>
                 <p className="mt-3 font-mono text-[11px] leading-relaxed tracking-[0.04em] text-black/70 uppercase">

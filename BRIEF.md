@@ -33,7 +33,7 @@ An independently initiated product-launch campaign that translates the Noros AI 
 
 ## Figma
 
-[Noros Campaign Kit — Portfolio](https://www.figma.com/design/CTMlP9TsdTpS9MrKtaAp0m) — cover + messaging framework boards created; remaining frames catalogued at `/campaign/figma` and mirrored in the Next.js kit.
+[Noros Campaign Kit — Portfolio](https://www.figma.com/design/CTMlP9TsdTpS9MrKtaAp0m) — cover + messaging in-file; remaining export frames assembled at `/campaign/figma` (`public/figma-kit/`) and importable via `figma-plugin/`.
 
 ## Constraint
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { FeatureStepper } from "@/components/landing/FeatureStepper";
+import { AnomalyChart } from "@/components/north/AnomalyChart";
 import { GridFrame } from "@/components/north/GridFrame";
 import { Reveal } from "@/components/motion/Reveal";
 import type { LandingContent } from "@/lib/site-content";
@@ -79,6 +80,7 @@ export function FeatureBlocks({ features }: { features: LandingContent["features
             theme={theme}
             onLight={onLight}
             header={header}
+            visual={idx === 1 ? "anomaly" : "media"}
           />
         );
       })}
@@ -91,11 +93,13 @@ function StillFeature({
   theme,
   onLight,
   header,
+  visual,
 }: {
   feature: LandingContent["features"][number];
   theme: (typeof themes)[number];
   onLight: boolean;
   header: React.ReactNode;
+  visual: "media" | "anomaly";
 }) {
   const [active, setActive] = useState(0);
 
@@ -105,18 +109,26 @@ function StillFeature({
         {header}
         <div className="mt-0 grid min-w-0 lg:grid-cols-2">
           <GridFrame borders="tbr" ink={theme.ink} strength={theme.strength}>
-            <Reveal>
+            {visual === "anomaly" ? (
               <div className="asset-content p-4 md:p-6">
-                <div className="relative aspect-[16/11] overflow-hidden bg-black">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={feature.media}
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
+                <div className="relative min-h-[22rem] overflow-hidden bg-black sm:min-h-0 sm:aspect-[16/11]">
+                  <AnomalyChart />
                 </div>
               </div>
-            </Reveal>
+            ) : (
+              <Reveal>
+                <div className="asset-content p-4 md:p-6">
+                  <div className="relative aspect-[16/11] overflow-hidden bg-black">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={feature.media}
+                      alt={`${feature.title} product still`}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+              </Reveal>
+            )}
           </GridFrame>
 
           <GridFrame borders="tb" ink={theme.ink} strength={theme.strength}>
@@ -127,13 +139,23 @@ function StillFeature({
                     type="button"
                     onClick={() => setActive(i)}
                     onMouseEnter={() => setActive(i)}
-                    className={`flex w-full min-w-0 gap-3 rounded-lg p-3 text-left transition-opacity sm:gap-5 ${
-                      active === i ? "opacity-100" : "opacity-45"
+                    className={`flex w-full min-w-0 gap-3 rounded-lg border-l-2 p-3 text-left transition-colors sm:gap-5 ${
+                      active === i
+                        ? onLight
+                          ? "border-black bg-black/5"
+                          : "border-mint bg-white/5"
+                        : "border-transparent"
                     }`}
                   >
                     <span
                       className={`font-mono text-sm ${
-                        onLight ? "text-black/50" : "text-mint"
+                        active === i
+                          ? onLight
+                            ? "text-black/70"
+                            : "text-mint"
+                          : onLight
+                            ? "text-black/70"
+                            : "text-neue"
                       }`}
                     >
                       {beat.n}
@@ -141,14 +163,20 @@ function StillFeature({
                     <div>
                       <h3
                         className={`text-lg font-medium tracking-tight ${
-                          onLight ? "text-black" : "text-white"
+                          active === i
+                            ? onLight
+                              ? "text-black"
+                              : "text-white"
+                            : onLight
+                              ? "text-black/70"
+                              : "text-neue"
                         }`}
                       >
                         {beat.title}
                       </h3>
                       <p
                         className={`mt-2 text-[15px] leading-relaxed ${
-                          onLight ? "text-black/65" : "text-neue"
+                          onLight ? "text-black/70" : "text-neue"
                         }`}
                       >
                         {beat.body}

@@ -45,7 +45,7 @@ export function CampaignShell({
         </div>
         <CampaignNav links={links} />
       </div>
-      <main className="min-w-0 overflow-x-clip bg-black px-site py-site">{children}</main>
+      <main id="main-content" className="min-w-0 overflow-x-clip bg-black px-site py-site">{children}</main>
       <SiteFooter />
     </>
   );

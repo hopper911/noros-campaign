@@ -23,7 +23,7 @@ export default async function BriefPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={kit.briefImageUrl}
-                alt=""
+                alt="Solution brief cover visual"
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </div>

@@ -20,11 +20,11 @@ export async function SiteFooter() {
               </a>
             </div>
             <div>
-              <h3 className="mb-4 text-white">
-                <Link href="/" aria-label="Home">
+              <div className="mb-4">
+                <Link href="/" aria-label="Home" className="inline-block text-white">
                   <NorthLogo />
                 </Link>
-              </h3>
+              </div>
               <p className="text-sm leading-relaxed">
                 55 Washington Street
                 <br />

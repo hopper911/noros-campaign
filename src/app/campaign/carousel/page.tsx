@@ -32,7 +32,7 @@ export default async function CarouselPage() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={slide.imageUrl}
-                    alt=""
+                    alt={`Carousel slide ${i + 1}: ${slide.title}`}
                     className="absolute inset-0 h-full w-full object-cover opacity-40"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black" />

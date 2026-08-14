@@ -17,7 +17,7 @@ export default async function MeetPage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={kit.meetImageUrl}
-            alt=""
+            alt="Meet Noros campaign hero visual"
             className="absolute inset-0 h-full w-full object-cover object-[center_32%] opacity-55"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
@@ -38,7 +38,7 @@ export default async function MeetPage() {
                 real multi-cloud spend.
               </p>
               <div className="accent-mint mt-8 max-w-[36rem]">
-                <div className="button-rail flex h-11 items-stretch gap-1.5 rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
+                <div className="button-rail flex h-12 items-stretch gap-1.5 rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
                   <Link href="/campaign/meet" className="hero-cta hero-cta-compact hero-cta-trial">
                     Ask Noros
                   </Link>

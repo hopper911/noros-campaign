@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="560" viewBox="0 0 1440 560">
+<rect width="1440" height="560" fill="#121314"/>
+<text x="72" y="80" fill="#f8fcfd" font-size="14">Contact</text>
+<text x="72" y="110" fill="#a2f2e3" font-size="14">hello@north.cloud</text>
+<text x="400" y="80" fill="#f8fcfd" font-size="18">Noros</text>
+<text x="400" y="120" fill="#afb8c2" font-size="14">55 Washington Street</text>
+<text x="400" y="142" fill="#afb8c2" font-size="14">Suite 902 · Brooklyn, NY 11201</text>
+<text x="800" y="80" fill="#f8fcfd" font-size="14">Features</text>
+<text x="800" y="120" fill="#afb8c2" font-size="13">AI Agent · Coststreams · Analyze</text>
+<text x="800" y="144" fill="#afb8c2" font-size="13">Anomalies · Coverage · Rightsize</text>
+<text x="1100" y="80" fill="#f8fcfd" font-size="14">Integrations</text>
+<text x="1100" y="120" fill="#afb8c2" font-size="13">AWS · GCP · Azure</text>
+<text x="72" y="500" fill="#afb8c2" font-size="11">© 2026 North Cloud Holdings Inc. — Recreated for portfolio purposes only.</text>
+<text x="72" y="528" fill="#afb8c2" font-size="11">Independent portfolio work. Not affiliated with North.Cloud or Noros.</text>
+</svg>

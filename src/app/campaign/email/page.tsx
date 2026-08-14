@@ -15,7 +15,7 @@ export default async function EmailPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={kit.emailImageUrl}
-              alt=""
+              alt="Launch email header visual"
               className="absolute inset-0 h-full w-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-black/70" />
@@ -50,7 +50,7 @@ export default async function EmailPage() {
               another quarter of spreadsheet archaeology.
             </p>
             <div className="accent-mint max-w-sm pt-2">
-              <div className="button-rail flex h-11 items-stretch rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
+              <div className="button-rail flex h-12 items-stretch rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
                 <Link href="/campaign/meet" className="hero-cta hero-cta-compact hero-cta-trial">
                   Free Demo
                 </Link>

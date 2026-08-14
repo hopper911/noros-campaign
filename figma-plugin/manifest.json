@@ -1,0 +1,12 @@
+{
+  "name": "Noros Campaign Kit Import",
+  "id": "noros-campaign-kit-import",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "networkAccess": {
+    "allowedDomains": ["https://noros-campaign.vercel.app"],
+    "devAllowedDomains": ["http://localhost:3000", "http://127.0.0.1:3000"]
+  }
+}

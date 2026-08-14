@@ -15,7 +15,7 @@ export default async function UIHeroPage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={kit.uiImageUrl}
-            alt=""
+            alt="Noros product UI hero composition"
             className="absolute inset-0 h-full w-full object-cover object-[center_32%] opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/45" />

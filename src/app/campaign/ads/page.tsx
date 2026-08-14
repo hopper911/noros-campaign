@@ -31,7 +31,7 @@ export default async function AdsPage() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={ad.adImageUrl}
-                    alt=""
+                    alt={`Noros LinkedIn ad for ${ad.shortLabel}`}
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />

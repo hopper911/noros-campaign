@@ -17,7 +17,7 @@ export default async function HomePage() {
   return (
     <>
       <SiteNav />
-      <main className="min-w-0 overflow-x-clip">
+      <main id="main-content" className="min-w-0 overflow-x-clip">
         <Hero
           hero={landing.hero}
           imageUrl={landing.heroImageUrl}

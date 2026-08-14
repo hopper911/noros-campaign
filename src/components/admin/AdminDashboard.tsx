@@ -612,7 +612,7 @@ function Field({
   multiline?: boolean;
 }) {
   const cls =
-    "mt-2 w-full border border-white/15 bg-black px-3 py-2 font-sans text-[15px] tracking-normal text-white normal-case outline-none focus:border-mint";
+    "mt-2 w-full border border-white/15 bg-black px-3 py-2 font-sans text-[15px] tracking-normal text-white normal-case focus-visible:border-mint";
   return (
     <label className="block font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
       {label}

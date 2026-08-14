@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="900" viewBox="0 0 1440 900">
+<rect width="1440" height="900" fill="#121314"/>
+<text x="72" y="80" fill="#f8fcfd" font-size="40">FAQs</text>
+<text x="72" y="130" fill="#afb8c2" font-size="16">Find answers to commonly asked questions about Noros.</text>
+<line x1="72" y1="190" x2="1368" y2="190" stroke="rgba(255,255,255,0.12)"/>
+<text x="72" y="230" fill="#f8fcfd" font-size="18">What is Noros?</text>
+<text x="72" y="268" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Noros is North's AI-powered cloud operations assistant. Ask about AWS, Azure, and GCP</text>
+<text x="72" y="290" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">spend in plain language.</text>
+<line x1="72" y1="350" x2="1368" y2="350" stroke="rgba(255,255,255,0.12)"/>
+<text x="72" y="390" fill="#f8fcfd" font-size="18">Why not analyze the bill manually?</text>
+<text x="72" y="428" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Noros turns tedious analysis into a conversation—answers in seconds instead of another</text>
+<text x="72" y="450" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">export.</text>
+<line x1="72" y1="510" x2="1368" y2="510" stroke="rgba(255,255,255,0.12)"/>
+<text x="72" y="550" fill="#f8fcfd" font-size="18">How quickly can I get started?</text>
+<text x="72" y="588" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Setup takes 5 minutes. Read-only connect. 14-day trial.</text>
+<line x1="72" y1="670" x2="1368" y2="670" stroke="rgba(255,255,255,0.12)"/>
+<text x="72" y="710" fill="#f8fcfd" font-size="18">Which clouds?</text>
+<text x="72" y="748" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">AWS, GCP, and Azure. Switch accounts in one conversation.</text>
+</svg>

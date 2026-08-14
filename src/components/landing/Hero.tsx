@@ -48,7 +48,7 @@ export function Hero({
         </motion.div>
 
         <motion.p
-          className="mt-6 w-full max-w-[40rem] text-center font-mono text-[10px] leading-[1.55] tracking-[0.04em] text-neue uppercase sm:text-[11px] md:mt-8 md:self-end md:text-right md:text-xs"
+          className="mt-6 w-full max-w-[40rem] text-center font-mono text-[11px] leading-[1.55] tracking-[0.04em] text-neue uppercase sm:text-[11px] md:mt-8 md:self-end md:text-right md:text-xs"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.16 }}
@@ -80,7 +80,7 @@ export function Hero({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={insetUrl}
-              alt=""
+              alt="Noros AI Agent console answering a cloud spend question with a chart"
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>

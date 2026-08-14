@@ -23,6 +23,7 @@ export function CampaignNav({
             href={l.href}
             className="nav-item shrink-0"
             data-open={active ? "true" : undefined}
+            aria-current={active ? "page" : undefined}
           >
             {l.label}
           </Link>

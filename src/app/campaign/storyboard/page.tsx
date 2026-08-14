@@ -29,7 +29,7 @@ export default async function StoryboardPage() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={frame.imageUrl}
-                    alt=""
+                    alt={`Storyboard beat ${i + 1}: ${frame.title}`}
                     className="absolute inset-0 h-full w-full object-cover opacity-35"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40">

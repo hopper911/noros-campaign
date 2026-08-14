@@ -2,7 +2,7 @@
 
 import { NorthLogo } from "@/components/north/Marks";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const features = {
   Manage: ["AI Agent", "Coststreams", "Analyze", "Anomalies", "GreenOps"],
@@ -22,6 +22,9 @@ function GridIcon() {
 export function SiteNav() {
   const [open, setOpen] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const integrationsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onResize = () => {
@@ -38,7 +41,38 @@ export function SiteNav() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (menuOpen) {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (open) setOpen(null);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen, open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: MouseEvent) => {
+      const target = e.target;
+      if (!(target instanceof Node)) return;
+      if (featuresRef.current?.contains(target)) return;
+      if (integrationsRef.current?.contains(target)) return;
+      setOpen(null);
+    };
+    document.addEventListener("mousedown", onPointer);
+    return () => document.removeEventListener("mousedown", onPointer);
+  }, [open]);
+
   const closeMenu = () => setMenuOpen(false);
+
+  const toggleDesktop = (id: string) => {
+    setOpen((prev) => (prev === id ? null : id));
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black">
@@ -48,8 +82,9 @@ export function SiteNav() {
         </Link>
 
         <div className="flex min-w-0 items-center gap-1.5 sm:gap-2 lg:gap-3">
-          <nav className="menu-nav hidden items-center gap-1 text-white lg:flex">
+          <nav className="menu-nav hidden items-center gap-1 text-white lg:flex" aria-label="Primary">
             <div
+              ref={featuresRef}
               className="relative"
               onMouseEnter={() => setOpen("features")}
               onMouseLeave={() => setOpen(null)}
@@ -59,12 +94,20 @@ export function SiteNav() {
                 className="nav-item"
                 data-open={open === "features"}
                 aria-haspopup="true"
+                aria-expanded={open === "features"}
+                aria-controls="features-menu"
+                onClick={() => toggleDesktop("features")}
               >
                 Features
                 <GridIcon />
               </button>
               {open === "features" && (
-                <div className="absolute top-full left-0 z-50 min-w-[15rem] rounded-xl border border-white/10 bg-black/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+                <div
+                  id="features-menu"
+                  role="region"
+                  aria-label="Features"
+                  className="absolute top-full left-0 z-50 min-w-[15rem] rounded-xl border border-white/10 bg-black/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
+                >
                   {Object.entries(features).map(([group, items]) => (
                     <div key={group} className="mb-3 last:mb-0">
                       <div className="mb-2 font-mono text-[10px] tracking-[0.16em] text-neue uppercase">
@@ -73,7 +116,11 @@ export function SiteNav() {
                       <ul className="space-y-1.5 font-mono text-[11px] tracking-[0.08em] text-neue uppercase">
                         {items.map((item) => (
                           <li key={item}>
-                            <Link href="/#features" className="hover:text-white">
+                            <Link
+                              href="/#features"
+                              className="block rounded py-1 hover:text-white focus-visible:text-white"
+                              onClick={() => setOpen(null)}
+                            >
                               {item}
                             </Link>
                           </li>
@@ -86,6 +133,7 @@ export function SiteNav() {
             </div>
 
             <div
+              ref={integrationsRef}
               className="relative"
               onMouseEnter={() => setOpen("integrations")}
               onMouseLeave={() => setOpen(null)}
@@ -95,16 +143,28 @@ export function SiteNav() {
                 className="nav-item"
                 data-open={open === "integrations"}
                 aria-haspopup="true"
+                aria-expanded={open === "integrations"}
+                aria-controls="integrations-menu"
+                onClick={() => toggleDesktop("integrations")}
               >
                 Integrations
                 <GridIcon />
               </button>
               {open === "integrations" && (
-                <div className="absolute top-full left-0 z-50 min-w-[12rem] rounded-xl border border-white/10 bg-black/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+                <div
+                  id="integrations-menu"
+                  role="region"
+                  aria-label="Integrations"
+                  className="absolute top-full left-0 z-50 min-w-[12rem] rounded-xl border border-white/10 bg-black/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
+                >
                   <ul className="space-y-2 font-mono text-[11px] tracking-[0.1em] text-neue uppercase">
                     {integrations.map((item) => (
                       <li key={item}>
-                        <Link href="/#integrations" className="hover:text-white">
+                        <Link
+                          href="/#integrations"
+                          className="block rounded py-1 hover:text-white focus-visible:text-white"
+                          onClick={() => setOpen(null)}
+                        >
                           {item}
                         </Link>
                       </li>
@@ -135,6 +195,7 @@ export function SiteNav() {
             Free trial
           </Link>
           <button
+            ref={menuButtonRef}
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white lg:hidden"
             aria-expanded={menuOpen}
@@ -166,6 +227,7 @@ export function SiteNav() {
         <nav
           id="mobile-nav"
           className="max-h-[min(80vh,32rem)] overflow-y-auto border-t border-white/10 bg-black px-site py-4 lg:hidden"
+          aria-label="Mobile"
         >
           <div className="flex flex-col gap-1">
             <p className="px-2 pt-1 font-mono text-[10px] tracking-[0.16em] text-neue uppercase">
@@ -177,7 +239,7 @@ export function SiteNav() {
                 <Link
                   key={item}
                   href="/#features"
-                  className="rounded-lg px-2 py-2.5 font-mono text-[12px] tracking-[0.08em] text-white uppercase"
+                  className="rounded-lg px-2 py-3 font-mono text-[12px] tracking-[0.08em] text-white uppercase"
                   onClick={closeMenu}
                 >
                   {item}
@@ -190,7 +252,7 @@ export function SiteNav() {
               <Link
                 key={item}
                 href="/#integrations"
-                className="rounded-lg px-2 py-2.5 font-mono text-[12px] tracking-[0.08em] text-white uppercase"
+                className="rounded-lg px-2 py-3 font-mono text-[12px] tracking-[0.08em] text-white uppercase"
                 onClick={closeMenu}
               >
                 {item}
@@ -198,21 +260,21 @@ export function SiteNav() {
             ))}
             <Link
               href="/#why"
-              className="mt-2 rounded-lg px-2 py-2.5 text-sm text-white"
+              className="mt-2 rounded-lg px-2 py-3 text-sm text-white"
               onClick={closeMenu}
             >
               Why North
             </Link>
             <Link
               href="/#pricing"
-              className="rounded-lg px-2 py-2.5 text-sm text-white"
+              className="rounded-lg px-2 py-3 text-sm text-white"
               onClick={closeMenu}
             >
               Pricing
             </Link>
             <Link
               href="/campaign"
-              className="rounded-lg px-2 py-2.5 text-sm text-white"
+              className="rounded-lg px-2 py-3 text-sm text-white"
               onClick={closeMenu}
             >
               Campaign

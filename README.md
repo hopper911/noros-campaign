@@ -53,7 +53,7 @@ Tables are created automatically on first request (`site_content` JSONB + `media
 
 ## Figma
 
-Design boards: [Noros Campaign Kit — Portfolio](https://www.figma.com/design/CTMlP9TsdTpS9MrKtaAp0m)
+Design boards: [Noros Campaign Kit — Portfolio](https://www.figma.com/design/CTMlP9TsdTpS9MrKtaAp0m). Export frames: `/campaign/figma` and `figma-plugin/`.
 
 ## Design fidelity
 

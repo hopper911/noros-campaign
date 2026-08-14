@@ -21,7 +21,7 @@ export default async function LaunchPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={kit.launchImageUrl}
-                alt=""
+                alt="Product Hunt gallery card featuring the Noros campaign line"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black via-black/40 to-transparent p-5">

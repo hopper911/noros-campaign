@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="720" viewBox="0 0 1440 720">
+<rect width="1440" height="720" fill="#121314"/>
+<text x="72" y="80" fill="#a2f2e3" font-size="13" letter-spacing="3" font-family="Cygnito Mono, ui-monospace, monospace">INTEGRATIONS</text>
+<text x="72" y="140" fill="#f8fcfd" font-size="40">AWS, GCP, and Azure.</text>
+<text x="72" y="190" fill="#afb8c2" font-size="16">One conversation layer on multi-cloud spend. Switch accounts without switching tools.</text>
+<rect x="72" y="280" width="400" height="280" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="96" y="340" fill="#f8fcfd" font-size="24">AWS</text>
+<text x="96" y="390" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Connect accounts in minutes.</text>
+<text x="96" y="414" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Read-only access to cost and</text>
+<text x="96" y="438" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">usage data.</text>
+<rect x="512" y="280" width="400" height="280" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="536" y="340" fill="#f8fcfd" font-size="24">GCP</text>
+<text x="536" y="390" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Query spend across projects and</text>
+<text x="536" y="414" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">billing accounts in the same</text>
+<text x="536" y="438" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">conversation.</text>
+<rect x="952" y="280" width="400" height="280" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="976" y="340" fill="#f8fcfd" font-size="24">Azure</text>
+<text x="976" y="390" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Subscriptions and resource</text>
+<text x="976" y="414" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">groups, explained in plain</text>
+<text x="976" y="438" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">language.</text>
+</svg>

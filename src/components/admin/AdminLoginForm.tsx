@@ -48,15 +48,22 @@ export function AdminLoginForm() {
         <label className="mt-8 block font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
           Password
           <input
+            id="admin-password"
             type="password"
             name="password"
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-2 w-full border border-white/15 bg-black px-3 py-2.5 font-sans text-[15px] tracking-normal text-white normal-case outline-none focus:border-mint"
+            aria-invalid={Boolean(error)}
+            aria-describedby={error ? "admin-login-error" : undefined}
+            className="mt-2 w-full border border-white/15 bg-black px-3 py-2.5 font-sans text-[15px] tracking-normal text-white normal-case focus-visible:border-mint"
           />
         </label>
-        {error ? <p className="mt-3 text-sm text-red">{error}</p> : null}
+        {error ? (
+          <p id="admin-login-error" role="alert" aria-live="polite" className="mt-3 text-sm text-red">
+            {error}
+          </p>
+        ) : null}
         <button type="submit" disabled={busy || !password} className="btn-trial mt-6">
           {busy ? "Signing in…" : "Enter"}
         </button>

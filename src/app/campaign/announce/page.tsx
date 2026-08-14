@@ -17,7 +17,7 @@ export default async function AnnouncePage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={kit.announceImageUrl}
-                alt=""
+                alt="Internal leadership announcement graphic for Noros launch"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
@@ -49,7 +49,7 @@ export default async function AnnouncePage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={kit.announceSecondaryImageUrl}
-                alt=""
+                alt="Secondary Noros announcement graphic"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-black/55" />

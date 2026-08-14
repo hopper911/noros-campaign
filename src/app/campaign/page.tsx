@@ -42,7 +42,7 @@ export default async function CampaignHubPage() {
             {disclaimer}
           </p>
           <div className="accent-mint mt-8 max-w-[36rem]">
-            <div className="button-rail flex h-11 items-stretch gap-1.5 rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
+            <div className="button-rail flex h-12 items-stretch gap-1.5 rounded-[8rem] p-1 sm:h-12 sm:p-1.5">
               <Link href="/campaign/meet" className="hero-cta hero-cta-compact hero-cta-trial">
                 Meet Noros
               </Link>

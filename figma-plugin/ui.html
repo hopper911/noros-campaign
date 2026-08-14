@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      :root {
+        --black: #121314;
+        --mint: #a2f2e3;
+        --neue: #afb8c2;
+      }
+      body {
+        font: 12px/1.4 system-ui, sans-serif;
+        margin: 0;
+        padding: 16px;
+        background: var(--black);
+        color: #f8fcfd;
+      }
+      label {
+        display: block;
+        color: var(--mint);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 10px;
+        margin-bottom: 6px;
+      }
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        background: transparent;
+        border: 1px solid rgba(162, 242, 227, 0.35);
+        color: #f8fcfd;
+        padding: 8px 10px;
+        margin-bottom: 12px;
+      }
+      button {
+        width: 100%;
+        background: var(--mint);
+        color: var(--black);
+        border: 0;
+        padding: 10px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: wait;
+      }
+      p {
+        color: var(--neue);
+        margin: 12px 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="origin">Kit origin</label>
+    <input id="origin" value="http://localhost:3000" />
+    <button id="go">Import 40 frames into this file</button>
+    <p id="status">Opens pages (Landing, Ads, Carousel, …) and places export-sized frames. Keep the kit site running, or use the Vercel origin after deploy.</p>
+    <script>
+      const origin = document.getElementById("origin");
+      const go = document.getElementById("go");
+      const status = document.getElementById("status");
+      go.onclick = () => {
+        go.disabled = true;
+        status.textContent = "Importing…";
+        parent.postMessage({ pluginMessage: { type: "import", origin: origin.value.replace(/\/$/, "") } }, "*");
+      };
+      onmessage = (e) => {
+        const msg = e.data.pluginMessage;
+        if (!msg) return;
+        if (msg.type === "progress") status.textContent = msg.text;
+        if (msg.type === "done") {
+          status.textContent = msg.text;
+          go.disabled = false;
+        }
+        if (msg.type === "error") {
+          status.textContent = msg.text;
+          go.disabled = false;
+        }
+      };
+    </script>
+  </body>
+</html>
