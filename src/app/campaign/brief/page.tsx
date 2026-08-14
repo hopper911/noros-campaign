@@ -105,7 +105,7 @@ export default function BriefPage() {
               <p className="mt-2 text-[15px] text-neue">
                 See a 5-minute demo—or ask Noros what your cloud costs, and why. {CAMPAIGN_LINE}
               </p>
-              <Link href="/#trial" className="btn-trial mt-4">
+              <Link href="/campaign/meet" className="btn-trial mt-4">
                 Ask Noros
               </Link>
             </div>

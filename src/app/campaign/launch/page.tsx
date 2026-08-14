@@ -66,7 +66,7 @@ export default function LaunchPage() {
                 launch kit is an independent portfolio campaign exploring how the same product
                 story flexes for CFOs, FinOps, and engineers.
               </p>
-              <Link href="/#trial" className="btn-trial mt-6">
+              <Link href="/campaign/meet" className="btn-trial mt-6">
                 Free trial
               </Link>
               <p className="mt-4 font-mono text-[10px] text-neue/70 uppercase">{DISCLAIMER}</p>

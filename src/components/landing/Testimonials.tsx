@@ -6,7 +6,7 @@ import { landingCopy } from "@/lib/messaging";
 export function Testimonials() {
   const { testimonials } = landingCopy;
   return (
-    <section id="why" className="bg-section-black py-site">
+    <section id="why" className="scroll-mt-28 bg-section-black py-site">
       <div className="px-site">
         <GridFrame borders="trb" ink="mint" strength={50}>
           <div className="p-6 md:p-10">

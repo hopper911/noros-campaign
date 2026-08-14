@@ -4,6 +4,7 @@ import { BoxedH1 } from "@/components/north/BoxedTitle";
 import { NorosMark } from "@/components/north/Marks";
 import { landingCopy } from "@/lib/messaging";
 import { motion, useReducedMotion } from "motion/react";
+import Link from "next/link";
 
 export function Hero() {
   const { hero } = landingCopy;
@@ -54,12 +55,12 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.22 }}
         >
-          <a href="#trial" className="hero-cta hero-cta-trial">
+          <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
             Free trial
-          </a>
-          <a href="#demo" className="hero-cta hero-cta-demo">
+          </Link>
+          <Link href="/campaign/meet" className="hero-cta hero-cta-demo">
             Free Demo
-          </a>
+          </Link>
         </motion.div>
 
         <motion.div

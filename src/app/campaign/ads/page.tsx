@@ -47,7 +47,7 @@ export default function AdsPage() {
                   <p className="text-sm font-medium text-white">{ad.adHeadline}</p>
                   <p className="mt-2 text-[15px] leading-relaxed text-neue">{ad.adBody}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
-                    <Link href="/#trial" className="btn-trial">
+                    <Link href="/campaign/meet" className="btn-trial">
                       {ad.cta}
                     </Link>
                     <Link

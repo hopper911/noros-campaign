@@ -48,7 +48,7 @@ export function ProductMock({
   const [typed, setTyped] = useState(autoPlay ? "" : scenarios[0].prompt);
   const [showUser, setShowUser] = useState(!autoPlay);
   const [showAnswer, setShowAnswer] = useState(!autoPlay);
-  const [grow, setGrow] = useState(!autoPlay);
+  const [grow, setGrow] = useState(true);
   const [playing, setPlaying] = useState(false);
   const timers = useRef<number[]>([]);
   const started = useRef(false);
@@ -71,7 +71,7 @@ export function ProductMock({
       setTyped("");
       setShowUser(false);
       setShowAnswer(false);
-      setGrow(false);
+      setGrow(true);
       setPlaying(true);
 
       if (reduce) {

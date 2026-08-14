@@ -50,7 +50,7 @@ export default function EmailPage() {
             </p>
             <div className="accent-mint max-w-sm pt-2">
               <div className="button-rail flex h-14 items-stretch rounded-[8rem] p-1.5">
-                <Link href="/#demo" className="hero-cta hero-cta-trial">
+                <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
                   Free Demo
                 </Link>
               </div>

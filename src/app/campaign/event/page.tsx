@@ -30,7 +30,7 @@ export default function EventPage() {
             </p>
             <div className="accent-mint mt-8 w-full max-w-[28rem]">
               <div className="button-rail flex h-14 items-stretch gap-2 rounded-[8rem] p-1.5 sm:h-16">
-                <Link href="/#trial" className="hero-cta hero-cta-trial">
+                <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
                   Ask Noros
                 </Link>
                 <span className="hero-cta hero-cta-demo">Booth 14</span>

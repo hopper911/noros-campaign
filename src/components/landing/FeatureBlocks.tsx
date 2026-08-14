@@ -29,7 +29,7 @@ const themes = [
 
 export function FeatureBlocks() {
   return (
-    <section id="features">
+    <section id="features" className="scroll-mt-28">
       {landingCopy.features.map((feature, idx) => {
         const theme = themes[idx];
         const onLight = theme.section !== "bg-section-black";

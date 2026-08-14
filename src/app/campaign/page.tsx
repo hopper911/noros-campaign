@@ -47,7 +47,7 @@ export default function CampaignHubPage() {
               <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
                 Meet Noros
               </Link>
-              <Link href="/#demo" className="hero-cta hero-cta-demo">
+              <Link href="/campaign/meet" className="hero-cta hero-cta-demo">
                 Free Demo
               </Link>
             </div>

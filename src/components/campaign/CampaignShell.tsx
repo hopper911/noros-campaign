@@ -32,26 +32,16 @@ export function CampaignShell({
     <>
       <SiteNav />
       <div className="border-b border-white/10 bg-black">
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-3 px-site py-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="min-w-0">
-            <Link
-              href="/"
-              className="font-mono text-[10px] tracking-[0.16em] text-neue uppercase hover:text-white"
-            >
-              ← Landing recreation
-            </Link>
-            <h1 className="mt-1 text-lg font-medium tracking-tight text-white sm:text-xl">
-              {title}
-            </h1>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link href="/campaign" className="btn-nav">
-              Kit hub
-            </Link>
-            <Link href="/#trial" className="btn-trial">
-              Free trial
-            </Link>
-          </div>
+        <div className="mx-auto flex max-w-[1440px] items-baseline gap-3 px-site py-3">
+          <Link
+            href="/"
+            className="shrink-0 font-mono text-[10px] tracking-[0.16em] text-neue uppercase hover:text-white"
+          >
+            ← Home
+          </Link>
+          <h1 className="min-w-0 truncate text-sm font-medium tracking-tight text-white sm:text-base">
+            {title}
+          </h1>
         </div>
         <CampaignNav links={links} />
       </div>

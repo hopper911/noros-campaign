@@ -11,14 +11,17 @@ export function CampaignNav({
   const pathname = usePathname();
 
   return (
-    <nav className="mx-auto flex max-w-[1440px] flex-wrap gap-1 px-site pb-3" aria-label="Campaign kit">
+    <nav
+      className="mx-auto flex max-w-[1440px] flex-nowrap gap-1 overflow-x-auto overscroll-x-contain px-site pb-3 [-webkit-overflow-scrolling:touch]"
+      aria-label="Campaign kit"
+    >
       {links.map((l) => {
         const active = pathname === l.href;
         return (
           <Link
             key={l.href}
             href={l.href}
-            className="nav-item"
+            className="nav-item shrink-0"
             data-open={active ? "true" : undefined}
           >
             {l.label}

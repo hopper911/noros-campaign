@@ -59,7 +59,7 @@ export default function AnnouncePage() {
                 <p className="t6 mt-3 max-w-md text-white">
                   The AI for cloud operators. {CAMPAIGN_LINE}
                 </p>
-                <Link href="/#demo" className="btn-nav mt-6 w-fit">
+                <Link href="/campaign/meet" className="btn-nav mt-6 w-fit">
                   Read the launch note
                 </Link>
               </div>

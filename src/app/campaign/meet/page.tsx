@@ -37,10 +37,10 @@ export default function MeetPage() {
               </p>
               <div className="accent-mint mt-8 max-w-[36rem]">
                 <div className="button-rail flex h-14 items-stretch gap-2 rounded-[8rem] p-1.5 sm:h-16 sm:p-2 md:h-24 md:gap-4 md:p-4">
-                  <Link href="/#trial" className="hero-cta hero-cta-trial">
+                  <Link href="/campaign/meet" className="hero-cta hero-cta-trial">
                     Ask Noros
                   </Link>
-                  <Link href="/#demo" className="hero-cta hero-cta-demo">
+                  <Link href="/campaign/meet" className="hero-cta hero-cta-demo">
                     Free Demo
                   </Link>
                 </div>

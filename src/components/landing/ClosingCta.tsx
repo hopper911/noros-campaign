@@ -2,11 +2,12 @@ import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { Reveal } from "@/components/motion/Reveal";
 import { landingCopy } from "@/lib/messaging";
+import Link from "next/link";
 
 export function ClosingCta() {
   const { cta } = landingCopy;
   return (
-    <section id="trial" className="bg-section-black py-site">
+    <section className="bg-section-black py-site">
       <div className="px-site">
         <GridFrame borders="trb" ink="mint" strength={50}>
           <div className="relative min-h-[22rem] overflow-hidden sm:min-h-[28rem] md:min-h-[36rem]">
@@ -22,16 +23,12 @@ export function ClosingCta() {
               <div>
                 <p className="t6 max-w-xl text-white">{cta.body}</p>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a href="#trial" className="btn-nebula">
+                  <Link href="/campaign/meet" className="btn-nebula">
                     {cta.primary}
-                  </a>
-                  <a
-                    href="#demo"
-                    id="demo"
-                    className="btn-ghost border-white/50 text-white"
-                  >
+                  </Link>
+                  <Link href="/campaign/meet" className="btn-ghost border-white/50 text-white">
                     {cta.secondary}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </Reveal>

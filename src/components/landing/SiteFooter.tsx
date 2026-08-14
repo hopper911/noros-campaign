@@ -20,7 +20,9 @@ export function SiteFooter() {
             </div>
             <div>
               <h3 className="mb-4 text-white">
-                <NorthLogo />
+                <Link href="/" aria-label="Home">
+                  <NorthLogo />
+                </Link>
               </h3>
               <p className="text-sm leading-relaxed">
                 55 Washington Street
@@ -43,7 +45,11 @@ export function SiteFooter() {
                   "GreenOps",
                   "TokenFlow",
                 ].map((i) => (
-                  <li key={i}>{i}</li>
+                  <li key={i}>
+                    <Link href="/#features" className="hover:text-white">
+                      {i}
+                    </Link>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -52,15 +58,27 @@ export function SiteFooter() {
                 <h3 className="text-sm font-medium text-white">Integrations</h3>
                 <ul className="mt-4 space-y-2 text-sm">
                   {["AWS", "GCP", "Azure"].map((i) => (
-                    <li key={i}>{i}</li>
+                    <li key={i}>
+                      <Link href="/#integrations" className="hover:text-white">
+                        {i}
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-white">Company</h3>
                 <ul className="mt-4 space-y-2 text-sm">
-                  <li>Pricing</li>
-                  <li>Book a demo</li>
+                  <li>
+                    <Link href="/#pricing" className="hover:text-white">
+                      Pricing
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/campaign/meet" className="hover:text-white">
+                      Book a demo
+                    </Link>
+                  </li>
                   <li>
                     <Link href="/campaign" className="text-mint hover:underline">
                       Portfolio campaign kit

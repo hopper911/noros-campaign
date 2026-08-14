@@ -120,15 +120,18 @@ export function SiteNav() {
             <Link href="/#pricing" className="nav-item">
               Pricing
             </Link>
+            <Link href="/campaign" className="nav-item">
+              Campaign
+            </Link>
           </nav>
 
-          <Link href="/#sign-in" className="btn-nav hidden lg:inline-flex">
+          <Link href="/campaign/meet" className="btn-nav hidden lg:inline-flex">
             Sign In
           </Link>
-          <Link href="/#demo" className="btn-nav hidden md:inline-flex">
+          <Link href="/campaign/meet" className="btn-nav hidden md:inline-flex">
             Free Demo
           </Link>
-          <Link href="/#trial" className="btn-trial hidden sm:inline-flex">
+          <Link href="/campaign/meet" className="btn-trial hidden sm:inline-flex">
             Free trial
           </Link>
           <button
@@ -207,15 +210,22 @@ export function SiteNav() {
             >
               Pricing
             </Link>
+            <Link
+              href="/campaign"
+              className="rounded-lg px-2 py-2.5 text-sm text-white"
+              onClick={closeMenu}
+            >
+              Campaign
+            </Link>
           </div>
           <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 sm:flex-row">
-            <Link href="/#sign-in" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
+            <Link href="/campaign/meet" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
               Sign In
             </Link>
-            <Link href="/#demo" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
+            <Link href="/campaign/meet" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
               Free Demo
             </Link>
-            <Link href="/#trial" className="btn-trial w-full sm:w-auto" onClick={closeMenu}>
+            <Link href="/campaign/meet" className="btn-trial w-full sm:w-auto" onClick={closeMenu}>
               Free trial
             </Link>
           </div>
