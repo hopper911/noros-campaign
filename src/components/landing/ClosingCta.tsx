@@ -9,7 +9,7 @@ export function ClosingCta() {
     <section id="trial" className="bg-section-black py-site">
       <div className="px-site">
         <GridFrame borders="trb" ink="mint" strength={50}>
-          <div className="relative min-h-[28rem] overflow-hidden md:min-h-[36rem]">
+          <div className="relative min-h-[22rem] overflow-hidden sm:min-h-[28rem] md:min-h-[36rem]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/north/get-started.jpg"
@@ -17,7 +17,7 @@ export function ClosingCta() {
               className="absolute inset-0 h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-black/35" />
-            <Reveal className="relative flex h-full min-h-[28rem] flex-col justify-between p-6 md:min-h-[36rem] md:p-10">
+            <Reveal className="relative flex h-full min-h-[22rem] flex-col justify-between p-4 sm:min-h-[28rem] sm:p-6 md:min-h-[36rem] md:p-10">
               <BoxedTitle size="t2" lines={[cta.title]} />
               <div>
                 <p className="t6 max-w-xl text-white">{cta.body}</p>

@@ -10,15 +10,15 @@ export default function BriefPage() {
 
       <div className="space-y-8">
         {/* Page 1 */}
-        <article className="kit-frame mx-auto max-w-[8.5in] bg-space-elevated p-8 md:p-12 print:border-0 print:shadow-none">
-          <header className="flex items-start justify-between gap-4 border-b border-border pb-6">
+        <article className="kit-frame mx-auto max-w-[8.5in] overflow-x-auto bg-space-elevated p-5 sm:p-8 md:p-12 print:border-0 print:shadow-none">
+          <header className="flex flex-col items-start justify-between gap-4 border-b border-border pb-6 sm:flex-row">
             <div>
               <div className="font-display text-2xl text-nebula-bright">Noros</div>
               <div className="mt-1 text-xs uppercase tracking-[0.16em] text-muted">
                 Solution brief · AI FinOps Agent
               </div>
             </div>
-            <div className="max-w-[14rem] text-right text-[10px] leading-snug text-muted">
+            <div className="max-w-[14rem] text-left text-[10px] leading-snug text-muted sm:text-right">
               {DISCLAIMER}
             </div>
           </header>
@@ -55,7 +55,7 @@ export default function BriefPage() {
         </article>
 
         {/* Page 2 */}
-        <article className="kit-frame mx-auto max-w-[8.5in] bg-space-elevated p-8 md:p-12 print:border-0">
+        <article className="kit-frame mx-auto max-w-[8.5in] bg-space-elevated p-5 sm:p-8 md:p-12 print:border-0">
           <h2 className="text-xs uppercase tracking-[0.16em] text-nebula-bright">
             Built for three seats
           </h2>

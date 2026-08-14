@@ -103,7 +103,7 @@ body {
 
 /* Type scale — mirrors north.cloud -t1…-t6 */
 .t1 {
-  font-size: clamp(2.8rem, 8vw, 6rem);
+  font-size: clamp(1.7rem, 8.5vw, 6rem);
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 0.92;
@@ -111,7 +111,7 @@ body {
 }
 
 .t2 {
-  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  font-size: clamp(1.55rem, 6vw, 4.5rem);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 0.9;
@@ -142,8 +142,15 @@ body {
 }
 
 .px-site {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .px-site {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -184,13 +191,65 @@ body {
   background: var(--mint);
 }
 
+.hero-cta {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  padding: 0 0.4rem;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+@media (min-width: 768px) {
+  .hero-cta {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    padding: 0;
+  }
+}
+
+.hero-cta-trial {
+  background: var(--neue);
+  color: var(--black);
+}
+
+.hero-cta-trial:hover {
+  background: var(--black);
+  color: var(--mint);
+}
+
+.hero-cta-demo {
+  background: var(--black);
+  color: var(--mint);
+}
+
+.hero-cta-demo:hover {
+  background: var(--neue);
+  color: var(--black);
+}
+
 .boxed-line {
   display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   background: var(--black);
   color: var(--white);
-  padding: 0.12em 0.28em 0.18em;
+  padding: 0.12em 0.2em 0.18em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+
+@media (min-width: 640px) {
+  .boxed-line {
+    padding: 0.12em 0.28em 0.18em;
+  }
 }
 
 .header-line {
@@ -214,39 +273,84 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 1.15rem;
+  height: 2.25rem;
+  padding: 0 0.85rem;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--white);
-  background:
-    linear-gradient(var(--black), var(--black)) padding-box,
-    linear-gradient(100deg, var(--nebula), #7dd3fc, var(--mint)) border-box;
-  border: 1.5px solid transparent;
+  color: var(--black);
+  background: var(--nebula-light);
+  border: 1px solid transparent;
+  transition: background 0.35s ease;
+}
+
+@media (min-width: 768px) {
+  .btn-trial {
+    height: 2.5rem;
+    padding: 0 1.15rem;
+    font-size: 0.72rem;
+  }
 }
 
 .btn-trial:hover {
-  background:
-    linear-gradient(#1a1c1e, #1a1c1e) padding-box,
-    linear-gradient(100deg, var(--nebula-light), var(--mint), var(--nebula)) border-box;
+  background: var(--nebula);
+}
+
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.25rem;
+  padding: 0 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.nav-item:hover,
+.nav-item[data-open="true"] {
+  border-color: var(--nebula-light);
+  color: var(--white);
+}
+
+.nav-item[data-open="true"] .nav-grid,
+.nav-item:hover .nav-grid {
+  color: var(--nebula-light);
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--black) 28%, transparent) 1px, transparent 1.2px);
+  background-size: 22px 22px;
 }
 
 .btn-nav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 2.5rem;
-  padding: 0 1.15rem;
+  height: 2.25rem;
+  padding: 0 0.75rem;
   border-radius: 999px;
   border: 1px solid rgba(248, 252, 253, 0.55);
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--white);
+}
+
+@media (min-width: 768px) {
+  .btn-nav {
+    height: 2.5rem;
+    padding: 0 1.15rem;
+    font-size: 0.72rem;
+  }
 }
 
 .btn-nav:hover {

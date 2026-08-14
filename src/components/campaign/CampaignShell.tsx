@@ -41,7 +41,7 @@ export function CampaignShell({
             Kit hub
           </Link>
         </div>
-        <div className="mx-auto flex max-w-[1600px] gap-1 overflow-x-auto px-site pb-3">
+        <div className="mx-auto flex max-w-[1600px] gap-1 overflow-x-auto overscroll-x-contain px-site pb-3 [-webkit-overflow-scrolling:touch]">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -53,7 +53,7 @@ export function CampaignShell({
           ))}
         </div>
       </div>
-      <div className="mx-auto max-w-[1600px] px-site py-10 md:py-14">{children}</div>
+      <div className="mx-auto max-w-[1600px] min-w-0 overflow-x-clip px-site py-10 md:py-14">{children}</div>
     </div>
   );
 }

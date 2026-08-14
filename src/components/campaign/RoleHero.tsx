@@ -6,7 +6,7 @@ type Audience = (typeof audiences)[keyof typeof audiences];
 export function RoleHero({ audience }: { audience: Audience }) {
   return (
     <div className="kit-frame overflow-hidden bg-black constellation">
-      <div className="relative grid gap-8 p-8 md:grid-cols-[1.2fr_0.8fr] md:items-end md:p-12">
+      <div className="relative grid min-w-0 gap-8 p-5 sm:p-8 md:grid-cols-[1.2fr_0.8fr] md:items-end md:p-12">
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
         <div className="relative">
           <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-mint">

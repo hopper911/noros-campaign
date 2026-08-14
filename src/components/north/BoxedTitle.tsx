@@ -15,7 +15,9 @@ export function BoxedTitle({
         <span
           key={line}
           className={`${size} boxed-line ${
-            align === "split" && i === lines.length - 1 ? "self-end text-right" : "self-start"
+            align === "split" && i === lines.length - 1
+              ? "self-start sm:self-end sm:text-right"
+              : "self-start"
           }`}
         >
           {line}
@@ -35,7 +37,7 @@ export function BoxedH1({
   return (
     <h1 className={`flex flex-col items-center ${className}`}>
       {lines.map((line) => (
-        <span key={line} className="t1 boxed-line">
+        <span key={line} className="t1 boxed-line max-w-full">
           {line}
         </span>
       ))}

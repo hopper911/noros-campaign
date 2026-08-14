@@ -11,6 +11,12 @@ export function SpriteIcons() {
       <symbol id="dropdown" fill="none" viewBox="0 0 10 6">
         <path stroke="currentColor" strokeWidth="1.2" d="M1 1l4 4 4-4" />
       </symbol>
+      <symbol id="grid" fill="currentColor" viewBox="0 0 10 10">
+        <rect x="0" y="0" width="4" height="4" />
+        <rect x="6" y="0" width="4" height="4" />
+        <rect x="0" y="6" width="4" height="4" />
+        <rect x="6" y="6" width="4" height="4" />
+      </symbol>
       <symbol id="logo" viewBox="0 0 114 32">
         <path
           fill="currentColor"

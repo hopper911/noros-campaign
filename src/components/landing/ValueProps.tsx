@@ -10,9 +10,9 @@ export function ValueProps() {
     <section className="bigStatement bg-section-mint py-site">
       <div className="px-site">
         <GridFrame borders="trl" ink="black" strength={50}>
-          <div className="relative min-h-[28rem] overflow-hidden p-6 md:min-h-[36rem] md:p-10">
+          <div className="relative min-h-0 overflow-hidden p-4 sm:min-h-[28rem] sm:p-6 md:min-h-[36rem] md:p-10">
             <HeaderBar />
-            <div className="pointer-events-none absolute top-10 right-6 w-[40%] max-w-[20rem] md:top-16 md:right-16">
+            <div className="pointer-events-none absolute top-10 right-4 hidden w-[32%] max-w-[20rem] sm:block md:top-16 md:right-16 md:w-[40%]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/north/shard.png" alt="" className="w-full object-contain" />
             </div>

@@ -6,7 +6,7 @@ export default function MeetPage() {
   return (
     <CampaignShell title="Meet Noros — landing hero">
       <div className="kit-frame overflow-hidden bg-black constellation">
-        <div className="grid gap-8 p-8 md:grid-cols-2 md:items-center md:p-12">
+        <div className="grid min-w-0 gap-8 p-5 sm:p-8 md:grid-cols-2 md:items-center md:p-12">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-mint">
               Meet Noros

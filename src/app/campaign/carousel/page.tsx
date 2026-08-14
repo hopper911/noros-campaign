@@ -7,11 +7,11 @@ export default function CarouselPage() {
       <p className="mb-8 max-w-2xl text-sm text-neue">
         1080×1080 frames. Swipe narrative: promise → three seats → product.
       </p>
-      <div className="flex gap-4 overflow-x-auto pb-4">
+      <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch]">
         {carouselSlides.map((slide, i) => (
           <article
             key={slide.label}
-            className="kit-frame relative aspect-square w-[min(100%,320px)] shrink-0 constellation"
+            className="kit-frame relative aspect-square w-[min(100%,320px)] shrink-0 snap-start constellation"
           >
             <div className="absolute inset-0 bg-gradient-to-b from-nebula/20 via-transparent to-black" />
             <div className="relative flex h-full flex-col justify-between p-6">

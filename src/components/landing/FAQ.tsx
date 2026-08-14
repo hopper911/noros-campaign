@@ -30,7 +30,7 @@ export function FAQ() {
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
                   >
-                    <span className="text-[15px] font-medium text-white md:text-base">
+                    <span className="min-w-0 text-[15px] font-medium text-white md:text-base">
                       {faq.q}
                     </span>
                     <span className="text-mint">{isOpen ? "−" : "+"}</span>

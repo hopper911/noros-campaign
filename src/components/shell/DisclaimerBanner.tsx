@@ -3,14 +3,15 @@ import Link from "next/link";
 
 export function DisclaimerBanner() {
   return (
-    <div className="no-print relative z-[60] border-b border-white/10 bg-black px-4 py-2 text-center text-[11px] leading-snug text-neue md:text-xs">
-      <span className="font-medium text-mint">Portfolio add-on</span>
-      <span className="mx-2 text-white/20">·</span>
-      {DISCLAIMER}
-      <span className="mx-2 hidden text-white/20 sm:inline">·</span>
+    <div className="no-print relative z-[60] border-b border-white/10 bg-black px-3 py-2 text-[11px] leading-snug text-neue sm:px-4 sm:text-center md:text-xs">
+      <p>
+        <span className="font-medium text-mint">Portfolio add-on</span>
+        <span className="mx-2 text-white/20">·</span>
+        {DISCLAIMER}
+      </p>
       <Link
         href="/campaign"
-        className="mt-1 inline-block text-mint underline-offset-2 hover:underline sm:mt-0 sm:ml-1"
+        className="mt-1 inline-block text-mint underline-offset-2 hover:underline sm:mt-0 sm:ml-2"
       >
         Campaign kit
       </Link>

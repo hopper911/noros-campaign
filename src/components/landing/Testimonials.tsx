@@ -15,7 +15,7 @@ export function Testimonials() {
               align="split"
               lines={["An AI teammate", "that pulls its weight."]}
             />
-            <div className="relative mt-8 aspect-[2560/920] overflow-hidden">
+            <div className="relative mt-8 min-h-[7rem] overflow-hidden aspect-[16/8] md:aspect-[2560/920]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/north/quotes.png"
