@@ -119,10 +119,10 @@ body {
 }
 
 .t3 {
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(1.35rem, 5.5vw, 3.2rem);
   font-weight: 500;
   letter-spacing: -0.02em;
-  line-height: 1;
+  line-height: 1.05;
   text-transform: uppercase;
 }
 
@@ -238,7 +238,7 @@ body {
 .boxed-line {
   display: inline-block;
   max-width: 100%;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   background: var(--black);
   color: var(--white);
   padding: 0.12em 0.2em 0.18em;

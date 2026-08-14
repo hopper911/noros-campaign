@@ -9,11 +9,13 @@ import Link from "next/link";
 export default function CampaignHubPage() {
   return (
     <CampaignShell title="Campaign concept & messaging">
-      <div className="kit-frame p-6 md:p-10">
+      <div className="kit-frame p-4 sm:p-6 md:p-10">
         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-mint">
           Application add-on · Noros
         </p>
-        <h2 className="t3 mt-3 text-white">{CAMPAIGN_LINE}</h2>
+        <h2 className="t3 mt-3 max-w-full text-white [overflow-wrap:break-word] [text-wrap:balance]">
+          {CAMPAIGN_LINE}
+        </h2>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neue">
           An independently initiated launch campaign that translates the Noros AI FinOps
           product for three audiences. Demonstrates intentional interest, fast iteration,
@@ -21,7 +23,7 @@ export default function CampaignHubPage() {
         </p>
         <p className="mt-4 text-xs text-neue/70">{DISCLAIMER}</p>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-10 grid min-w-0 gap-4 lg:grid-cols-3">
           {(Object.values(audiences) as (typeof audiences)[keyof typeof audiences][]).map(
             (a) => (
               <article

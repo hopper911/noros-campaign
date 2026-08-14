@@ -14,7 +14,7 @@ export function Hero() {
       <motion.img
         src="/north/hero.jpg"
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-[center_32%] sm:object-center"
         initial={reduce ? false : { scale: 1 }}
         animate={reduce ? undefined : { scale: 1.04 }}
         transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}

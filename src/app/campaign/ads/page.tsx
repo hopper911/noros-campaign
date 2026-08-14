@@ -10,7 +10,7 @@ export default function AdsPage() {
       <p className="mb-8 max-w-2xl text-sm text-neue">
         LinkedIn single-image mocks (1.91:1). Shared campaign line, role-specific emphasis.
       </p>
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {ads.map((ad) => (
           <article key={ad.id} className="kit-frame">
             <div className="relative aspect-[1.91/1] overflow-hidden constellation border-b border-white/10">

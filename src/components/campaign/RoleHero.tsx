@@ -12,7 +12,9 @@ export function RoleHero({ audience }: { audience: Audience }) {
           <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-mint">
             Noros for {audience.shortLabel}
           </div>
-          <h2 className="t3 mt-3 max-w-[16ch] text-white">{audience.headline}</h2>
+          <h2 className="t3 mt-3 max-w-[16ch] text-white [overflow-wrap:break-word] [text-wrap:balance]">
+            {audience.headline}
+          </h2>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-neue md:text-base">
             {audience.subhead}
           </p>
