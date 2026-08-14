@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 
 export default async function CarouselPage() {
-  const { carouselSlides, campaignLine, landing } = await getSiteContent();
+  const { carouselSlides, campaignLine } = await getSiteContent();
 
   return (
     <CampaignShell title="Five-slide LinkedIn carousel">
@@ -31,7 +31,7 @@ export default async function CarouselPage() {
                 <div className="relative h-full">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={landing.heroImageUrl}
+                    src={slide.imageUrl}
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover opacity-40"
                   />

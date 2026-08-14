@@ -9,14 +9,14 @@ import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
 export default async function MeetPage() {
-  const { campaignLine, product, landing } = await getSiteContent();
+  const { campaignLine, product, kit } = await getSiteContent();
   return (
     <CampaignShell title="Meet Noros — landing hero">
       <GridFrame borders="trb" ink="mint" strength={40}>
         <div className="relative overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={landing.heroImageUrl}
+            src={kit.meetImageUrl}
             alt=""
             className="absolute inset-0 h-full w-full object-cover object-[center_32%] opacity-55"
           />

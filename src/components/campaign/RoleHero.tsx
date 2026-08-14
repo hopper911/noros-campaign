@@ -20,7 +20,7 @@ export function RoleHero({ audience }: { audience: Audience }) {
       <div className="relative overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={audience.adImageUrl}
+          src={audience.heroImageUrl}
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-[center_32%] opacity-50"
         />

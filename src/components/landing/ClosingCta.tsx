@@ -4,7 +4,13 @@ import { Reveal } from "@/components/motion/Reveal";
 import type { LandingContent } from "@/lib/site-content";
 import Link from "next/link";
 
-export function ClosingCta({ cta }: { cta: LandingContent["cta"] }) {
+export function ClosingCta({
+  cta,
+  imageUrl,
+}: {
+  cta: LandingContent["cta"];
+  imageUrl: string;
+}) {
   return (
     <section className="bg-section-black py-site">
       <div className="px-site">
@@ -12,7 +18,7 @@ export function ClosingCta({ cta }: { cta: LandingContent["cta"] }) {
           <div className="relative min-h-[22rem] overflow-hidden sm:min-h-[28rem] md:min-h-[36rem]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/north/get-started.jpg"
+              src={imageUrl}
               alt=""
               className="absolute inset-0 h-full w-full object-cover"
             />

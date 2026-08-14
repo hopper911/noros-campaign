@@ -7,7 +7,7 @@ import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
 export default async function EventPage() {
-  const { campaignLine, disclaimer, landing, product } = await getSiteContent();
+  const { campaignLine, disclaimer, kit, product } = await getSiteContent();
   return (
     <CampaignShell title="Event-screen concept">
       <p className="mb-6 font-mono text-[11px] tracking-[0.16em] text-neue uppercase">
@@ -17,7 +17,7 @@ export default async function EventPage() {
         <div className="relative aspect-video w-full overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={landing.heroImageUrl}
+            src={kit.eventImageUrl}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />

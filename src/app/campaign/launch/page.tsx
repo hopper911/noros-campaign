@@ -7,7 +7,7 @@ import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
 
 export default async function LaunchPage() {
-  const { campaignLine, disclaimer, landing, product } = await getSiteContent();
+  const { campaignLine, disclaimer, kit, product } = await getSiteContent();
   return (
     <CampaignShell title="Product Hunt–style launch assets">
       <div className="grid lg:grid-cols-2">
@@ -20,7 +20,7 @@ export default async function LaunchPage() {
             <div className="relative mt-4 aspect-[2/1] overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={landing.heroImageUrl}
+                src={kit.launchImageUrl}
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />

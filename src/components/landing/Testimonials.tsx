@@ -5,8 +5,10 @@ import { boxedLines, type LandingContent } from "@/lib/site-content";
 
 export function Testimonials({
   testimonials,
+  imageUrl,
 }: {
   testimonials: LandingContent["testimonials"];
+  imageUrl: string;
 }) {
   return (
     <section id="why" className="scroll-mt-28 bg-section-black py-site">
@@ -21,7 +23,7 @@ export function Testimonials({
             <div className="relative mt-8 min-h-[7rem] overflow-hidden aspect-[16/8] md:aspect-[2560/920]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/north/quotes.png"
+                src={imageUrl}
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />

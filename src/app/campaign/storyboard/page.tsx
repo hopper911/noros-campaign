@@ -5,7 +5,7 @@ import { RevealItem, RevealStagger } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 
 export default async function StoryboardPage() {
-  const { storyboardFrames, landing } = await getSiteContent();
+  const { storyboardFrames } = await getSiteContent();
 
   return (
     <CampaignShell title="30-second motion storyboard">
@@ -28,7 +28,7 @@ export default async function StoryboardPage() {
                 <div className="relative aspect-video overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={landing.heroImageUrl}
+                    src={frame.imageUrl}
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover opacity-35"
                   />

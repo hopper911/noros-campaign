@@ -18,13 +18,17 @@ export default async function HomePage() {
     <>
       <SiteNav />
       <main className="min-w-0 overflow-x-clip">
-        <Hero hero={landing.hero} imageUrl={landing.heroImageUrl} />
-        <ValueProps value={landing.value} />
+        <Hero
+          hero={landing.hero}
+          imageUrl={landing.heroImageUrl}
+          insetUrl={landing.heroInsetUrl}
+        />
+        <ValueProps value={landing.value} imageUrl={landing.valueImageUrl} />
         <FeatureBlocks features={landing.features} />
-        <Testimonials testimonials={landing.testimonials} />
+        <Testimonials testimonials={landing.testimonials} imageUrl={landing.quotesImageUrl} />
         <IntegrationsBand />
         <PricingSection />
-        <ClosingCta cta={landing.cta} />
+        <ClosingCta cta={landing.cta} imageUrl={landing.ctaImageUrl} />
         <FAQ faqs={landing.faqs} />
       </main>
       <SiteFooter />

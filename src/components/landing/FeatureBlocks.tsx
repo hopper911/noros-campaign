@@ -11,19 +11,16 @@ const themes = [
     section: "bg-section-gray",
     ink: "black" as const,
     strength: 20,
-    media: "/north/mux-1.webp",
   },
   {
     section: "bg-section-black",
     ink: "neue" as const,
     strength: 50,
-    media: "/north/mux-2.webp",
   },
   {
     section: "bg-section-mint",
     ink: "black" as const,
     strength: 20,
-    media: "/north/mux-3.webp",
   },
 ];
 
@@ -113,7 +110,7 @@ function StillFeature({
                 <div className="relative aspect-[16/11] overflow-hidden bg-black">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={theme.media}
+                    src={feature.media}
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover"
                   />

@@ -9,9 +9,11 @@ import Link from "next/link";
 export function Hero({
   hero,
   imageUrl,
+  insetUrl,
 }: {
   hero: LandingContent["hero"];
   imageUrl: string;
+  insetUrl: string;
 }) {
   const reduce = useReducedMotion();
 
@@ -77,7 +79,7 @@ export function Hero({
           <div className="relative aspect-[1.45/1] overflow-hidden rounded-[0.2rem] md:rounded-[0.8rem]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/north/feature-chat.jpg"
+              src={insetUrl}
               alt=""
               className="absolute inset-0 h-full w-full object-cover"
             />

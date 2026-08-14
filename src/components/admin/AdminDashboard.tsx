@@ -10,6 +10,7 @@ const sections = [
   { id: "overview", label: "Overview" },
   { id: "ads", label: "Ads" },
   { id: "audiences", label: "Audiences" },
+  { id: "graphics", label: "Kit graphics" },
   { id: "carousel", label: "Carousel & storyboard" },
   { id: "landing", label: "Landing" },
 ] as const;
@@ -235,6 +236,14 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                 <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
                   {a.label}
                 </p>
+                <ImageSlot
+                  label="Role hero still"
+                  src={a.heroImageUrl}
+                  kind={`role-${id}`}
+                  aspect="aspect-[16/9]"
+                  uploading={uploading}
+                  onUpload={upload}
+                />
                 <Field
                   label="Hero headline"
                   value={a.headline}
@@ -263,11 +272,55 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
         </div>
       </Section>
 
+      <Section id="graphics" title="Kit graphics">
+        <p className="text-[15px] text-neue">
+          Each kit surface has its own still. Uploads go live immediately and do not replace
+          ads or the landing hero.
+        </p>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {(
+            [
+              ["Meet Noros", content.kit.meetImageUrl, "kit-meet", "aspect-[16/9]"],
+              ["UI hero background", content.kit.uiImageUrl, "kit-ui", "aspect-[16/9]"],
+              ["Brief cover", content.kit.briefImageUrl, "kit-brief", "aspect-[16/9]"],
+              ["Email header", content.kit.emailImageUrl, "kit-email", "aspect-[16/7]"],
+              ["Event screen", content.kit.eventImageUrl, "kit-event", "aspect-video"],
+              ["Launch card", content.kit.launchImageUrl, "kit-launch", "aspect-[2/1]"],
+              ["Announce primary", content.kit.announceImageUrl, "kit-announce", "aspect-square"],
+              [
+                "Announce secondary",
+                content.kit.announceSecondaryImageUrl,
+                "kit-announce-secondary",
+                "aspect-[16/9]",
+              ],
+            ] as const
+          ).map(([label, src, kind, aspect]) => (
+            <ImageSlot
+              key={kind}
+              label={label}
+              src={src}
+              kind={kind}
+              aspect={aspect}
+              uploading={uploading}
+              onUpload={upload}
+            />
+          ))}
+        </div>
+      </Section>
+
       <Section id="carousel" title="Carousel & storyboard">
         <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">Carousel</p>
         <div className="mt-4 grid gap-6 md:grid-cols-2">
           {content.carouselSlides.map((slide, i) => (
             <div key={slide.label} className="space-y-3 border border-white/10 p-4">
+              <ImageSlot
+                label={`Slide ${i + 1} still`}
+                src={slide.imageUrl}
+                kind={`carousel-${i}`}
+                aspect="aspect-square"
+                uploading={uploading}
+                onUpload={upload}
+              />
               <Field
                 label={`Slide ${i + 1} title`}
                 value={slide.title}
@@ -298,6 +351,14 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
         <div className="mt-4 grid gap-6 md:grid-cols-2">
           {content.storyboardFrames.map((frame, i) => (
             <div key={frame.t} className="space-y-3 border border-white/10 p-4">
+              <ImageSlot
+                label={`${frame.t} still`}
+                src={frame.imageUrl}
+                kind={`storyboard-${i}`}
+                aspect="aspect-video"
+                uploading={uploading}
+                onUpload={upload}
+              />
               <Field
                 label={`${frame.t} title`}
                 value={frame.title}
@@ -374,33 +435,30 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                 })
               }
             />
-            <div>
-              <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
-                Hero still
-              </p>
-              <div className="relative mt-2 aspect-[16/7] overflow-hidden border border-white/10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={content.landing.heroImageUrl}
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              </div>
-              <label className="btn-nav mt-3 inline-flex cursor-pointer">
-                {uploading === "hero" ? "Uploading…" : "Upload hero image"}
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp,image/gif"
-                  className="hidden"
-                  disabled={!!uploading}
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) void upload("hero", file);
-                    e.target.value = "";
-                  }}
-                />
-              </label>
-            </div>
+            <ImageSlot
+              label="Hero still"
+              src={content.landing.heroImageUrl}
+              kind="hero"
+              aspect="aspect-[16/7]"
+              uploading={uploading}
+              onUpload={upload}
+            />
+            <ImageSlot
+              label="Hero inset"
+              src={content.landing.heroInsetUrl}
+              kind="hero-inset"
+              aspect="aspect-[1.45/1]"
+              uploading={uploading}
+              onUpload={upload}
+            />
+            <ImageSlot
+              label="Value shard"
+              src={content.landing.valueImageUrl}
+              kind="landing-value"
+              aspect="aspect-square"
+              uploading={uploading}
+              onUpload={upload}
+            />
           </div>
           <div className="space-y-4">
             <Field
@@ -447,7 +505,36 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                 })
               }
             />
+            <ImageSlot
+              label="Quotes band"
+              src={content.landing.quotesImageUrl}
+              kind="landing-quotes"
+              aspect="aspect-[16/8]"
+              uploading={uploading}
+              onUpload={upload}
+            />
+            <ImageSlot
+              label="Closing CTA still"
+              src={content.landing.ctaImageUrl}
+              kind="landing-cta"
+              aspect="aspect-[16/9]"
+              uploading={uploading}
+              onUpload={upload}
+            />
           </div>
+        </div>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {content.landing.features.map((feature, i) => (
+            <ImageSlot
+              key={feature.code}
+              label={`${feature.code} still`}
+              src={feature.media}
+              kind={`feature-${i}`}
+              aspect="aspect-[16/11]"
+              uploading={uploading}
+              onUpload={upload}
+            />
+          ))}
         </div>
       </Section>
     </div>
@@ -470,6 +557,46 @@ function Section({
         <div className="mt-6 space-y-4">{children}</div>
       </section>
     </GridFrame>
+  );
+}
+
+function ImageSlot({
+  label,
+  src,
+  kind,
+  aspect,
+  uploading,
+  onUpload,
+}: {
+  label: string;
+  src: string;
+  kind: string;
+  aspect: string;
+  uploading: string | null;
+  onUpload: (kind: string, file: File) => void;
+}) {
+  return (
+    <div>
+      <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">{label}</p>
+      <div className={`relative mt-2 overflow-hidden border border-white/10 ${aspect}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+      </div>
+      <label className="btn-nav mt-3 inline-flex cursor-pointer">
+        {uploading === kind ? "Uploading…" : "Upload image"}
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          className="hidden"
+          disabled={!!uploading}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) onUpload(kind, file);
+            e.target.value = "";
+          }}
+        />
+      </label>
+    </div>
   );
 }
 

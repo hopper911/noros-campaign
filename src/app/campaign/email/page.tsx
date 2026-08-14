@@ -6,7 +6,7 @@ import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
 
 export default async function EmailPage() {
-  const { campaignLine, disclaimer, landing } = await getSiteContent();
+  const { campaignLine, disclaimer, kit } = await getSiteContent();
   return (
     <CampaignShell title="Launch email">
       <GridFrame borders="trb" ink="mint" strength={40}>
@@ -14,7 +14,7 @@ export default async function EmailPage() {
           <div className="relative overflow-hidden px-6 py-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={landing.heroImageUrl}
+              src={kit.emailImageUrl}
               alt=""
               className="absolute inset-0 h-full w-full object-cover opacity-30"
             />

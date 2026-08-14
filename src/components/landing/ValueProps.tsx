@@ -4,7 +4,13 @@ import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { boxedLines, type LandingContent } from "@/lib/site-content";
 
-export function ValueProps({ value }: { value: LandingContent["value"] }) {
+export function ValueProps({
+  value,
+  imageUrl,
+}: {
+  value: LandingContent["value"];
+  imageUrl: string;
+}) {
   return (
     <section className="bigStatement bg-section-mint py-site">
       <div className="px-site">
@@ -13,7 +19,7 @@ export function ValueProps({ value }: { value: LandingContent["value"] }) {
             <HeaderBar />
             <div className="pointer-events-none absolute top-10 right-4 hidden w-[32%] max-w-[20rem] sm:block md:top-16 md:right-16 md:w-[40%]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/north/shard.png" alt="" className="w-full object-contain" />
+              <img src={imageUrl} alt="" className="w-full object-contain" />
             </div>
             <Reveal className="relative mt-10 max-w-[52rem]">
               <BoxedTitle

@@ -13,10 +13,39 @@ export type { AudienceId };
 
 export type AudienceContent = (typeof audiences)[AudienceId] & {
   adImageUrl: string;
+  heroImageUrl: string;
 };
 
-export type LandingContent = typeof landingCopy & {
+export type CarouselSlide = (typeof carouselSlides)[number] & {
+  imageUrl: string;
+};
+
+export type StoryboardFrame = (typeof storyboardFrames)[number] & {
+  imageUrl: string;
+};
+
+export type LandingFeature = (typeof landingCopy.features)[number] & {
+  media: string;
+};
+
+export type LandingContent = Omit<typeof landingCopy, "features"> & {
   heroImageUrl: string;
+  heroInsetUrl: string;
+  valueImageUrl: string;
+  quotesImageUrl: string;
+  ctaImageUrl: string;
+  features: LandingFeature[];
+};
+
+export type KitGraphics = {
+  meetImageUrl: string;
+  uiImageUrl: string;
+  briefImageUrl: string;
+  emailImageUrl: string;
+  eventImageUrl: string;
+  launchImageUrl: string;
+  announceImageUrl: string;
+  announceSecondaryImageUrl: string;
 };
 
 export type SiteContent = {
@@ -24,12 +53,14 @@ export type SiteContent = {
   disclaimer: string;
   product: typeof PRODUCT;
   audiences: Record<AudienceId, AudienceContent>;
-  carouselSlides: (typeof carouselSlides)[number][];
-  storyboardFrames: (typeof storyboardFrames)[number][];
+  carouselSlides: CarouselSlide[];
+  storyboardFrames: StoryboardFrame[];
   landing: LandingContent;
+  kit: KitGraphics;
 };
 
 const DEFAULT_IMAGE = "/north/hero.jpg";
+const FEATURE_MEDIA = ["/north/mux-1.webp", "/north/mux-2.webp", "/north/mux-3.webp"];
 
 export function defaultSiteContent(): SiteContent {
   return {
@@ -37,23 +68,48 @@ export function defaultSiteContent(): SiteContent {
     disclaimer: DISCLAIMER,
     product: { ...PRODUCT },
     audiences: {
-      cfo: { ...audiences.cfo, proofPoints: [...audiences.cfo.proofPoints], adImageUrl: DEFAULT_IMAGE },
+      cfo: {
+        ...audiences.cfo,
+        proofPoints: [...audiences.cfo.proofPoints],
+        adImageUrl: DEFAULT_IMAGE,
+        heroImageUrl: DEFAULT_IMAGE,
+      },
       finops: {
         ...audiences.finops,
         proofPoints: [...audiences.finops.proofPoints],
         adImageUrl: DEFAULT_IMAGE,
+        heroImageUrl: DEFAULT_IMAGE,
       },
       engineer: {
         ...audiences.engineer,
         proofPoints: [...audiences.engineer.proofPoints],
         adImageUrl: DEFAULT_IMAGE,
+        heroImageUrl: DEFAULT_IMAGE,
       },
     },
-    carouselSlides: carouselSlides.map((s) => ({ ...s })),
-    storyboardFrames: storyboardFrames.map((s) => ({ ...s })),
+    carouselSlides: carouselSlides.map((s) => ({ ...s, imageUrl: DEFAULT_IMAGE })),
+    storyboardFrames: storyboardFrames.map((s) => ({ ...s, imageUrl: DEFAULT_IMAGE })),
     landing: {
       ...structuredClone(landingCopy),
       heroImageUrl: DEFAULT_IMAGE,
+      heroInsetUrl: "/north/feature-chat.jpg",
+      valueImageUrl: "/north/shard.png",
+      quotesImageUrl: "/north/quotes.png",
+      ctaImageUrl: "/north/get-started.jpg",
+      features: landingCopy.features.map((feature, i) => ({
+        ...structuredClone(feature),
+        media: FEATURE_MEDIA[i] ?? DEFAULT_IMAGE,
+      })),
+    },
+    kit: {
+      meetImageUrl: DEFAULT_IMAGE,
+      uiImageUrl: DEFAULT_IMAGE,
+      briefImageUrl: DEFAULT_IMAGE,
+      emailImageUrl: DEFAULT_IMAGE,
+      eventImageUrl: DEFAULT_IMAGE,
+      launchImageUrl: DEFAULT_IMAGE,
+      announceImageUrl: DEFAULT_IMAGE,
+      announceSecondaryImageUrl: "/north/get-started.jpg",
     },
   };
 }
@@ -77,6 +133,7 @@ export function mergeSiteContent(stored: unknown): SiteContent {
   const product = isRecord(stored.product) ? stored.product : {};
   const audiencesIn = isRecord(stored.audiences) ? stored.audiences : {};
   const landingIn = isRecord(stored.landing) ? stored.landing : {};
+  const kitIn = isRecord(stored.kit) ? stored.kit : {};
   const heroIn = isRecord(landingIn.hero) ? landingIn.hero : {};
   const valueIn = isRecord(landingIn.value) ? landingIn.value : {};
   const ctaIn = isRecord(landingIn.cta) ? landingIn.cta : {};
@@ -98,6 +155,7 @@ export function mergeSiteContent(stored: unknown): SiteContent {
       adBody: str(raw.adBody, fallback.adBody),
       cta: str(raw.cta, fallback.cta),
       adImageUrl: str(raw.adImageUrl, fallback.adImageUrl),
+      heroImageUrl: str(raw.heroImageUrl, fallback.heroImageUrl),
     };
   };
 
@@ -122,6 +180,7 @@ export function mergeSiteContent(stored: unknown): SiteContent {
             title: str(raw.title, fallback.title),
             body: str(raw.body, fallback.body),
             label: str(raw.label, fallback.label),
+            imageUrl: str(raw.imageUrl, fallback.imageUrl),
           };
         })
       : base.carouselSlides,
@@ -133,12 +192,17 @@ export function mergeSiteContent(stored: unknown): SiteContent {
             t: str(raw.t, fallback.t),
             title: str(raw.title, fallback.title),
             visual: str(raw.visual, fallback.visual),
+            imageUrl: str(raw.imageUrl, fallback.imageUrl),
           };
         })
       : base.storyboardFrames,
     landing: {
       ...base.landing,
       heroImageUrl: str(landingIn.heroImageUrl, base.landing.heroImageUrl),
+      heroInsetUrl: str(landingIn.heroInsetUrl, base.landing.heroInsetUrl),
+      valueImageUrl: str(landingIn.valueImageUrl, base.landing.valueImageUrl),
+      quotesImageUrl: str(landingIn.quotesImageUrl, base.landing.quotesImageUrl),
+      ctaImageUrl: str(landingIn.ctaImageUrl, base.landing.ctaImageUrl),
       hero: {
         ...base.landing.hero,
         brand: str(heroIn.brand, base.landing.hero.brand),
@@ -162,7 +226,28 @@ export function mergeSiteContent(stored: unknown): SiteContent {
           : base.landing.value.items,
       },
       features: Array.isArray(landingIn.features)
-        ? (landingIn.features as LandingContent["features"])
+        ? landingIn.features.map((feature, i) => {
+            const raw = isRecord(feature) ? feature : {};
+            const fallback = base.landing.features[i] ?? base.landing.features[0];
+            const beats = Array.isArray(raw.beats) ? raw.beats : fallback.beats;
+            return {
+              ...fallback,
+              code: str(raw.code, fallback.code),
+              label: str(raw.label, fallback.label),
+              kicker: str(raw.kicker, fallback.kicker),
+              title: str(raw.title, fallback.title),
+              media: str(raw.media, fallback.media),
+              beats: beats.map((beat, bi) => {
+                const b = isRecord(beat) ? beat : {};
+                const fb = fallback.beats[bi] ?? fallback.beats[0];
+                return {
+                  n: str(b.n, fb.n),
+                  title: str(b.title, fb.title),
+                  body: str(b.body, fb.body),
+                };
+              }),
+            };
+          })
         : base.landing.features,
       testimonials: {
         ...base.landing.testimonials,
@@ -181,6 +266,19 @@ export function mergeSiteContent(stored: unknown): SiteContent {
       faqs: Array.isArray(landingIn.faqs)
         ? (landingIn.faqs as LandingContent["faqs"])
         : base.landing.faqs,
+    },
+    kit: {
+      meetImageUrl: str(kitIn.meetImageUrl, base.kit.meetImageUrl),
+      uiImageUrl: str(kitIn.uiImageUrl, base.kit.uiImageUrl),
+      briefImageUrl: str(kitIn.briefImageUrl, base.kit.briefImageUrl),
+      emailImageUrl: str(kitIn.emailImageUrl, base.kit.emailImageUrl),
+      eventImageUrl: str(kitIn.eventImageUrl, base.kit.eventImageUrl),
+      launchImageUrl: str(kitIn.launchImageUrl, base.kit.launchImageUrl),
+      announceImageUrl: str(kitIn.announceImageUrl, base.kit.announceImageUrl),
+      announceSecondaryImageUrl: str(
+        kitIn.announceSecondaryImageUrl,
+        base.kit.announceSecondaryImageUrl,
+      ),
     },
   };
 }
@@ -206,16 +304,91 @@ export function boxedLines(text: string): string[] {
   return [trimmed];
 }
 
-export const MEDIA_KINDS = ["ad-cfo", "ad-finops", "ad-engineer", "hero"] as const;
+export const MEDIA_KINDS = [
+  "ad-cfo",
+  "ad-finops",
+  "ad-engineer",
+  "role-cfo",
+  "role-finops",
+  "role-engineer",
+  "carousel-0",
+  "carousel-1",
+  "carousel-2",
+  "carousel-3",
+  "carousel-4",
+  "storyboard-0",
+  "storyboard-1",
+  "storyboard-2",
+  "storyboard-3",
+  "storyboard-4",
+  "storyboard-5",
+  "kit-meet",
+  "kit-ui",
+  "kit-brief",
+  "kit-email",
+  "kit-event",
+  "kit-launch",
+  "kit-announce",
+  "kit-announce-secondary",
+  "hero",
+  "hero-inset",
+  "landing-value",
+  "landing-quotes",
+  "landing-cta",
+  "feature-0",
+  "feature-1",
+  "feature-2",
+] as const;
+
 export type MediaKind = (typeof MEDIA_KINDS)[number];
+
+const KIT_FIELDS: Partial<Record<MediaKind, keyof KitGraphics>> = {
+  "kit-meet": "meetImageUrl",
+  "kit-ui": "uiImageUrl",
+  "kit-brief": "briefImageUrl",
+  "kit-email": "emailImageUrl",
+  "kit-event": "eventImageUrl",
+  "kit-launch": "launchImageUrl",
+  "kit-announce": "announceImageUrl",
+  "kit-announce-secondary": "announceSecondaryImageUrl",
+};
 
 export function applyMediaUrl(content: SiteContent, kind: MediaKind, url: string): SiteContent {
   const next = structuredClone(content);
-  if (kind === "hero") {
-    next.landing.heroImageUrl = url;
+  if (kind.startsWith("ad-")) {
+    const id = kind.slice(3) as AudienceId;
+    next.audiences[id].adImageUrl = url;
     return next;
   }
-  const id: AudienceId = kind === "ad-cfo" ? "cfo" : kind === "ad-finops" ? "finops" : "engineer";
-  next.audiences[id].adImageUrl = url;
+  if (kind.startsWith("role-")) {
+    const id = kind.slice(5) as AudienceId;
+    next.audiences[id].heroImageUrl = url;
+    return next;
+  }
+  if (kind.startsWith("carousel-")) {
+    const i = Number(kind.slice("carousel-".length));
+    if (next.carouselSlides[i]) next.carouselSlides[i].imageUrl = url;
+    return next;
+  }
+  if (kind.startsWith("storyboard-")) {
+    const i = Number(kind.slice("storyboard-".length));
+    if (next.storyboardFrames[i]) next.storyboardFrames[i].imageUrl = url;
+    return next;
+  }
+  if (kind.startsWith("feature-")) {
+    const i = Number(kind.slice("feature-".length));
+    if (next.landing.features[i]) next.landing.features[i].media = url;
+    return next;
+  }
+  const kitField = KIT_FIELDS[kind];
+  if (kitField) {
+    next.kit[kitField] = url;
+    return next;
+  }
+  if (kind === "hero") next.landing.heroImageUrl = url;
+  if (kind === "hero-inset") next.landing.heroInsetUrl = url;
+  if (kind === "landing-value") next.landing.valueImageUrl = url;
+  if (kind === "landing-quotes") next.landing.quotesImageUrl = url;
+  if (kind === "landing-cta") next.landing.ctaImageUrl = url;
   return next;
 }

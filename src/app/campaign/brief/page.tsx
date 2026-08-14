@@ -8,7 +8,7 @@ import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
 export default async function BriefPage() {
-  const { campaignLine, disclaimer, audiences } = await getSiteContent();
+  const { campaignLine, disclaimer, audiences, kit } = await getSiteContent();
   return (
     <CampaignShell title="Two-page solution brief">
       <p className="no-print mb-6 font-mono text-[11px] tracking-[0.14em] text-neue uppercase">
@@ -19,6 +19,14 @@ export default async function BriefPage() {
         <GridFrame borders="trb" ink="mint" strength={40}>
           <Reveal className="mx-auto max-w-[8.5in] p-5 sm:p-8 md:p-12 print:border-0">
             <HeaderBar />
+            <div className="relative mt-8 aspect-[16/7] overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={kit.briefImageUrl}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
             <header className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-white/10 pb-6 sm:flex-row">
               <div>
                 <div className="text-2xl font-medium text-white">Noros</div>

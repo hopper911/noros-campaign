@@ -7,7 +7,7 @@ import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
 export default async function AnnouncePage() {
-  const { campaignLine, disclaimer, landing, product } = await getSiteContent();
+  const { campaignLine, disclaimer, kit, product } = await getSiteContent();
   return (
     <CampaignShell title="Executive announcement graphic">
       <div className="grid lg:grid-cols-2">
@@ -16,7 +16,7 @@ export default async function AnnouncePage() {
             <article className="relative aspect-square overflow-hidden lg:aspect-auto lg:min-h-[28rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={landing.heroImageUrl}
+                src={kit.announceImageUrl}
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
@@ -48,7 +48,7 @@ export default async function AnnouncePage() {
             <article className="relative min-h-[20rem] overflow-hidden lg:min-h-[28rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/north/get-started.jpg"
+                src={kit.announceSecondaryImageUrl}
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
