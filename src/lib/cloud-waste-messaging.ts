@@ -13,6 +13,18 @@ export const CW_PRODUCT = {
     "Noros watches multi-cloud spend continuously and surfaces waste the moment it appears — idle compute, orphaned storage, uncovered reservations — so teams can act before the next bill lands.",
 };
 
+export const CW_HERO = {
+  eyebrow: "Demand-Generation Campaign · Cloud Waste",
+  primaryCta: { label: "Get the Report", href: "/campaign/cloud-waste/report" },
+  secondaryCta: { label: "View Metrics", href: "/campaign/cloud-waste/dashboard" },
+};
+
+export const CW_MESSAGE_FRAMEWORK = {
+  hook: "Your cloud bill passed review. Spend is within budget. But 32% is waste — and nothing flagged it.",
+  proof: "$134K waste identified → $98K recovered in 90 days. Five-minute setup. Read-only.",
+  ask: "Connect one account. Noros surfaces waste within 24 hours.",
+};
+
 export const CW_AUDIENCES = {
   vp: {
     id: "vp" as const,

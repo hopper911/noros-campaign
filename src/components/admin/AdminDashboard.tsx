@@ -3,6 +3,7 @@
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import type { AudienceId, CloudWasteMediaAsset, SiteContent } from "@/lib/site-content";
+import type { CwAudienceId } from "@/lib/cloud-waste-messaging";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -17,6 +18,8 @@ const sections = [
 ] as const;
 
 const roles: AudienceId[] = ["cfo", "finops", "engineer"];
+
+const cwAudienceIds: CwAudienceId[] = ["vp", "finops", "cfo"];
 
 export function AdminDashboard({ initial }: { initial: SiteContent }) {
   const router = useRouter();
@@ -548,6 +551,19 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
             <div className="mt-4 grid gap-6 lg:grid-cols-2">
               <div className="space-y-4">
                 <Field
+                  label="Eyebrow"
+                  value={content.cloudWaste.hero.eyebrow}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        hero: { ...content.cloudWaste.hero, eyebrow: v },
+                      },
+                    })
+                  }
+                />
+                <Field
                   label="Campaign line"
                   value={content.cloudWaste.campaignLine}
                   onChange={(v) =>
@@ -558,31 +574,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                   }
                 />
                 <Field
-                  label="Insight"
-                  value={content.cloudWaste.insight}
-                  multiline
-                  onChange={(v) =>
-                    setContent({
-                      ...content,
-                      cloudWaste: { ...content.cloudWaste, insight: v },
-                    })
-                  }
-                />
-                <Field
-                  label="Product tagline"
-                  value={content.cloudWaste.product.tagline}
-                  onChange={(v) =>
-                    setContent({
-                      ...content,
-                      cloudWaste: {
-                        ...content.cloudWaste,
-                        product: { ...content.cloudWaste.product, tagline: v },
-                      },
-                    })
-                  }
-                />
-                <Field
-                  label="Product support"
+                  label="Body copy"
                   value={content.cloudWaste.product.support}
                   multiline
                   onChange={(v) =>
@@ -591,6 +583,70 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                       cloudWaste: {
                         ...content.cloudWaste,
                         product: { ...content.cloudWaste.product, support: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Primary CTA label"
+                  value={content.cloudWaste.hero.primaryCta.label}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        hero: {
+                          ...content.cloudWaste.hero,
+                          primaryCta: { ...content.cloudWaste.hero.primaryCta, label: v },
+                        },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Primary CTA link"
+                  value={content.cloudWaste.hero.primaryCta.href}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        hero: {
+                          ...content.cloudWaste.hero,
+                          primaryCta: { ...content.cloudWaste.hero.primaryCta, href: v },
+                        },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Secondary CTA label"
+                  value={content.cloudWaste.hero.secondaryCta.label}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        hero: {
+                          ...content.cloudWaste.hero,
+                          secondaryCta: { ...content.cloudWaste.hero.secondaryCta, label: v },
+                        },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Secondary CTA link"
+                  value={content.cloudWaste.hero.secondaryCta.href}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        hero: {
+                          ...content.cloudWaste.hero,
+                          secondaryCta: { ...content.cloudWaste.hero.secondaryCta, href: v },
+                        },
                       },
                     })
                   }
@@ -604,6 +660,182 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                 uploading={uploading}
                 onUpload={upload}
                 accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              Audience cards
+            </p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-3">
+              {cwAudienceIds.map((id) => {
+                const aud = content.cloudWaste.audiences[id];
+                return (
+                  <div key={id} className="space-y-3 border border-white/10 p-4">
+                    <Field
+                      label="Role label"
+                      value={aud.label}
+                      onChange={(v) =>
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            audiences: {
+                              ...content.cloudWaste.audiences,
+                              [id]: { ...aud, label: v },
+                            },
+                          },
+                        })
+                      }
+                    />
+                    <Field
+                      label="Pain headline"
+                      value={aud.pain}
+                      multiline
+                      onChange={(v) =>
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            audiences: {
+                              ...content.cloudWaste.audiences,
+                              [id]: { ...aud, pain: v },
+                            },
+                          },
+                        })
+                      }
+                    />
+                    <Field
+                      label="Promise"
+                      value={aud.promise}
+                      multiline
+                      onChange={(v) =>
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            audiences: {
+                              ...content.cloudWaste.audiences,
+                              [id]: { ...aud, promise: v },
+                            },
+                          },
+                        })
+                      }
+                    />
+                    <Field
+                      label="Proof bullets (one per line)"
+                      value={aud.proof.join("\n")}
+                      multiline
+                      onChange={(v) =>
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            audiences: {
+                              ...content.cloudWaste.audiences,
+                              [id]: {
+                                ...aud,
+                                proof: v.split("\n").map((item) => item.trim()).filter(Boolean),
+                              },
+                            },
+                          },
+                        })
+                      }
+                    />
+                    <Field
+                      label="CTA link text"
+                      value={aud.cta}
+                      onChange={(v) =>
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            audiences: {
+                              ...content.cloudWaste.audiences,
+                              [id]: { ...aud, cta: v },
+                            },
+                          },
+                        })
+                      }
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              Message framework
+            </p>
+            <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <Field
+                label="Insight"
+                value={content.cloudWaste.insight}
+                multiline
+                onChange={(v) =>
+                  setContent({
+                    ...content,
+                    cloudWaste: { ...content.cloudWaste, insight: v },
+                  })
+                }
+              />
+              <Field
+                label="Hook"
+                value={content.cloudWaste.messageFramework.hook}
+                multiline
+                onChange={(v) =>
+                  setContent({
+                    ...content,
+                    cloudWaste: {
+                      ...content.cloudWaste,
+                      messageFramework: { ...content.cloudWaste.messageFramework, hook: v },
+                    },
+                  })
+                }
+              />
+              <Field
+                label="Promise (tagline)"
+                value={content.cloudWaste.product.tagline}
+                multiline
+                onChange={(v) =>
+                  setContent({
+                    ...content,
+                    cloudWaste: {
+                      ...content.cloudWaste,
+                      product: { ...content.cloudWaste.product, tagline: v },
+                    },
+                  })
+                }
+              />
+              <Field
+                label="Proof"
+                value={content.cloudWaste.messageFramework.proof}
+                multiline
+                onChange={(v) =>
+                  setContent({
+                    ...content,
+                    cloudWaste: {
+                      ...content.cloudWaste,
+                      messageFramework: { ...content.cloudWaste.messageFramework, proof: v },
+                    },
+                  })
+                }
+              />
+              <Field
+                label="Ask"
+                value={content.cloudWaste.messageFramework.ask}
+                multiline
+                onChange={(v) =>
+                  setContent({
+                    ...content,
+                    cloudWaste: {
+                      ...content.cloudWaste,
+                      messageFramework: { ...content.cloudWaste.messageFramework, ask: v },
+                    },
+                  })
+                }
               />
             </div>
           </div>

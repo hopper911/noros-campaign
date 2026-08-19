@@ -82,13 +82,10 @@ export default async function CloudWasteHeroPage() {
   const campaignLines = splitCampaignLine(cloudWaste.campaignLine);
   const framework = [
     { label: "Insight", body: cloudWaste.insight },
-    {
-      label: "Hook",
-      body: "Your cloud bill passed review. Spend is within budget. But 32% is waste — and nothing flagged it.",
-    },
+    { label: "Hook", body: cloudWaste.messageFramework.hook },
     { label: "Promise", body: cloudWaste.product.tagline },
-    { label: "Proof", body: "$134K waste identified → $98K recovered in 90 days. Five-minute setup. Read-only." },
-    { label: "Ask", body: "Connect one account. Noros surfaces waste within 24 hours." },
+    { label: "Proof", body: cloudWaste.messageFramework.proof },
+    { label: "Ask", body: cloudWaste.messageFramework.ask },
   ];
   return (
     <CampaignShell title="Cloud Waste Campaign">
@@ -107,7 +104,7 @@ export default async function CloudWasteHeroPage() {
           <div className="relative z-10 p-5 sm:p-8 md:p-10 lg:p-14">
             <HeaderBar />
             <p className="mt-8 font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
-              Demand-Generation Campaign · Cloud Waste
+              {cloudWaste.hero.eyebrow}
             </p>
             <BoxedTitle size="t2" className="mt-4" lines={campaignLines} />
             <p className="t6 mt-6 max-w-2xl text-neue">
@@ -115,16 +112,16 @@ export default async function CloudWasteHeroPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/campaign/cloud-waste/report"
+                href={cloudWaste.hero.primaryCta.href}
                 className="inline-flex items-center rounded-full bg-mint px-5 py-2.5 font-mono text-[11px] font-semibold tracking-[0.08em] text-black uppercase"
               >
-                Get the Report
+                {cloudWaste.hero.primaryCta.label}
               </Link>
               <Link
-                href="/campaign/cloud-waste/dashboard"
+                href={cloudWaste.hero.secondaryCta.href}
                 className="inline-flex items-center rounded-full border border-mint/40 px-5 py-2.5 font-mono text-[11px] tracking-[0.08em] text-mint uppercase hover:bg-mint/10"
               >
-                View Metrics
+                {cloudWaste.hero.secondaryCta.label}
               </Link>
             </div>
           </div>

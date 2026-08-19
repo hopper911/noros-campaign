@@ -15,7 +15,9 @@ import {
   CW_DASHBOARD_KPIS,
   CW_EMAILS,
   CW_FUNNEL,
+  CW_HERO,
   CW_INSIGHT,
+  CW_MESSAGE_FRAMEWORK,
   CW_OOH,
   CW_PRODUCT,
   CW_REPORT,
@@ -123,6 +125,8 @@ export type CloudWasteContent = {
   insight: string;
   stat: string;
   statSource: string;
+  hero: typeof CW_HERO;
+  messageFramework: typeof CW_MESSAGE_FRAMEWORK;
   product: typeof CW_PRODUCT;
   audiences: Record<CwAudienceId, CloudWasteAudience>;
   report: {
@@ -234,6 +238,8 @@ export function defaultSiteContent(): SiteContent {
       insight: CW_INSIGHT,
       stat: CW_STAT,
       statSource: CW_STAT_SOURCE,
+      hero: structuredClone(CW_HERO),
+      messageFramework: structuredClone(CW_MESSAGE_FRAMEWORK),
       product: { ...CW_PRODUCT },
       audiences: {
         vp: {
@@ -336,6 +342,10 @@ export function mergeSiteContent(stored: unknown): SiteContent {
   const ctaIn = isRecord(landingIn.cta) ? landingIn.cta : {};
   const testimonialsIn = isRecord(landingIn.testimonials) ? landingIn.testimonials : {};
   const cwProductIn = isRecord(cloudWasteIn.product) ? cloudWasteIn.product : {};
+  const cwHeroIn = isRecord(cloudWasteIn.hero) ? cloudWasteIn.hero : {};
+  const cwHeroPrimaryIn = isRecord(cwHeroIn.primaryCta) ? cwHeroIn.primaryCta : {};
+  const cwHeroSecondaryIn = isRecord(cwHeroIn.secondaryCta) ? cwHeroIn.secondaryCta : {};
+  const cwFrameworkIn = isRecord(cloudWasteIn.messageFramework) ? cloudWasteIn.messageFramework : {};
   const cwAudiencesIn = isRecord(cloudWasteIn.audiences) ? cloudWasteIn.audiences : {};
   const cwReportIn = isRecord(cloudWasteIn.report) ? cloudWasteIn.report : {};
   const cwAdsIn = isRecord(cloudWasteIn.ads) ? cloudWasteIn.ads : {};
@@ -491,6 +501,22 @@ export function mergeSiteContent(stored: unknown): SiteContent {
       insight: str(cloudWasteIn.insight, base.cloudWaste.insight),
       stat: str(cloudWasteIn.stat, base.cloudWaste.stat),
       statSource: str(cloudWasteIn.statSource, base.cloudWaste.statSource),
+      hero: {
+        eyebrow: str(cwHeroIn.eyebrow, base.cloudWaste.hero.eyebrow),
+        primaryCta: {
+          label: str(cwHeroPrimaryIn.label, base.cloudWaste.hero.primaryCta.label),
+          href: str(cwHeroPrimaryIn.href, base.cloudWaste.hero.primaryCta.href),
+        },
+        secondaryCta: {
+          label: str(cwHeroSecondaryIn.label, base.cloudWaste.hero.secondaryCta.label),
+          href: str(cwHeroSecondaryIn.href, base.cloudWaste.hero.secondaryCta.href),
+        },
+      },
+      messageFramework: {
+        hook: str(cwFrameworkIn.hook, base.cloudWaste.messageFramework.hook),
+        proof: str(cwFrameworkIn.proof, base.cloudWaste.messageFramework.proof),
+        ask: str(cwFrameworkIn.ask, base.cloudWaste.messageFramework.ask),
+      },
       product: {
         name: str(cwProductIn.name, base.cloudWaste.product.name),
         tagline: str(cwProductIn.tagline, base.cloudWaste.product.tagline),
