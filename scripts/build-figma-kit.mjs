@@ -624,6 +624,12 @@ const manifest = [
   ["landing-pricing.svg", "Landing pricing", "1440×720"],
   ["landing-faq.svg", "Landing FAQ", "1440×900"],
   ["landing-footer.svg", "Landing footer", "1440×560"],
+  ["cw-hero.svg", "Cloud Waste hero", "1440×900"],
+  ["cw-report-cover.svg", "Cloud Waste report cover", "1080×1080"],
+  ["cw-ad-01.svg", "Cloud Waste ad 01", "1200×628"],
+  ["cw-ad-02.svg", "Cloud Waste ad 02", "1200×628"],
+  ["cw-ad-03.svg", "Cloud Waste ad 03", "1200×628"],
+  ["cw-ooh.svg", "Cloud Waste OOH", "1080×1920"],
 ];
 
 writeFileSync(join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2));

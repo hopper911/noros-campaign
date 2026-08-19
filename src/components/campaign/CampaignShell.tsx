@@ -19,6 +19,7 @@ const links = [
   { href: "/campaign/cfo", label: "CFO" },
   { href: "/campaign/finops", label: "FinOps" },
   { href: "/campaign/engineers", label: "Engineers" },
+  { href: "/campaign/cloud-waste", label: "Cloud Waste" },
 ];
 
 export function CampaignShell({

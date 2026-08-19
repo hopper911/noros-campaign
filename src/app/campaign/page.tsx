@@ -19,6 +19,7 @@ const kitLinks = [
   ["/campaign/ui", "Product UI graphic"],
   ["/campaign/meet", "Meet Noros hero"],
   ["/campaign/figma", "Figma boards"],
+  ["/campaign/cloud-waste", "Cloud waste campaign"],
 ] as const;
 
 export default async function CampaignHubPage() {
