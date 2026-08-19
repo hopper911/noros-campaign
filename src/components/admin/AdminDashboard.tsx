@@ -2,7 +2,7 @@
 
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
-import type { AudienceId, SiteContent } from "@/lib/site-content";
+import type { AudienceId, CloudWasteMediaAsset, SiteContent } from "@/lib/site-content";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -13,6 +13,7 @@ const sections = [
   { id: "graphics", label: "Kit graphics" },
   { id: "carousel", label: "Carousel & storyboard" },
   { id: "landing", label: "Landing" },
+  { id: "cloud-waste", label: "Cloud Waste" },
 ] as const;
 
 const roles: AudienceId[] = ["cfo", "finops", "engineer"];
@@ -85,7 +86,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
         return;
       }
       setContent(data.content);
-      setStatus("Image uploaded.");
+      setStatus("Media uploaded.");
       router.refresh();
     } finally {
       setUploading(null);
@@ -537,6 +538,596 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
           ))}
         </div>
       </Section>
+
+      <Section id="cloud-waste" title="Cloud Waste">
+        <div className="space-y-8">
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              Hero
+            </p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-2">
+              <div className="space-y-4">
+                <Field
+                  label="Campaign line"
+                  value={content.cloudWaste.campaignLine}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: { ...content.cloudWaste, campaignLine: v },
+                    })
+                  }
+                />
+                <Field
+                  label="Insight"
+                  value={content.cloudWaste.insight}
+                  multiline
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: { ...content.cloudWaste, insight: v },
+                    })
+                  }
+                />
+                <Field
+                  label="Product tagline"
+                  value={content.cloudWaste.product.tagline}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        product: { ...content.cloudWaste.product, tagline: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Product support"
+                  value={content.cloudWaste.product.support}
+                  multiline
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        product: { ...content.cloudWaste.product, support: v },
+                      },
+                    })
+                  }
+                />
+              </div>
+              <ImageSlot
+                label="Hero image or video"
+                src={content.cloudWaste.media.hero}
+                kind="cw-hero"
+                aspect="aspect-[16/10]"
+                uploading={uploading}
+                onUpload={upload}
+                accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              Report
+            </p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-2">
+              <div className="space-y-4">
+                <Field
+                  label="Report title"
+                  value={content.cloudWaste.report.title}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        report: { ...content.cloudWaste.report, title: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Report subtitle"
+                  value={content.cloudWaste.report.subtitle}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        report: { ...content.cloudWaste.report, subtitle: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Hero stat"
+                  value={content.cloudWaste.stat}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: { ...content.cloudWaste, stat: v },
+                    })
+                  }
+                />
+                <Field
+                  label="Stat source"
+                  value={content.cloudWaste.statSource}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: { ...content.cloudWaste, statSource: v },
+                    })
+                  }
+                />
+              </div>
+              <ImageSlot
+                label="Report cover image or video"
+                src={content.cloudWaste.media.reportCover}
+                kind="cw-report-cover"
+                aspect="aspect-square"
+                uploading={uploading}
+                onUpload={upload}
+                accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              Ads & carousel
+            </p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-3">
+              {content.cloudWaste.ads.static.map((ad, i) => (
+                <div key={`cw-ad-${i}`} className="space-y-4 border border-white/10 p-4">
+                  <ImageSlot
+                    label={`Ad ${i + 1} image or video`}
+                    src={content.cloudWaste.media.ads[i]}
+                    kind={`cw-ad-${i}`}
+                    aspect="aspect-[1.91/1]"
+                    uploading={uploading}
+                    onUpload={upload}
+                    accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+                  />
+                  <Field
+                    label="Headline"
+                    value={ad.headline}
+                    onChange={(v) => {
+                      const nextAds = content.cloudWaste.ads.static.map((item, idx) =>
+                        idx === i ? { ...item, headline: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: {
+                          ...content.cloudWaste,
+                          ads: { ...content.cloudWaste.ads, static: nextAds },
+                        },
+                      });
+                    }}
+                  />
+                  <Field
+                    label="Body"
+                    value={ad.body}
+                    multiline
+                    onChange={(v) => {
+                      const nextAds = content.cloudWaste.ads.static.map((item, idx) =>
+                        idx === i ? { ...item, body: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: {
+                          ...content.cloudWaste,
+                          ads: { ...content.cloudWaste.ads, static: nextAds },
+                        },
+                      });
+                    }}
+                  />
+                  <Field
+                    label="CTA"
+                    value={ad.cta}
+                    onChange={(v) => {
+                      const nextAds = content.cloudWaste.ads.static.map((item, idx) =>
+                        idx === i ? { ...item, cta: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: {
+                          ...content.cloudWaste,
+                          ads: { ...content.cloudWaste.ads, static: nextAds },
+                        },
+                      });
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {content.cloudWaste.ads.carousel.map((slide, i) => (
+                <div key={`cw-carousel-${i}`} className="space-y-3 border border-white/10 p-4">
+                  <ImageSlot
+                    label={`Carousel ${i + 1} image or video`}
+                    src={content.cloudWaste.media.carousel[i]}
+                    kind={`cw-carousel-${i}`}
+                    aspect="aspect-square"
+                    uploading={uploading}
+                    onUpload={upload}
+                    accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+                  />
+                  <Field
+                    label="Title"
+                    value={slide.title}
+                    onChange={(v) => {
+                      const carousel = content.cloudWaste.ads.carousel.map((item, idx) =>
+                        idx === i ? { ...item, title: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: {
+                          ...content.cloudWaste,
+                          ads: { ...content.cloudWaste.ads, carousel },
+                        },
+                      });
+                    }}
+                  />
+                  <Field
+                    label="Body"
+                    value={slide.body}
+                    multiline
+                    onChange={(v) => {
+                      const carousel = content.cloudWaste.ads.carousel.map((item, idx) =>
+                        idx === i ? { ...item, body: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: {
+                          ...content.cloudWaste,
+                          ads: { ...content.cloudWaste.ads, carousel },
+                        },
+                      });
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              Email sequence
+            </p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-3">
+              {content.cloudWaste.emails.map((email, i) => (
+                <div key={`cw-email-${i}`} className="space-y-3 border border-white/10 p-4">
+                  <Field
+                    label="Subject"
+                    value={email.subject}
+                    onChange={(v) => {
+                      const emails = content.cloudWaste.emails.map((item, idx) =>
+                        idx === i ? { ...item, subject: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: { ...content.cloudWaste, emails },
+                      });
+                    }}
+                  />
+                  <Field
+                    label="Preview"
+                    value={email.preview}
+                    onChange={(v) => {
+                      const emails = content.cloudWaste.emails.map((item, idx) =>
+                        idx === i ? { ...item, preview: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: { ...content.cloudWaste, emails },
+                      });
+                    }}
+                  />
+                  <Field
+                    label="Body"
+                    value={email.body}
+                    multiline
+                    onChange={(v) => {
+                      const emails = content.cloudWaste.emails.map((item, idx) =>
+                        idx === i ? { ...item, body: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: { ...content.cloudWaste, emails },
+                      });
+                    }}
+                  />
+                  <Field
+                    label="CTA"
+                    value={email.cta}
+                    onChange={(v) => {
+                      const emails = content.cloudWaste.emails.map((item, idx) =>
+                        idx === i ? { ...item, cta: v } : item,
+                      );
+                      setContent({
+                        ...content,
+                        cloudWaste: { ...content.cloudWaste, emails },
+                      });
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              Webinar
+            </p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-2">
+              <div className="space-y-4">
+                <Field
+                  label="Title"
+                  value={content.cloudWaste.webinar.title}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        webinar: { ...content.cloudWaste.webinar, title: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Subtitle"
+                  value={content.cloudWaste.webinar.subtitle}
+                  multiline
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        webinar: { ...content.cloudWaste.webinar, subtitle: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Speaker name"
+                  value={content.cloudWaste.webinar.speaker.name}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        webinar: {
+                          ...content.cloudWaste.webinar,
+                          speaker: { ...content.cloudWaste.webinar.speaker, name: v },
+                        },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Speaker role"
+                  value={content.cloudWaste.webinar.speaker.role}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        webinar: {
+                          ...content.cloudWaste.webinar,
+                          speaker: { ...content.cloudWaste.webinar.speaker, role: v },
+                        },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Agenda (one per line)"
+                  value={content.cloudWaste.webinar.agenda.join("\n")}
+                  multiline
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        webinar: {
+                          ...content.cloudWaste.webinar,
+                          agenda: v.split("\n").map((item) => item.trim()).filter(Boolean),
+                        },
+                      },
+                    })
+                  }
+                />
+              </div>
+              <ImageSlot
+                label="Webinar image or video"
+                src={content.cloudWaste.media.webinar}
+                kind="cw-webinar"
+                aspect="aspect-video"
+                uploading={uploading}
+                onUpload={upload}
+                accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              OOH
+            </p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-2">
+              <div className="space-y-4">
+                <Field
+                  label="Headline"
+                  value={content.cloudWaste.ooh.headline}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        ooh: { ...content.cloudWaste.ooh, headline: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Subline"
+                  value={content.cloudWaste.ooh.subline}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        ooh: { ...content.cloudWaste.ooh, subline: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Placement"
+                  value={content.cloudWaste.ooh.placement}
+                  multiline
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        ooh: { ...content.cloudWaste.ooh, placement: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Spec"
+                  value={content.cloudWaste.ooh.spec}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        ooh: { ...content.cloudWaste.ooh, spec: v },
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Conference"
+                  value={content.cloudWaste.ooh.conference}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      cloudWaste: {
+                        ...content.cloudWaste,
+                        ooh: { ...content.cloudWaste.ooh, conference: v },
+                      },
+                    })
+                  }
+                />
+              </div>
+              <ImageSlot
+                label="OOH image or video"
+                src={content.cloudWaste.media.ooh}
+                kind="cw-ooh"
+                aspect="aspect-[9/16]"
+                uploading={uploading}
+                onUpload={upload}
+                accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              Dashboard
+            </p>
+            <div className="mt-4 grid gap-6 lg:grid-cols-2">
+              <ImageSlot
+                label="Dashboard image or video"
+                src={content.cloudWaste.media.dashboard}
+                kind="cw-dashboard"
+                aspect="aspect-[16/10]"
+                uploading={uploading}
+                onUpload={upload}
+                accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+              />
+              <div className="space-y-3">
+                {content.cloudWaste.dashboard.kpis.map((kpi, i) => (
+                  <div key={`kpi-${i}`} className="grid gap-3 border border-white/10 p-4 md:grid-cols-2">
+                    <Field
+                      label="Label"
+                      value={kpi.label}
+                      onChange={(v) => {
+                        const kpis = content.cloudWaste.dashboard.kpis.map((item, idx) =>
+                          idx === i ? { ...item, label: v } : item,
+                        );
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            dashboard: { ...content.cloudWaste.dashboard, kpis },
+                          },
+                        });
+                      }}
+                    />
+                    <Field
+                      label="Target"
+                      value={String(kpi.target)}
+                      onChange={(v) => {
+                        const nextValue = Number(v);
+                        const kpis = content.cloudWaste.dashboard.kpis.map((item, idx) =>
+                          idx === i
+                            ? { ...item, target: Number.isFinite(nextValue) ? nextValue : item.target }
+                            : item,
+                        );
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            dashboard: { ...content.cloudWaste.dashboard, kpis },
+                          },
+                        });
+                      }}
+                    />
+                    <Field
+                      label="Prefix"
+                      value={kpi.prefix}
+                      onChange={(v) => {
+                        const kpis = content.cloudWaste.dashboard.kpis.map((item, idx) =>
+                          idx === i ? { ...item, prefix: v } : item,
+                        );
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            dashboard: { ...content.cloudWaste.dashboard, kpis },
+                          },
+                        });
+                      }}
+                    />
+                    <Field
+                      label="Unit"
+                      value={kpi.unit}
+                      onChange={(v) => {
+                        const kpis = content.cloudWaste.dashboard.kpis.map((item, idx) =>
+                          idx === i ? { ...item, unit: v } : item,
+                        );
+                        setContent({
+                          ...content,
+                          cloudWaste: {
+                            ...content.cloudWaste,
+                            dashboard: { ...content.cloudWaste.dashboard, kpis },
+                          },
+                        });
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
     </div>
   );
 }
@@ -567,26 +1158,59 @@ function ImageSlot({
   aspect,
   uploading,
   onUpload,
+  accept = "image/jpeg,image/png,image/webp,image/gif",
 }: {
   label: string;
-  src: string;
+  src: string | CloudWasteMediaAsset | null;
   kind: string;
   aspect: string;
   uploading: string | null;
   onUpload: (kind: string, file: File) => void;
+  accept?: string;
 }) {
+  const url = typeof src === "string" ? src : src?.url ?? "";
+  const isVideo = !!src && typeof src !== "string" && src.mediaType === "video";
   return (
     <div>
       <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">{label}</p>
-      <div className={`relative mt-2 overflow-hidden border border-white/10 ${aspect}`}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
-      </div>
-      <label className="btn-nav mt-3 inline-flex cursor-pointer">
-        {uploading === kind ? "Uploading…" : "Upload image"}
+      <label className={`group relative mt-2 block cursor-pointer overflow-hidden border border-white/10 ${aspect}`}>
+        {url ? (
+          isVideo ? (
+            <video
+              src={url}
+              controls
+              muted
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={url} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          )
+        ) : (
+          <div className="absolute inset-0 bg-white/[0.03]" />
+        )}
+        <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/15" />
+        <div className="absolute inset-x-3 bottom-3 rounded-full bg-black/80 px-3 py-1.5 text-center font-mono text-[10px] tracking-[0.08em] text-mint uppercase">
+          {uploading === kind ? "Uploading…" : "Upload / replace media"}
+        </div>
         <input
           type="file"
-          accept="image/jpeg,image/png,image/webp,image/gif"
+          accept={accept}
+          className="hidden"
+          disabled={!!uploading}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) onUpload(kind, file);
+            e.target.value = "";
+          }}
+        />
+      </label>
+      <label className="btn-nav mt-3 inline-flex cursor-pointer">
+        {uploading === kind ? "Uploading…" : "Choose file"}
+        <input
+          type="file"
+          accept={accept}
           className="hidden"
           disabled={!!uploading}
           onChange={(e) => {

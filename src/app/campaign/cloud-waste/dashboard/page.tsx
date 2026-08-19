@@ -3,10 +3,11 @@ import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { Reveal } from "@/components/motion/Reveal";
-import { CW_DASHBOARD_KPIS, CW_FUNNEL } from "@/lib/cloud-waste-messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 import { DashboardMetrics } from "./DashboardMetrics";
 
-export default function CloudWasteDashboardPage() {
+export default async function CloudWasteDashboardPage() {
+  const { cloudWaste } = await getSiteContent();
   return (
     <CampaignShell title="Cloud Waste — Campaign Dashboard">
       <GridFrame borders="trb" ink="mint" strength={40}>
@@ -19,7 +20,11 @@ export default function CloudWasteDashboardPage() {
         </Reveal>
       </GridFrame>
 
-      <DashboardMetrics kpis={CW_DASHBOARD_KPIS} funnel={CW_FUNNEL} />
+      <DashboardMetrics
+        kpis={cloudWaste.dashboard.kpis}
+        funnel={cloudWaste.dashboard.funnel}
+        media={cloudWaste.media.dashboard}
+      />
     </CampaignShell>
   );
 }

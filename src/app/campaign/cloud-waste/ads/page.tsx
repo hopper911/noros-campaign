@@ -1,9 +1,10 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
+import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
-import { CW_ADS, CW_EMAILS } from "@/lib/cloud-waste-messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 
 function AdVisual({ variant }: { variant: number }) {
   return (
@@ -18,7 +19,8 @@ function AdVisual({ variant }: { variant: number }) {
   );
 }
 
-export default function CloudWasteAdsPage() {
+export default async function CloudWasteAdsPage() {
+  const { cloudWaste } = await getSiteContent();
   return (
     <CampaignShell title="Cloud Waste — Ads & Email">
       {/* Header */}
@@ -34,12 +36,18 @@ export default function CloudWasteAdsPage() {
 
       {/* LinkedIn static ads */}
       <RevealStagger className="grid md:grid-cols-3">
-        {CW_ADS.static.map((ad, i) => (
+        {cloudWaste.ads.static.map((ad, i) => (
           <RevealItem key={i}>
             <GridFrame borders="rb" ink="mint" strength={40}>
               <article>
                 <div className="relative aspect-[1.91/1] overflow-hidden bg-black">
-                  <AdVisual variant={i} />
+                  <CloudWasteMedia
+                    asset={cloudWaste.media.ads[i] ?? null}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    alt={`Cloud Waste ad ${i + 1}`}
+                  >
+                    <AdVisual variant={i} />
+                  </CloudWasteMedia>
                   <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5">
                     <p className="font-mono text-[10px] text-mint uppercase">LinkedIn · 1200×628</p>
                     <h3 className="t5 mt-1 text-white">{ad.headline}</h3>
@@ -62,11 +70,19 @@ export default function CloudWasteAdsPage() {
             LinkedIn Carousel · 1080×1080 · 5 slides
           </p>
           <div className="mt-4 grid grid-cols-5 gap-2">
-            {CW_ADS.carousel.map((slide) => (
-              <div key={slide.slide} className="aspect-square rounded border border-mint/20 bg-white/[0.02] p-3 flex flex-col justify-end">
+            {cloudWaste.ads.carousel.map((slide, i) => (
+              <div key={slide.slide} className="relative aspect-square overflow-hidden rounded border border-mint/20 bg-white/[0.02] p-3 flex flex-col justify-end">
+                <CloudWasteMedia
+                  asset={cloudWaste.media.carousel[i] ?? null}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  alt={`Cloud Waste carousel slide ${i + 1}`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <div className="relative">
                 <p className="font-mono text-[9px] text-neue/40">Slide {slide.slide}</p>
                 <p className="mt-1 text-[11px] font-semibold leading-tight text-white">{slide.title}</p>
                 <p className="mt-0.5 text-[9px] text-neue/60">{slide.body}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -80,7 +96,7 @@ export default function CloudWasteAdsPage() {
             Display Sizes
           </p>
           <div className="mt-4 flex flex-wrap items-end gap-4">
-            {Object.entries(CW_ADS.display).map(([name, size]) => (
+            {Object.entries(cloudWaste.ads.display).map(([name, size]) => (
               <div key={name} className="flex flex-col items-center gap-1">
                 <div
                   className="rounded border border-mint/20 bg-white/[0.02]"
@@ -97,7 +113,7 @@ export default function CloudWasteAdsPage() {
 
       {/* Email sequence */}
       <RevealStagger className="grid md:grid-cols-3">
-        {CW_EMAILS.map((email) => (
+        {cloudWaste.emails.map((email) => (
           <RevealItem key={email.n}>
             <GridFrame borders="rb" ink="mint" strength={40}>
               <article className="flex h-full flex-col p-5 sm:p-6">

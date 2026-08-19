@@ -1,9 +1,10 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
+import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { CW_OOH } from "@/lib/cloud-waste-messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 
 function OohSVG() {
   return (
@@ -48,7 +49,8 @@ function OohSVG() {
   );
 }
 
-export default function CloudWasteOohPage() {
+export default async function CloudWasteOohPage() {
+  const { cloudWaste } = await getSiteContent();
   return (
     <CampaignShell title="Cloud Waste — Out-of-Home">
       <GridFrame borders="trb" ink="mint" strength={40}>
@@ -65,16 +67,22 @@ export default function CloudWasteOohPage() {
       <GridFrame borders="rb" ink="mint" strength={40}>
         <div className="mx-auto max-w-md p-5 sm:p-8">
           <div className="relative aspect-[9/16] overflow-hidden rounded-lg border border-mint/20">
-            <OohSVG />
+            <CloudWasteMedia
+              asset={cloudWaste.media.ooh}
+              className="h-full w-full object-cover"
+              alt="Cloud Waste out-of-home media"
+            >
+              <OohSVG />
+            </CloudWasteMedia>
             <div className="absolute inset-0 flex flex-col justify-between p-8">
               <div>
                 <p className="font-mono text-[12px] tracking-[0.16em] text-mint uppercase">Noros</p>
               </div>
               <div className="mb-16">
                 <h2 className="text-2xl font-semibold leading-tight text-white">
-                  {CW_OOH.headline}
+                  {cloudWaste.ooh.headline}
                 </h2>
-                <p className="mt-2 text-sm text-neue/70">{CW_OOH.subline}</p>
+                <p className="mt-2 text-sm text-neue/70">{cloudWaste.ooh.subline}</p>
               </div>
             </div>
           </div>
@@ -89,9 +97,9 @@ export default function CloudWasteOohPage() {
           </p>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
             {[
-              ["Placement", CW_OOH.placement],
-              ["Spec", CW_OOH.spec],
-              ["Target conference", CW_OOH.conference],
+              ["Placement", cloudWaste.ooh.placement],
+              ["Spec", cloudWaste.ooh.spec],
+              ["Target conference", cloudWaste.ooh.conference],
               ["Visual language", "Abstract infrastructure silhouettes — server racks, tangled cables, glowing utilization meters (mint on black). Waste zones shift to red/amber."],
             ].map(([dt, dd]) => (
               <div key={dt}>

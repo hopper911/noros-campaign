@@ -1,14 +1,10 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
+import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
-import {
-  CW_CAMPAIGN_LINE,
-  CW_INSIGHT,
-  CW_AUDIENCES,
-  CW_PRODUCT,
-} from "@/lib/cloud-waste-messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
 
 function ServerRackSVG() {
@@ -70,31 +66,43 @@ function ServerRackSVG() {
   );
 }
 
-const campaignLines = CW_CAMPAIGN_LINE.split(" ").reduce<string[]>(
-  (acc, word, i) => {
-    if (i < 3) acc[0] = (acc[0] || "") + (acc[0] ? " " : "") + word;
-    else acc[1] = (acc[1] || "") + (acc[1] ? " " : "") + word;
-    return acc;
-  },
-  []
-);
+function splitCampaignLine(value: string) {
+  return value.split(" ").reduce<string[]>(
+    (acc, word, i) => {
+      if (i < 3) acc[0] = (acc[0] || "") + (acc[0] ? " " : "") + word;
+      else acc[1] = (acc[1] || "") + (acc[1] ? " " : "") + word;
+      return acc;
+    },
+    [],
+  );
+}
 
-const framework = [
-  { label: "Insight", body: CW_INSIGHT },
-  { label: "Hook", body: "Your cloud bill passed review. Spend is within budget. But 32% is waste — and nothing flagged it." },
-  { label: "Promise", body: CW_PRODUCT.tagline },
-  { label: "Proof", body: "$134K waste identified → $98K recovered in 90 days. Five-minute setup. Read-only." },
-  { label: "Ask", body: "Connect one account. Noros surfaces waste within 24 hours." },
-];
-
-export default function CloudWasteHeroPage() {
+export default async function CloudWasteHeroPage() {
+  const { cloudWaste } = await getSiteContent();
+  const campaignLines = splitCampaignLine(cloudWaste.campaignLine);
+  const framework = [
+    { label: "Insight", body: cloudWaste.insight },
+    {
+      label: "Hook",
+      body: "Your cloud bill passed review. Spend is within budget. But 32% is waste — and nothing flagged it.",
+    },
+    { label: "Promise", body: cloudWaste.product.tagline },
+    { label: "Proof", body: "$134K waste identified → $98K recovered in 90 days. Five-minute setup. Read-only." },
+    { label: "Ask", body: "Connect one account. Noros surfaces waste within 24 hours." },
+  ];
   return (
     <CampaignShell title="Cloud Waste Campaign">
       {/* Hero visual */}
       <GridFrame borders="trb" ink="mint" strength={40}>
         <Reveal className="relative overflow-hidden">
           <div className="absolute inset-0">
-            <ServerRackSVG />
+            <CloudWasteMedia
+              asset={cloudWaste.media.hero}
+              className="h-full w-full object-cover"
+              alt="Cloud Waste campaign hero media"
+            >
+              <ServerRackSVG />
+            </CloudWasteMedia>
           </div>
           <div className="relative z-10 p-5 sm:p-8 md:p-10 lg:p-14">
             <HeaderBar />
@@ -103,7 +111,7 @@ export default function CloudWasteHeroPage() {
             </p>
             <BoxedTitle size="t2" className="mt-4" lines={campaignLines} />
             <p className="t6 mt-6 max-w-2xl text-neue">
-              {CW_PRODUCT.support}
+              {cloudWaste.product.support}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -125,7 +133,7 @@ export default function CloudWasteHeroPage() {
 
       {/* Audience pain/promise grid */}
       <RevealStagger className="grid md:grid-cols-3">
-        {Object.values(CW_AUDIENCES).map((aud) => (
+        {Object.values(cloudWaste.audiences).map((aud) => (
           <RevealItem key={aud.id}>
             <GridFrame borders="rb" ink="mint" strength={40}>
               <article className="flex h-full flex-col p-5 sm:p-6">

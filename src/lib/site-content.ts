@@ -8,6 +8,23 @@ import {
   storyboardFrames,
   type AudienceId,
 } from "@/lib/messaging";
+import {
+  CW_ADS,
+  CW_AUDIENCES,
+  CW_CAMPAIGN_LINE,
+  CW_DASHBOARD_KPIS,
+  CW_EMAILS,
+  CW_FUNNEL,
+  CW_INSIGHT,
+  CW_OOH,
+  CW_PRODUCT,
+  CW_REPORT,
+  CW_SALES_DECK,
+  CW_STAT,
+  CW_STAT_SOURCE,
+  CW_WEBINAR,
+  type CwAudienceId,
+} from "@/lib/cloud-waste-messaging";
 
 export type { AudienceId };
 
@@ -48,6 +65,106 @@ export type KitGraphics = {
   announceSecondaryImageUrl: string;
 };
 
+export type CloudWasteMediaAsset = {
+  url: string;
+  mime: string;
+  mediaType: "image" | "video";
+};
+
+export type CloudWasteAudience = {
+  id: CwAudienceId;
+  label: string;
+  shortLabel: string;
+  pain: string;
+  promise: string;
+  proof: string[];
+  cta: string;
+};
+
+export type CloudWasteReportPage = {
+  n: number;
+  title: string;
+  body?: string | null;
+  items?: { label: string; body: string }[];
+  before?: { monthly: string; waste: string; detected: string };
+  after?: { monthly: string; waste: string; recovered: string };
+  cta?: string;
+};
+
+export type CloudWasteEmail = {
+  n: number;
+  subject: string;
+  preview: string;
+  body: string;
+  cta: string;
+};
+
+export type CloudWasteSalesDeckSlide = {
+  n: number;
+  title: string;
+  subtitle?: string;
+  body?: string;
+};
+
+export type CloudWasteKpi = {
+  label: string;
+  target: number;
+  unit: string;
+  prefix: string;
+};
+
+export type CloudWasteFunnelStep = {
+  stage: string;
+  value: number;
+};
+
+export type CloudWasteContent = {
+  campaignLine: string;
+  insight: string;
+  stat: string;
+  statSource: string;
+  product: typeof CW_PRODUCT;
+  audiences: Record<CwAudienceId, CloudWasteAudience>;
+  report: {
+    title: string;
+    subtitle: string;
+    pages: CloudWasteReportPage[];
+  };
+  ads: {
+    static: { headline: string; body: string; cta: string }[];
+    carousel: { slide: number; title: string; body: string }[];
+    display: typeof CW_ADS.display;
+  };
+  emails: CloudWasteEmail[];
+  webinar: {
+    title: string;
+    subtitle: string;
+    agenda: string[];
+    speaker: { name: string; role: string };
+  };
+  salesDeck: CloudWasteSalesDeckSlide[];
+  dashboard: {
+    kpis: CloudWasteKpi[];
+    funnel: CloudWasteFunnelStep[];
+  };
+  ooh: {
+    headline: string;
+    subline: string;
+    placement: string;
+    spec: string;
+    conference: string;
+  };
+  media: {
+    hero: CloudWasteMediaAsset | null;
+    reportCover: CloudWasteMediaAsset | null;
+    ads: (CloudWasteMediaAsset | null)[];
+    carousel: (CloudWasteMediaAsset | null)[];
+    webinar: CloudWasteMediaAsset | null;
+    ooh: CloudWasteMediaAsset | null;
+    dashboard: CloudWasteMediaAsset | null;
+  };
+};
+
 export type SiteContent = {
   campaignLine: string;
   disclaimer: string;
@@ -57,6 +174,7 @@ export type SiteContent = {
   storyboardFrames: StoryboardFrame[];
   landing: LandingContent;
   kit: KitGraphics;
+  cloudWaste: CloudWasteContent;
 };
 
 const DEFAULT_IMAGE = "/north/hero.jpg";
@@ -111,6 +229,59 @@ export function defaultSiteContent(): SiteContent {
       announceImageUrl: DEFAULT_IMAGE,
       announceSecondaryImageUrl: "/north/get-started.jpg",
     },
+    cloudWaste: {
+      campaignLine: CW_CAMPAIGN_LINE,
+      insight: CW_INSIGHT,
+      stat: CW_STAT,
+      statSource: CW_STAT_SOURCE,
+      product: { ...CW_PRODUCT },
+      audiences: {
+        vp: {
+          ...CW_AUDIENCES.vp,
+          proof: [...CW_AUDIENCES.vp.proof],
+        },
+        finops: {
+          ...CW_AUDIENCES.finops,
+          proof: [...CW_AUDIENCES.finops.proof],
+        },
+        cfo: {
+          ...CW_AUDIENCES.cfo,
+          proof: [...CW_AUDIENCES.cfo.proof],
+        },
+      },
+      report: {
+        title: CW_REPORT.title,
+        subtitle: CW_REPORT.subtitle,
+        pages: structuredClone(CW_REPORT.pages),
+      },
+      ads: {
+        static: structuredClone(CW_ADS.static),
+        carousel: structuredClone(CW_ADS.carousel),
+        display: structuredClone(CW_ADS.display),
+      },
+      emails: structuredClone(CW_EMAILS),
+      webinar: {
+        title: CW_WEBINAR.title,
+        subtitle: CW_WEBINAR.subtitle,
+        agenda: [...CW_WEBINAR.agenda],
+        speaker: { ...CW_WEBINAR.speaker },
+      },
+      salesDeck: structuredClone(CW_SALES_DECK),
+      dashboard: {
+        kpis: structuredClone(CW_DASHBOARD_KPIS),
+        funnel: structuredClone(CW_FUNNEL),
+      },
+      ooh: { ...CW_OOH },
+      media: {
+        hero: null,
+        reportCover: null,
+        ads: CW_ADS.static.map(() => null),
+        carousel: CW_ADS.carousel.map(() => null),
+        webinar: null,
+        ooh: null,
+        dashboard: null,
+      },
+    },
   };
 }
 
@@ -126,6 +297,31 @@ function strList(value: unknown, fallback: string[]) {
   return Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : fallback;
 }
 
+function num(value: unknown, fallback: number) {
+  return typeof value === "number" && Number.isFinite(value) ? value : fallback;
+}
+
+function cloudWasteMedia(
+  value: unknown,
+  fallback: CloudWasteMediaAsset | null,
+): CloudWasteMediaAsset | null {
+  if (!isRecord(value)) return fallback;
+  const url = typeof value.url === "string" ? value.url : fallback?.url;
+  const mime = typeof value.mime === "string" ? value.mime : fallback?.mime;
+  const mediaType =
+    value.mediaType === "video" || value.mediaType === "image"
+      ? value.mediaType
+      : fallback?.mediaType;
+  if (!url || !mime || !mediaType) return null;
+
+  const isInternalApiMedia = /^\/api\/media\/[0-9a-f-]{36}$/i.test(url);
+  const isInternalNorthAsset = url.startsWith("/north/");
+  if (!isInternalApiMedia && !isInternalNorthAsset) return null;
+  if (mediaType === "video" && !isInternalApiMedia) return null;
+
+  return { url, mime, mediaType };
+}
+
 export function mergeSiteContent(stored: unknown): SiteContent {
   const base = defaultSiteContent();
   if (!isRecord(stored)) return base;
@@ -134,10 +330,20 @@ export function mergeSiteContent(stored: unknown): SiteContent {
   const audiencesIn = isRecord(stored.audiences) ? stored.audiences : {};
   const landingIn = isRecord(stored.landing) ? stored.landing : {};
   const kitIn = isRecord(stored.kit) ? stored.kit : {};
+  const cloudWasteIn = isRecord(stored.cloudWaste) ? stored.cloudWaste : {};
   const heroIn = isRecord(landingIn.hero) ? landingIn.hero : {};
   const valueIn = isRecord(landingIn.value) ? landingIn.value : {};
   const ctaIn = isRecord(landingIn.cta) ? landingIn.cta : {};
   const testimonialsIn = isRecord(landingIn.testimonials) ? landingIn.testimonials : {};
+  const cwProductIn = isRecord(cloudWasteIn.product) ? cloudWasteIn.product : {};
+  const cwAudiencesIn = isRecord(cloudWasteIn.audiences) ? cloudWasteIn.audiences : {};
+  const cwReportIn = isRecord(cloudWasteIn.report) ? cloudWasteIn.report : {};
+  const cwAdsIn = isRecord(cloudWasteIn.ads) ? cloudWasteIn.ads : {};
+  const cwWebinarIn = isRecord(cloudWasteIn.webinar) ? cloudWasteIn.webinar : {};
+  const cwSpeakerIn = isRecord(cwWebinarIn.speaker) ? cwWebinarIn.speaker : {};
+  const cwDashboardIn = isRecord(cloudWasteIn.dashboard) ? cloudWasteIn.dashboard : {};
+  const cwOohIn = isRecord(cloudWasteIn.ooh) ? cloudWasteIn.ooh : {};
+  const cwMediaIn = isRecord(cloudWasteIn.media) ? cloudWasteIn.media : {};
 
   const mergeAudience = (id: AudienceId): AudienceContent => {
     const raw = isRecord(audiencesIn[id]) ? audiencesIn[id] : {};
@@ -280,6 +486,87 @@ export function mergeSiteContent(stored: unknown): SiteContent {
         base.kit.announceSecondaryImageUrl,
       ),
     },
+    cloudWaste: {
+      campaignLine: str(cloudWasteIn.campaignLine, base.cloudWaste.campaignLine),
+      insight: str(cloudWasteIn.insight, base.cloudWaste.insight),
+      stat: str(cloudWasteIn.stat, base.cloudWaste.stat),
+      statSource: str(cloudWasteIn.statSource, base.cloudWaste.statSource),
+      product: {
+        name: str(cwProductIn.name, base.cloudWaste.product.name),
+        tagline: str(cwProductIn.tagline, base.cloudWaste.product.tagline),
+        support: str(cwProductIn.support, base.cloudWaste.product.support),
+      },
+      audiences: {
+        vp: mergeCloudWasteAudience("vp", cwAudiencesIn, base.cloudWaste),
+        finops: mergeCloudWasteAudience("finops", cwAudiencesIn, base.cloudWaste),
+        cfo: mergeCloudWasteAudience("cfo", cwAudiencesIn, base.cloudWaste),
+      },
+      report: {
+        title: str(cwReportIn.title, base.cloudWaste.report.title),
+        subtitle: str(cwReportIn.subtitle, base.cloudWaste.report.subtitle),
+        pages: Array.isArray(cwReportIn.pages)
+          ? cwReportIn.pages.map((page, i) => mergeReportPage(page, base.cloudWaste.report.pages[i]))
+          : base.cloudWaste.report.pages,
+      },
+      ads: {
+        static: Array.isArray(cwAdsIn.static)
+          ? cwAdsIn.static.map((ad, i) => mergeStaticAd(ad, base.cloudWaste.ads.static[i]))
+          : base.cloudWaste.ads.static,
+        carousel: Array.isArray(cwAdsIn.carousel)
+          ? cwAdsIn.carousel.map((slide, i) => mergeCarouselSlide(slide, base.cloudWaste.ads.carousel[i]))
+          : base.cloudWaste.ads.carousel,
+        display: base.cloudWaste.ads.display,
+      },
+      emails: Array.isArray(cloudWasteIn.emails)
+        ? cloudWasteIn.emails.map((email, i) => mergeEmail(email, base.cloudWaste.emails[i]))
+        : base.cloudWaste.emails,
+      webinar: {
+        title: str(cwWebinarIn.title, base.cloudWaste.webinar.title),
+        subtitle: str(cwWebinarIn.subtitle, base.cloudWaste.webinar.subtitle),
+        agenda: strList(cwWebinarIn.agenda, base.cloudWaste.webinar.agenda),
+        speaker: {
+          name: str(cwSpeakerIn.name, base.cloudWaste.webinar.speaker.name),
+          role: str(cwSpeakerIn.role, base.cloudWaste.webinar.speaker.role),
+        },
+      },
+      salesDeck: Array.isArray(cloudWasteIn.salesDeck)
+        ? cloudWasteIn.salesDeck.map((slide, i) =>
+            mergeSalesDeckSlide(slide, base.cloudWaste.salesDeck[i]),
+          )
+        : base.cloudWaste.salesDeck,
+      dashboard: {
+        kpis: Array.isArray(cwDashboardIn.kpis)
+          ? cwDashboardIn.kpis.map((kpi, i) => mergeKpi(kpi, base.cloudWaste.dashboard.kpis[i]))
+          : base.cloudWaste.dashboard.kpis,
+        funnel: Array.isArray(cwDashboardIn.funnel)
+          ? cwDashboardIn.funnel.map((step, i) =>
+              mergeFunnelStep(step, base.cloudWaste.dashboard.funnel[i]),
+            )
+          : base.cloudWaste.dashboard.funnel,
+      },
+      ooh: {
+        headline: str(cwOohIn.headline, base.cloudWaste.ooh.headline),
+        subline: str(cwOohIn.subline, base.cloudWaste.ooh.subline),
+        placement: str(cwOohIn.placement, base.cloudWaste.ooh.placement),
+        spec: str(cwOohIn.spec, base.cloudWaste.ooh.spec),
+        conference: str(cwOohIn.conference, base.cloudWaste.ooh.conference),
+      },
+      media: {
+        hero: cloudWasteMedia(cwMediaIn.hero, base.cloudWaste.media.hero),
+        reportCover: cloudWasteMedia(cwMediaIn.reportCover, base.cloudWaste.media.reportCover),
+        ads: Array.isArray(cwMediaIn.ads)
+          ? cwMediaIn.ads.map((asset, i) => cloudWasteMedia(asset, base.cloudWaste.media.ads[i]))
+          : base.cloudWaste.media.ads,
+        carousel: Array.isArray(cwMediaIn.carousel)
+          ? cwMediaIn.carousel.map((asset, i) =>
+              cloudWasteMedia(asset, base.cloudWaste.media.carousel[i]),
+            )
+          : base.cloudWaste.media.carousel,
+        webinar: cloudWasteMedia(cwMediaIn.webinar, base.cloudWaste.media.webinar),
+        ooh: cloudWasteMedia(cwMediaIn.ooh, base.cloudWaste.media.ooh),
+        dashboard: cloudWasteMedia(cwMediaIn.dashboard, base.cloudWaste.media.dashboard),
+      },
+    },
   };
 }
 
@@ -338,6 +625,19 @@ export const MEDIA_KINDS = [
   "feature-0",
   "feature-1",
   "feature-2",
+  "cw-hero",
+  "cw-report-cover",
+  "cw-ad-0",
+  "cw-ad-1",
+  "cw-ad-2",
+  "cw-carousel-0",
+  "cw-carousel-1",
+  "cw-carousel-2",
+  "cw-carousel-3",
+  "cw-carousel-4",
+  "cw-webinar",
+  "cw-ooh",
+  "cw-dashboard",
 ] as const;
 
 export type MediaKind = (typeof MEDIA_KINDS)[number];
@@ -353,8 +653,16 @@ const KIT_FIELDS: Partial<Record<MediaKind, keyof KitGraphics>> = {
   "kit-announce-secondary": "announceSecondaryImageUrl",
 };
 
-export function applyMediaUrl(content: SiteContent, kind: MediaKind, url: string): SiteContent {
+export function applyMediaUrl(content: SiteContent, kind: MediaKind, url: string, mime?: string): SiteContent {
   const next = structuredClone(content);
+  const mediaAsset =
+    mime && (kind.startsWith("cw-") || kind === "cw-ooh" || kind === "cw-webinar")
+      ? {
+          url,
+          mime,
+          mediaType: mime.startsWith("video/") ? ("video" as const) : ("image" as const),
+        }
+      : null;
   if (kind.startsWith("ad-")) {
     const id = kind.slice(3) as AudienceId;
     next.audiences[id].adImageUrl = url;
@@ -390,5 +698,152 @@ export function applyMediaUrl(content: SiteContent, kind: MediaKind, url: string
   if (kind === "landing-value") next.landing.valueImageUrl = url;
   if (kind === "landing-quotes") next.landing.quotesImageUrl = url;
   if (kind === "landing-cta") next.landing.ctaImageUrl = url;
+  if (kind === "cw-hero" && mediaAsset) next.cloudWaste.media.hero = mediaAsset;
+  if (kind === "cw-report-cover" && mediaAsset) next.cloudWaste.media.reportCover = mediaAsset;
+  if (kind.startsWith("cw-ad-") && mediaAsset) {
+    const i = Number(kind.slice("cw-ad-".length));
+    if (next.cloudWaste.media.ads[i] !== undefined) next.cloudWaste.media.ads[i] = mediaAsset;
+  }
+  if (kind.startsWith("cw-carousel-") && mediaAsset) {
+    const i = Number(kind.slice("cw-carousel-".length));
+    if (next.cloudWaste.media.carousel[i] !== undefined) {
+      next.cloudWaste.media.carousel[i] = mediaAsset;
+    }
+  }
+  if (kind === "cw-webinar" && mediaAsset) next.cloudWaste.media.webinar = mediaAsset;
+  if (kind === "cw-ooh" && mediaAsset) next.cloudWaste.media.ooh = mediaAsset;
+  if (kind === "cw-dashboard" && mediaAsset) next.cloudWaste.media.dashboard = mediaAsset;
   return next;
+}
+
+function mergeCloudWasteAudience(
+  id: CwAudienceId,
+  audiencesIn: Record<string, unknown>,
+  base: CloudWasteContent,
+): CloudWasteAudience {
+  const raw = isRecord(audiencesIn[id]) ? audiencesIn[id] : {};
+  const fallback = base.audiences[id];
+  return {
+    ...fallback,
+    id,
+    label: str(raw.label, fallback.label),
+    shortLabel: str(raw.shortLabel, fallback.shortLabel),
+    pain: str(raw.pain, fallback.pain),
+    promise: str(raw.promise, fallback.promise),
+    proof: strList(raw.proof, fallback.proof),
+    cta: str(raw.cta, fallback.cta),
+  };
+}
+
+function mergeReportPage(rawPage: unknown, fallback?: CloudWasteReportPage): CloudWasteReportPage {
+  const fb = fallback ?? {
+    n: 0,
+    title: "",
+    body: null,
+  };
+  const raw = isRecord(rawPage) ? rawPage : {};
+  return {
+    n: num(raw.n, fb.n),
+    title: str(raw.title, fb.title),
+    body: raw.body === null ? null : str(raw.body, fb.body ?? ""),
+    items: Array.isArray(raw.items)
+      ? raw.items.map((item, i) => {
+          const fallbackItem = fb.items?.[i] ?? fb.items?.[0] ?? { label: "", body: "" };
+          const row = isRecord(item) ? item : {};
+          return {
+            label: str(row.label, fallbackItem.label),
+            body: str(row.body, fallbackItem.body),
+          };
+        })
+      : fb.items,
+    before:
+      isRecord(raw.before) && fb.before
+        ? {
+            monthly: str(raw.before.monthly, fb.before.monthly),
+            waste: str(raw.before.waste, fb.before.waste),
+            detected: str(raw.before.detected, fb.before.detected),
+          }
+        : fb.before,
+    after:
+      isRecord(raw.after) && fb.after
+        ? {
+            monthly: str(raw.after.monthly, fb.after.monthly),
+            waste: str(raw.after.waste, fb.after.waste),
+            recovered: str(raw.after.recovered, fb.after.recovered),
+          }
+        : fb.after,
+    cta: typeof raw.cta === "string" ? raw.cta : fb.cta,
+  };
+}
+
+function mergeStaticAd(
+  value: unknown,
+  fallback?: CloudWasteContent["ads"]["static"][number],
+) {
+  const fb = fallback ?? { headline: "", body: "", cta: "" };
+  const raw = isRecord(value) ? value : {};
+  return {
+    headline: str(raw.headline, fb.headline),
+    body: str(raw.body, fb.body),
+    cta: str(raw.cta, fb.cta),
+  };
+}
+
+function mergeCarouselSlide(
+  value: unknown,
+  fallback?: CloudWasteContent["ads"]["carousel"][number],
+) {
+  const fb = fallback ?? { slide: 1, title: "", body: "" };
+  const raw = isRecord(value) ? value : {};
+  return {
+    slide: num(raw.slide, fb.slide),
+    title: str(raw.title, fb.title),
+    body: str(raw.body, fb.body),
+  };
+}
+
+function mergeEmail(value: unknown, fallback?: CloudWasteEmail): CloudWasteEmail {
+  const fb = fallback ?? { n: 1, subject: "", preview: "", body: "", cta: "" };
+  const raw = isRecord(value) ? value : {};
+  return {
+    n: num(raw.n, fb.n),
+    subject: str(raw.subject, fb.subject),
+    preview: str(raw.preview, fb.preview),
+    body: str(raw.body, fb.body),
+    cta: str(raw.cta, fb.cta),
+  };
+}
+
+function mergeSalesDeckSlide(
+  value: unknown,
+  fallback?: CloudWasteSalesDeckSlide,
+): CloudWasteSalesDeckSlide {
+  const fb = fallback ?? { n: 1, title: "" };
+  const raw = isRecord(value) ? value : {};
+  return {
+    n: num(raw.n, fb.n),
+    title: str(raw.title, fb.title),
+    subtitle: typeof raw.subtitle === "string" ? raw.subtitle : fb.subtitle,
+    body: typeof raw.body === "string" ? raw.body : fb.body,
+  };
+}
+
+function mergeKpi(value: unknown, fallback?: CloudWasteKpi): CloudWasteKpi {
+  const fb = fallback ?? { label: "", target: 0, unit: "", prefix: "" };
+  const raw = isRecord(value) ? value : {};
+  return {
+    label: str(raw.label, fb.label),
+    target: num(raw.target, fb.target),
+    unit: str(raw.unit, fb.unit),
+    prefix: str(raw.prefix, fb.prefix),
+  };
+}
+
+function mergeFunnelStep(value: unknown, fallback?: CloudWasteFunnelStep): CloudWasteFunnelStep {
+  const fb = fallback ?? { stage: "", value: 0 };
+  const raw = isRecord(value) ? value : {};
+  return {
+    stage: str(raw.stage, fb.stage),
+    value: num(raw.value, fb.value),
+  };
 }

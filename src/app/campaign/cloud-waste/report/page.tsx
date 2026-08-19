@@ -1,23 +1,40 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
+import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
-import { CW_REPORT, CW_STAT, CW_STAT_SOURCE } from "@/lib/cloud-waste-messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 
-export default function CloudWasteReportPage() {
+export default async function CloudWasteReportPage() {
+  const { cloudWaste } = await getSiteContent();
   return (
     <CampaignShell title="Cloud Waste — Hidden Cost Report">
       {/* Landing hero */}
       <GridFrame borders="trb" ink="mint" strength={40}>
-        <Reveal className="p-5 sm:p-8 md:p-10 lg:p-14">
+        <Reveal className="relative overflow-hidden p-5 sm:p-8 md:p-10 lg:p-14">
+          <div className="absolute inset-0">
+            <CloudWasteMedia
+              asset={cloudWaste.media.reportCover}
+              className="h-full w-full object-cover"
+              alt="Cloud Waste report cover media"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/55" />
+          </div>
+          <div className="relative">
           <HeaderBar />
           <p className="mt-8 font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
             Lead-Generation Landing · Downloadable Report
           </p>
-          <BoxedTitle size="t2" className="mt-4" lines={["The Hidden", "Cost Report"]} />
-          <p className="t5 mt-4 text-neue">{CW_STAT}</p>
-          <p className="mt-1 font-mono text-[10px] text-neue/50">Source: {CW_STAT_SOURCE}</p>
+          <BoxedTitle
+            size="t2"
+            className="mt-4"
+            lines={[cloudWaste.report.title, cloudWaste.report.subtitle]}
+          />
+          <p className="t5 mt-4 text-neue">{cloudWaste.stat}</p>
+          <p className="mt-1 font-mono text-[10px] text-neue/50">
+            Source: {cloudWaste.statSource}
+          </p>
           {/* Form (visual only) */}
           <div className="mt-8 max-w-sm rounded-lg border border-mint/20 bg-white/[0.02] p-5">
             <p className="mb-4 font-mono text-[10px] tracking-[0.12em] text-mint uppercase">
@@ -33,13 +50,14 @@ export default function CloudWasteReportPage() {
               Download Report
             </button>
           </div>
+          </div>
         </Reveal>
       </GridFrame>
 
       {/* Report pages */}
       <div className="print:block">
         <RevealStagger className="grid md:grid-cols-2 print:grid-cols-1">
-          {CW_REPORT.pages.map((page) => (
+          {cloudWaste.report.pages.map((page) => (
             <RevealItem key={page.n}>
               <GridFrame borders="rb" ink="mint" strength={40}>
                 <article className="flex min-h-[320px] flex-col p-5 sm:p-6 print:min-h-0 print:break-after-page">
@@ -47,7 +65,7 @@ export default function CloudWasteReportPage() {
                   <h3 className="t5 mt-2 text-white">{page.title}</h3>
                   {page.n === 1 && (
                     <div className="mt-4">
-                      <p className="text-sm text-neue/70">{CW_REPORT.subtitle}</p>
+                      <p className="text-sm text-neue/70">{cloudWaste.report.subtitle}</p>
                       <p className="mt-2 font-mono text-[10px] text-mint">by Noros</p>
                     </div>
                   )}

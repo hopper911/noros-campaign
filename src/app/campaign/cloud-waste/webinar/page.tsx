@@ -1,11 +1,13 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
+import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
-import { CW_WEBINAR, CW_SALES_DECK } from "@/lib/cloud-waste-messaging";
+import { getSiteContent } from "@/lib/get-site-content";
 
-export default function CloudWasteWebinarPage() {
+export default async function CloudWasteWebinarPage() {
+  const { cloudWaste } = await getSiteContent();
   return (
     <CampaignShell title="Cloud Waste — Webinar & Sales Deck">
       {/* Registration page */}
@@ -16,14 +18,14 @@ export default function CloudWasteWebinarPage() {
             Webinar Registration Page
           </p>
           <BoxedTitle size="t2" className="mt-4" lines={["Finding the waste", "your dashboard hides"]} />
-          <p className="t6 mt-4 text-neue">{CW_WEBINAR.subtitle}</p>
+          <p className="t6 mt-4 text-neue">{cloudWaste.webinar.subtitle}</p>
 
           <div className="mt-8 grid gap-8 md:grid-cols-2">
             {/* Agenda */}
             <div>
               <p className="font-mono text-[10px] tracking-[0.12em] text-mint uppercase">Agenda</p>
               <ul className="mt-3 flex flex-col gap-2">
-                {CW_WEBINAR.agenda.map((item, i) => (
+                {cloudWaste.webinar.agenda.map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-neue/70">
                     <span className="mt-1.5 block h-1 w-1 shrink-0 rounded-full bg-mint" />
                     {item}
@@ -32,13 +34,20 @@ export default function CloudWasteWebinarPage() {
               </ul>
               <div className="mt-6 rounded border border-white/10 bg-white/[0.02] p-4">
                 <p className="font-mono text-[10px] text-neue/40">Speaker</p>
-                <p className="mt-1 text-sm text-white">{CW_WEBINAR.speaker.name}</p>
-                <p className="text-xs text-neue/50">{CW_WEBINAR.speaker.role}</p>
+                <p className="mt-1 text-sm text-white">{cloudWaste.webinar.speaker.name}</p>
+                <p className="text-xs text-neue/50">{cloudWaste.webinar.speaker.role}</p>
               </div>
             </div>
 
             {/* Registration form (visual only) */}
-            <div className="rounded-lg border border-mint/20 bg-white/[0.02] p-5">
+            <div className="relative overflow-hidden rounded-lg border border-mint/20 bg-white/[0.02] p-5">
+              <CloudWasteMedia
+                asset={cloudWaste.media.webinar}
+                className="absolute inset-0 h-full w-full object-cover"
+                alt="Cloud Waste webinar media"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/25" />
+              <div className="relative">
               <p className="mb-4 font-mono text-[10px] tracking-[0.12em] text-mint uppercase">
                 Reserve your seat
               </p>
@@ -51,6 +60,7 @@ export default function CloudWasteWebinarPage() {
               <button className="mt-2 w-full rounded-full bg-mint py-2.5 font-mono text-[11px] font-semibold tracking-[0.08em] text-black uppercase">
                 Register Now
               </button>
+              </div>
             </div>
           </div>
         </Reveal>
@@ -66,7 +76,7 @@ export default function CloudWasteWebinarPage() {
       </GridFrame>
 
       <RevealStagger className="grid grid-cols-2 md:grid-cols-4">
-        {CW_SALES_DECK.map((slide) => (
+        {cloudWaste.salesDeck.map((slide) => (
           <RevealItem key={slide.n}>
             <GridFrame borders="rb" ink="mint" strength={40}>
               <article className="flex aspect-[16/10] flex-col justify-end p-4">

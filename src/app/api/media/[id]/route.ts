@@ -18,6 +18,7 @@ export async function GET(
   return new NextResponse(new Uint8Array(row.bytes), {
     headers: {
       "Content-Type": row.mime,
+      "X-Content-Type-Options": "nosniff",
       "Cache-Control": "public, max-age=31536000, immutable",
     },
   });

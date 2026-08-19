@@ -1,6 +1,8 @@
 "use client";
 
+import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { GridFrame } from "@/components/north/GridFrame";
+import type { CloudWasteMediaAsset } from "@/lib/site-content";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { useRef, useEffect, useState } from "react";
 
@@ -40,13 +42,34 @@ function AnimatedNumber({ value, prefix = "", unit = "" }: { value: number; pref
 type Kpi = { label: string; target: number; unit: string; prefix: string };
 type FunnelStep = { stage: string; value: number };
 
-export function DashboardMetrics({ kpis, funnel }: { kpis: Kpi[]; funnel: FunnelStep[] }) {
+export function DashboardMetrics({
+  kpis,
+  funnel,
+  media,
+}: {
+  kpis: Kpi[];
+  funnel: FunnelStep[];
+  media: CloudWasteMediaAsset | null;
+}) {
   const funnelRef = useRef<HTMLDivElement>(null);
   const funnelInView = useInView(funnelRef, { once: true, margin: "-50px" });
   const maxFunnel = funnel[0].value;
 
   return (
     <>
+      {media ? (
+        <GridFrame borders="rb" ink="mint" strength={40}>
+          <div className="relative aspect-[16/8] overflow-hidden">
+            <CloudWasteMedia
+              asset={media}
+              className="absolute inset-0 h-full w-full object-cover"
+              alt="Cloud Waste dashboard media"
+              controls={media.mediaType === "video"}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+          </div>
+        </GridFrame>
+      ) : null}
       {/* KPI cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {kpis.map((kpi) => (
