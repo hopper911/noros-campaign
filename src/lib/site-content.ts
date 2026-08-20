@@ -179,6 +179,11 @@ export type SiteContent = {
   landing: LandingContent;
   kit: KitGraphics;
   cloudWaste: CloudWasteContent;
+  figmaKit: FigmaKitContent;
+};
+
+export type FigmaKitContent = {
+  backgrounds: Record<string, string | null>;
 };
 
 const DEFAULT_IMAGE = "/north/hero.jpg";
@@ -288,6 +293,9 @@ export function defaultSiteContent(): SiteContent {
         dashboard: null,
       },
     },
+    figmaKit: {
+      backgrounds: {},
+    },
   };
 }
 
@@ -328,6 +336,36 @@ function cloudWasteMedia(
   return { url, mime, mediaType };
 }
 
+const FIGMA_KIT_BG_KEY = /^[a-z0-9][a-z0-9._-]*\.svg$/i;
+const API_MEDIA_URL = /^\/api\/media\/[0-9a-f-]{36}$/i;
+
+export function figmaKitBackgroundKind(svgName: string) {
+  const base = svgName.replace(/\.svg$/i, "");
+  return `fk-bg-${base}`;
+}
+
+function figmaKitBackgroundUrl(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  return API_MEDIA_URL.test(value) ? value : null;
+}
+
+function mergeFigmaKitBackgrounds(
+  raw: Record<string, unknown>,
+  base: Record<string, string | null>,
+): Record<string, string | null> {
+  const out = { ...base };
+  for (const [key, value] of Object.entries(raw)) {
+    if (!FIGMA_KIT_BG_KEY.test(key)) continue;
+    if (value === null) {
+      delete out[key];
+      continue;
+    }
+    const url = figmaKitBackgroundUrl(value);
+    if (url) out[key] = url;
+  }
+  return out;
+}
+
 export function mergeSiteContent(stored: unknown): SiteContent {
   const base = defaultSiteContent();
   if (!isRecord(stored)) return base;
@@ -354,6 +392,8 @@ export function mergeSiteContent(stored: unknown): SiteContent {
   const cwDashboardIn = isRecord(cloudWasteIn.dashboard) ? cloudWasteIn.dashboard : {};
   const cwOohIn = isRecord(cloudWasteIn.ooh) ? cloudWasteIn.ooh : {};
   const cwMediaIn = isRecord(cloudWasteIn.media) ? cloudWasteIn.media : {};
+  const figmaKitIn = isRecord(stored.figmaKit) ? stored.figmaKit : {};
+  const figmaBgIn = isRecord(figmaKitIn.backgrounds) ? figmaKitIn.backgrounds : {};
 
   const mergeAudience = (id: AudienceId): AudienceContent => {
     const raw = isRecord(audiencesIn[id]) ? audiencesIn[id] : {};
@@ -592,6 +632,9 @@ export function mergeSiteContent(stored: unknown): SiteContent {
         ooh: cloudWasteMedia(cwMediaIn.ooh, base.cloudWaste.media.ooh),
         dashboard: cloudWasteMedia(cwMediaIn.dashboard, base.cloudWaste.media.dashboard),
       },
+    },
+    figmaKit: {
+      backgrounds: mergeFigmaKitBackgrounds(figmaBgIn, base.figmaKit.backgrounds),
     },
   };
 }

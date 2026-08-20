@@ -1,7 +1,11 @@
+"use client";
+
 import { DownloadButton } from "@/components/admin/DownloadButton";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const FIGMA_FILE = "https://www.figma.com/design/CTMlP9TsdTpS9MrKtaAp0m";
 
@@ -113,7 +117,62 @@ const labels: Record<string, { label: string; size: string }> = {
   "landing-footer.svg": { label: "Landing footer", size: "1440×560" },
 };
 
-export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
+export function FigmaBoards({
+  disclaimer,
+  initialBackgrounds,
+}: {
+  disclaimer: string;
+  initialBackgrounds: Record<string, string | null>;
+}) {
+  const router = useRouter();
+  const [backgrounds, setBackgrounds] = useState(initialBackgrounds);
+  const [uploading, setUploading] = useState<string | null>(null);
+  const [status, setStatus] = useState("");
+
+  async function uploadBackground(frame: string, file: File) {
+    setUploading(frame);
+    setStatus("");
+    try {
+      const form = new FormData();
+      form.set("frame", frame);
+      form.set("file", file);
+      const res = await fetch("/api/admin/figma-kit/background", {
+        method: "POST",
+        body: form,
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setStatus(data.error ?? "Upload failed");
+        return;
+      }
+      setBackgrounds(data.backgrounds);
+      router.refresh();
+    } finally {
+      setUploading(null);
+    }
+  }
+
+  async function clearBackground(frame: string) {
+    setUploading(frame);
+    setStatus("");
+    try {
+      const res = await fetch(
+        `/api/admin/figma-kit/background?frame=${encodeURIComponent(frame)}`,
+        { method: "DELETE", credentials: "include" },
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        setStatus(data.error ?? "Clear failed");
+        return;
+      }
+      setBackgrounds(data.backgrounds);
+      router.refresh();
+    } finally {
+      setUploading(null);
+    }
+  }
+
   return (
     <>
       <GridFrame borders="trb" ink="mint" strength={40}>
@@ -127,16 +186,9 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
             <a href={FIGMA_FILE} className="text-mint underline-offset-2 hover:underline">
               Noros Campaign Kit — Portfolio
             </a>
-            . Every other surface is composed at export size below (North black / mint, Untitled
-            Sans + Cygnito Mono). Place them in that file: run{" "}
-            <span className="text-white">figma-plugin/</span> on the open file, or drag SVGs from{" "}
-            <span className="text-white">public/figma-kit/</span>.
+            . Upload a custom background on any frame to override the auto-generated text-free
+            JPEG. Custom backgrounds are used for Background downloads and the background zip.
           </p>
-          <ol className="mt-6 max-w-2xl space-y-2 text-[15px] text-neue">
-            <li>1. Open the Figma file. Plugins → Development → Import plugin from manifest → <span className="text-white">figma-plugin/manifest.json</span>.</li>
-            <li>2. Keep this site running (<span className="text-white">npm run dev</span>) or use https://noros-campaign.vercel.app after deploy.</li>
-            <li>3. Run “Noros Campaign Kit Import” — it creates Landing, Ads, Carousel, Meet Noros, UI hero, Brief, Email, Event, Storyboard, Launch, Announce, and Role heroes pages.</li>
-          </ol>
           <div className="mt-6 flex flex-wrap gap-2">
             <a href={FIGMA_FILE} target="_blank" rel="noreferrer" className="btn-nav">
               Open Figma file
@@ -158,6 +210,11 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
               Download SVG zip
             </DownloadButton>
           </div>
+          {status ? (
+            <p className="mt-4 font-mono text-[11px] tracking-normal text-red-400 normal-case">
+              {status}
+            </p>
+          ) : null}
           <p className="mt-6 font-mono text-[11px] text-neue/70 uppercase">{disclaimer}</p>
         </Reveal>
       </GridFrame>
@@ -172,6 +229,7 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
               {group.items.map((file) => {
                 const meta = labels[file];
                 const jpegName = file.replace(/\.svg$/i, ".jpg");
+                const customBg = backgrounds[file] ?? null;
                 return (
                   <div key={file} className="min-w-0">
                     <div className="relative overflow-hidden border border-white/10 bg-black">
@@ -182,10 +240,21 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
                         className="h-auto w-full"
                       />
                     </div>
+                    {customBg ? (
+                      <div className="mt-2 overflow-hidden border border-mint/30">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={customBg}
+                          alt={`Custom background for ${meta?.label ?? file}`}
+                          className="h-20 w-full object-cover"
+                        />
+                        <p className="px-2 py-1 font-mono text-[10px] tracking-[0.08em] text-mint uppercase">
+                          Custom background
+                        </p>
+                      </div>
+                    ) : null}
                     <div className="mt-2 flex items-baseline justify-between gap-2">
-                      <span className="text-sm text-white">
-                        {meta?.label ?? file}
-                      </span>
+                      <span className="text-sm text-white">{meta?.label ?? file}</span>
                       <span className="font-mono text-[10px] tracking-[0.08em] text-neue uppercase">
                         {meta?.size}
                       </span>
@@ -206,6 +275,30 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
                       <DownloadButton href={`/figma-kit/${file}`} filename={file}>
                         SVG
                       </DownloadButton>
+                      <label className="btn-nav cursor-pointer">
+                        {uploading === file ? "Uploading…" : "Upload background"}
+                        <input
+                          type="file"
+                          accept="image/jpeg,image/png,image/webp"
+                          className="hidden"
+                          disabled={!!uploading}
+                          onChange={(e) => {
+                            const picked = e.target.files?.[0];
+                            if (picked) void uploadBackground(file, picked);
+                            e.target.value = "";
+                          }}
+                        />
+                      </label>
+                      {customBg ? (
+                        <button
+                          type="button"
+                          className="btn-nav"
+                          disabled={!!uploading}
+                          onClick={() => void clearBackground(file)}
+                        >
+                          Clear custom
+                        </button>
+                      ) : null}
                     </div>
                   </div>
                 );

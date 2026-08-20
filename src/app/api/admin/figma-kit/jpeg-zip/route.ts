@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import JSZip from "jszip";
+import { getSiteContent } from "@/lib/get-site-content";
 import {
   jpegNameFromSvg,
   listKitSvgNames,
@@ -15,12 +16,17 @@ export async function GET(req: Request) {
   const zipName = variant === "plain" ? "figma-kit-backgrounds.zip" : "figma-kit-jpegs.zip";
 
   try {
+    const content = await getSiteContent();
     const names = await listKitSvgNames();
     const zip = new JSZip();
     const batchSize = 4;
     for (let i = 0; i < names.length; i += batchSize) {
       const batch = names.slice(i, i + batchSize);
-      const jpegs = await Promise.all(batch.map((name) => svgToJpeg(name, variant)));
+      const jpegs = await Promise.all(
+        batch.map((name) =>
+          svgToJpeg(name, variant, content.figmaKit.backgrounds[name] ?? null),
+        ),
+      );
       batch.forEach((name, index) => {
         zip.file(jpegNameFromSvg(name, variant), jpegs[index]);
       });

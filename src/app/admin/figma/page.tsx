@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminFigmaPage() {
-  const { disclaimer } = await getSiteContent();
+  const { disclaimer, figmaKit } = await getSiteContent();
   return (
     <AdminShell
       title="Figma design boards"
@@ -22,7 +22,7 @@ export default async function AdminFigmaPage() {
         </Link>
       }
     >
-      <FigmaBoards disclaimer={disclaimer} />
+      <FigmaBoards disclaimer={disclaimer} initialBackgrounds={figmaKit.backgrounds} />
     </AdminShell>
   );
 }

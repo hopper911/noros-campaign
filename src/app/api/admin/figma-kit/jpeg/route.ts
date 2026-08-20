@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getSiteContent } from "@/lib/get-site-content";
 import {
   jpegNameFromSvg,
   parseJpegVariant,
@@ -18,7 +19,9 @@ export async function GET(req: Request) {
   }
 
   try {
-    const jpeg = await svgToJpeg(name, variant);
+    const content = await getSiteContent();
+    const customBg = content.figmaKit.backgrounds[name] ?? null;
+    const jpeg = await svgToJpeg(name, variant, customBg);
     return new NextResponse(new Uint8Array(jpeg), {
       headers: {
         "Content-Type": "image/jpeg",

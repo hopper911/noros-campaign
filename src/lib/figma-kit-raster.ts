@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
+import { getMedia } from "@/lib/get-site-content";
 
 const KIT_DIR = path.join(process.cwd(), "public", "figma-kit");
 
@@ -36,12 +37,30 @@ function stripSvgText(svg: string) {
     .replace(/<tspan\b[^>]*>[\s\S]*?<\/tspan>/gi, "");
 }
 
+async function loadCustomBackground(url: string | null | undefined): Promise<Buffer | undefined> {
+  if (!url?.startsWith("/api/media/")) return undefined;
+  const id = url.slice("/api/media/".length);
+  const row = await getMedia(id);
+  return row?.bytes;
+}
+
+async function bytesToJpeg(bytes: Buffer): Promise<Buffer> {
+  return sharp(bytes).jpeg({ quality: 92, mozjpeg: true }).toBuffer();
+}
+
 export async function svgToJpeg(
   svgName: string,
   variant: JpegVariant = "full",
+  customBackgroundUrl?: string | null,
 ): Promise<Buffer> {
   const safe = safeKitSvgName(svgName);
   if (!safe) throw new Error("Invalid file");
+
+  if (variant === "plain") {
+    const custom = await loadCustomBackground(customBackgroundUrl);
+    if (custom) return bytesToJpeg(custom);
+  }
+
   let svg = await readFile(path.join(KIT_DIR, safe), "utf8");
   if (variant === "plain") svg = stripSvgText(svg);
   return sharp(Buffer.from(svg), { density: 72 })

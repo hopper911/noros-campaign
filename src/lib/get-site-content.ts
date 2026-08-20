@@ -60,7 +60,7 @@ export async function resetSiteContent() {
   return seeded;
 }
 
-export async function insertMedia(kind: MediaKind, mime: string, bytes: Buffer) {
+export async function insertMedia(kind: string, mime: string, bytes: Buffer) {
   const db = await ensureSchema();
   if (!db) throw new Error("DATABASE_URL is not set");
   await db.delete(media).where(eq(media.kind, kind));
