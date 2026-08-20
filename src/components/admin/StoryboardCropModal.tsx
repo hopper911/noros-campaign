@@ -12,6 +12,7 @@ type Props = {
 };
 
 export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
+  const dialogRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [natural, setNatural] = useState({ w: 0, h: 0 });
@@ -30,6 +31,38 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [onCancel, busy]);
+
+  useEffect(() => {
+    const prev = document.activeElement as HTMLElement | null;
+    const root = dialogRef.current;
+    const focusables = () =>
+      root?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ) ?? [];
+    const list = focusables();
+    list[0]?.focus();
+    const onTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onTab);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onTab);
+      document.body.style.overflow = "";
+      prev?.focus();
+    };
+  }, []);
 
   useEffect(() => {
     const el = frameRef.current;
@@ -122,6 +155,7 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
 
   return (
     <div
+      ref={dialogRef}
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 p-4"
       role="dialog"
       aria-modal="true"
@@ -146,7 +180,26 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
 
         <div
           ref={frameRef}
-          className="relative mt-5 aspect-video w-full cursor-grab overflow-hidden border border-white/10 active:cursor-grabbing"
+          className="relative mt-5 aspect-video w-full cursor-grab overflow-hidden border border-white/25 active:cursor-grabbing"
+          tabIndex={0}
+          role="img"
+          aria-label="Drag to reposition crop. Use zoom slider below."
+          onKeyDown={(e) => {
+            const step = e.shiftKey ? 24 : 12;
+            if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              setOffset((o) => clampOffset(o.x + step, o.y, zoom));
+            } else if (e.key === "ArrowRight") {
+              e.preventDefault();
+              setOffset((o) => clampOffset(o.x - step, o.y, zoom));
+            } else if (e.key === "ArrowUp") {
+              e.preventDefault();
+              setOffset((o) => clampOffset(o.x, o.y + step, zoom));
+            } else if (e.key === "ArrowDown") {
+              e.preventDefault();
+              setOffset((o) => clampOffset(o.x, o.y - step, zoom));
+            }
+          }}
           onMouseDown={(e) => {
             e.preventDefault();
             setDragging(true);
@@ -169,6 +222,7 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
             ref={imgRef}
             src={imageSrc}
             alt=""
+            aria-hidden="true"
             draggable={false}
             className="pointer-events-none absolute max-w-none select-none"
             style={
@@ -199,7 +253,11 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
           />
         </label>
 
-        {error ? <p className="mt-3 text-sm text-red">{error}</p> : null}
+        {error ? (
+          <p className="mt-3 text-sm text-red" role="alert">
+            {error}
+          </p>
+        ) : null}
 
         <div className="mt-5 flex flex-wrap gap-2">
           <button

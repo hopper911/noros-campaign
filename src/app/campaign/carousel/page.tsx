@@ -19,7 +19,12 @@ export default async function CarouselPage() {
         </div>
       </GridFrame>
       <Reveal>
-        <div className="flex snap-x snap-mandatory gap-0 overflow-x-auto overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch]">
+        <div
+          className="flex snap-x snap-mandatory gap-0 overflow-x-auto overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch]"
+          role="region"
+          aria-label="LinkedIn carousel slides. Scroll horizontally to view all slides."
+          tabIndex={0}
+        >
           {carouselSlides.map((slide, i) => (
             <article
               key={slide.label}

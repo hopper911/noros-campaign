@@ -20,6 +20,7 @@ export function ClosingCta({
             <img
               src={imageUrl}
               alt=""
+              aria-hidden="true"
               className="absolute inset-0 h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-black/35" />

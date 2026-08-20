@@ -10,6 +10,7 @@ export async function SiteFooter() {
       <div className="px-site py-site">
         <GridFrame borders="trb" ink="mint" strength={40}>
           <div className="grid gap-12 p-6 md:grid-cols-4 md:p-10">
+            <h2 className="sr-only">Footer</h2>
             <div>
               <h3 className="text-sm font-medium text-white">Contact</h3>
               <a
@@ -91,7 +92,7 @@ export async function SiteFooter() {
           </div>
         </GridFrame>
       </div>
-      <div className="border-t border-white/10 px-site py-5 text-center text-[11px] text-neue/70">
+      <div className="border-t border-white/25 px-site py-5 text-center text-[11px] text-neue/70">
         <p>© 2026 North Cloud Holdings Inc. — Recreated for portfolio purposes only.</p>
         <p className="mx-auto mt-2 max-w-3xl">{disclaimer}</p>
       </div>

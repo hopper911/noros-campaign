@@ -113,7 +113,7 @@ export function DashboardMetrics({
               </div>
             </div>
 
-            <div className="mt-10 grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            <div className="mt-10 grid gap-px overflow-hidden border border-white/25 bg-white/10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
               {kpis.map((kpi, i) => (
                 <motion.div
                   key={kpi.label}
@@ -123,7 +123,7 @@ export function DashboardMetrics({
                   transition={{ duration: 0.45, delay: i * 0.05 }}
                   className="bg-black/80 p-5 backdrop-blur-sm"
                 >
-                  <p className="font-mono text-[10px] tracking-[0.14em] text-neue/55 uppercase">
+                  <p className="font-mono text-[10px] tracking-[0.14em] text-neue/70 uppercase">
                     {kpi.label}
                   </p>
                   <p className="mt-3 text-2xl font-medium tracking-tight text-white sm:text-[1.75rem]">
@@ -163,15 +163,19 @@ export function DashboardMetrics({
               return (
                 <div key={step.stage} className="group">
                   {rate ? (
-                    <p className="mb-1.5 pl-[7.5rem] font-mono text-[9px] tracking-[0.1em] text-mint/70 uppercase sm:pl-36">
+                    <p className="mb-1.5 pl-0 font-mono text-[11px] tracking-[0.1em] text-mint uppercase sm:pl-36">
                       ↓ {rate}% conversion
                     </p>
                   ) : null}
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <p className="w-28 shrink-0 text-right font-mono text-[11px] tracking-[0.06em] text-neue/70 uppercase sm:w-32">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                    <p className="shrink-0 text-left font-mono text-[12px] tracking-[0.06em] text-neue/70 uppercase sm:w-32 sm:text-right sm:text-[11px]">
                       {step.stage}
                     </p>
-                    <div className="relative h-10 flex-1 overflow-hidden border border-white/8 bg-white/[0.03]">
+                    <div
+                      className="relative h-11 flex-1 overflow-hidden border border-white/25 bg-white/[0.03]"
+                      role="img"
+                      aria-label={`${step.stage}: ${step.value.toLocaleString()}`}
+                    >
                       <motion.div
                         className="absolute inset-y-0 left-0 bg-gradient-to-r from-mint/90 to-mint/55"
                         initial={{ width: 0 }}
@@ -180,7 +184,7 @@ export function DashboardMetrics({
                       />
                       <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.06))]" />
                     </div>
-                    <p className="w-16 text-right font-mono text-[12px] text-white tabular-nums sm:w-20">
+                    <p className="w-auto text-left font-mono text-[13px] text-white tabular-nums sm:w-20 sm:text-right sm:text-[12px]">
                       {step.value.toLocaleString()}
                     </p>
                   </div>

@@ -12,7 +12,7 @@ export function CampaignNav({
 
   return (
     <nav
-      className="mx-auto flex max-w-[1440px] flex-nowrap gap-1 overflow-x-auto overscroll-x-contain px-site pb-3 [-webkit-overflow-scrolling:touch]"
+      className="mx-auto flex max-w-[1440px] flex-nowrap gap-1 overflow-x-auto overscroll-x-contain px-site pb-3 [-webkit-overflow-scrolling:touch] [scrollbar-width:thin]"
       aria-label="Campaign kit"
     >
       {links.map((l) => {

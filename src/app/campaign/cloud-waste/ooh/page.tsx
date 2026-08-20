@@ -65,7 +65,7 @@ export default async function CloudWasteOohPage() {
       {/* OOH portrait mockup */}
       <GridFrame borders="rb" ink="mint" strength={40}>
         <div className="mx-auto max-w-md p-5 sm:p-8">
-          <div className="relative aspect-[9/16] overflow-hidden rounded-lg border border-mint/20">
+          <div className="relative aspect-[9/16] overflow-hidden rounded-lg border border-mint/40">
             <CloudWasteMedia
               asset={cloudWaste.media.ooh}
               className="h-full w-full object-cover"
@@ -102,7 +102,7 @@ export default async function CloudWasteOohPage() {
               ["Visual language", "Abstract infrastructure silhouettes — server racks, tangled cables, glowing utilization meters (mint on black). Waste zones shift to red/amber."],
             ].map(([dt, dd]) => (
               <div key={dt}>
-                <dt className="font-mono text-[10px] text-neue/40">{dt}</dt>
+                <dt className="font-mono text-[10px] text-neue/70">{dt}</dt>
                 <dd className="mt-1 text-sm text-neue/70">{dd}</dd>
               </div>
             ))}

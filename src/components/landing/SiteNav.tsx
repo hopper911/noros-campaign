@@ -25,6 +25,7 @@ export function SiteNav() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
   const integrationsRef = useRef<HTMLDivElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onResize = () => {
@@ -39,6 +40,30 @@ export function SiteNav() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const root = mobileNavRef.current;
+    if (!root) return;
+    const focusables = root.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    first?.focus();
+    const onTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || focusables.length === 0) return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", onTab);
+    return () => document.removeEventListener("keydown", onTab);
   }, [menuOpen]);
 
   useEffect(() => {
@@ -77,7 +102,11 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-50 bg-black">
       <div className="flex min-w-0 items-center justify-between gap-2 px-site py-3 md:gap-4">
-        <Link href="/" className="logo-link min-w-0 shrink-0 text-white" aria-label="Home">
+        <Link
+          href="/"
+          className="logo-link inline-flex min-h-11 min-w-11 shrink-0 items-center text-white"
+          aria-label="Home"
+        >
           <NorthLogo />
         </Link>
 
@@ -106,7 +135,7 @@ export function SiteNav() {
                   id="features-menu"
                   role="region"
                   aria-label="Features"
-                  className="absolute top-full left-0 z-50 min-w-[15rem] rounded-xl border border-white/10 bg-black/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
+                  className="absolute top-full left-0 z-50 min-w-[15rem] rounded-xl border border-white/25 bg-black/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
                 >
                   {Object.entries(features).map(([group, items]) => (
                     <div key={group} className="mb-3 last:mb-0">
@@ -118,7 +147,7 @@ export function SiteNav() {
                           <li key={item}>
                             <Link
                               href="/#features"
-                              className="block rounded py-1 hover:text-white focus-visible:text-white"
+                              className="flex min-h-11 items-center rounded px-1 py-2 hover:text-white focus-visible:text-white"
                               onClick={() => setOpen(null)}
                             >
                               {item}
@@ -155,14 +184,14 @@ export function SiteNav() {
                   id="integrations-menu"
                   role="region"
                   aria-label="Integrations"
-                  className="absolute top-full left-0 z-50 min-w-[12rem] rounded-xl border border-white/10 bg-black/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
+                  className="absolute top-full left-0 z-50 min-w-[12rem] rounded-xl border border-white/25 bg-black/95 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
                 >
                   <ul className="space-y-2 font-mono text-[11px] tracking-[0.1em] text-neue uppercase">
                     {integrations.map((item) => (
                       <li key={item}>
                         <Link
                           href="/#integrations"
-                          className="block rounded py-1 hover:text-white focus-visible:text-white"
+                          className="flex min-h-11 items-center rounded px-1 py-2 hover:text-white focus-visible:text-white"
                           onClick={() => setOpen(null)}
                         >
                           {item}
@@ -197,7 +226,7 @@ export function SiteNav() {
           <button
             ref={menuButtonRef}
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/35 text-white lg:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -225,8 +254,9 @@ export function SiteNav() {
 
       {menuOpen && (
         <nav
+          ref={mobileNavRef}
           id="mobile-nav"
-          className="max-h-[min(80vh,32rem)] overflow-y-auto border-t border-white/10 bg-black px-site py-4 lg:hidden"
+          className="max-h-[min(80vh,32rem)] overflow-y-auto border-t border-white/25 bg-black px-site py-4 lg:hidden"
           aria-label="Mobile"
         >
           <div className="flex flex-col gap-1">
@@ -280,7 +310,7 @@ export function SiteNav() {
               Campaign
             </Link>
           </div>
-          <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 sm:flex-row">
+          <div className="mt-4 flex flex-col gap-2 border-t border-white/25 pt-4 sm:flex-row">
             <Link href="/campaign/meet" className="btn-nav w-full sm:w-auto" onClick={closeMenu}>
               Sign In
             </Link>

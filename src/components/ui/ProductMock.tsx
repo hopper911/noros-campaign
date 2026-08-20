@@ -127,7 +127,7 @@ export function ProductMock({
             </span>
             <button
               type="button"
-              className="btn-nav !h-8 !px-3 !text-[10px]"
+              className="btn-nav !px-3 !text-[10px]"
               onClick={() => void play(scenario)}
               disabled={playing}
             >
@@ -165,7 +165,7 @@ export function ProductMock({
               </p>
               <button
                 type="button"
-                className="inline-flex h-8 shrink-0 items-center justify-center rounded-full bg-black px-3.5 text-[10px] font-medium tracking-[0.08em] text-mint uppercase"
+                className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-black px-3.5 text-[10px] font-medium tracking-[0.08em] text-mint uppercase"
                 onClick={() => void play(scenario)}
                 disabled={playing}
               >
@@ -179,7 +179,7 @@ export function ProductMock({
                   <button
                     key={s.id}
                     type="button"
-                    className="nav-item !h-8 !text-[10px]"
+                    className="nav-item !text-[10px]"
                     data-open={scenario.id === s.id ? "true" : undefined}
                     onClick={() => void play(s)}
                   >

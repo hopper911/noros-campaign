@@ -25,6 +25,8 @@ export function CloudWasteMedia({
         muted
         playsInline
         controls={controls}
+        aria-label={alt || "Campaign video"}
+        aria-hidden={!controls && !alt ? true : undefined}
       />
     );
   }

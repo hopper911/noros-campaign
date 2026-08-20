@@ -41,11 +41,11 @@ export async function CampaignShell({
         <div className="mx-auto flex max-w-[1440px] items-baseline gap-3 px-site py-3">
           <Link
             href="/"
-            className="shrink-0 font-mono text-[10px] tracking-[0.16em] text-neue uppercase hover:text-white"
+            className="inline-flex min-h-11 shrink-0 items-center font-mono text-[10px] tracking-[0.16em] text-neue uppercase hover:text-white"
           >
             ← Home
           </Link>
-          <h1 className="min-w-0 truncate text-sm font-medium tracking-tight text-white sm:text-base">
+          <h1 className="min-w-0 text-sm font-medium tracking-tight text-balance text-white sm:text-base">
             {title}
           </h1>
         </div>

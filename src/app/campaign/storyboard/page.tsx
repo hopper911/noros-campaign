@@ -18,6 +18,7 @@ export default async function StoryboardPage() {
           </p>
         </div>
       </GridFrame>
+      <h2 className="sr-only">Storyboard beats</h2>
       <RevealStagger className="grid sm:grid-cols-2 lg:grid-cols-3">
         {storyboardFrames.map((frame, i) => (
           <RevealItem key={frame.t}>
@@ -30,14 +31,14 @@ export default async function StoryboardPage() {
                     alt={`Storyboard beat ${i + 1}: ${frame.title}`}
                     className="absolute inset-0 h-full w-full object-cover opacity-35"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40" aria-hidden="true">
                     <span className="text-5xl font-medium tracking-tight text-white/30">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
                 </div>
                 <div className="p-5">
-                  <div className="font-mono text-[10px] tracking-[0.14em] text-mint uppercase">
+                  <div className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
                     {frame.t}
                   </div>
                   <h3 className="mt-2 text-lg font-medium tracking-tight text-white">

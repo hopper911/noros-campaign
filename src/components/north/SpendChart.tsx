@@ -108,7 +108,7 @@ export function SpendChart({
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
           <div
-            className={`relative flex min-w-0 flex-1 items-end gap-1 border-l border-white/10 pl-2 sm:gap-2 sm:pl-3 ${
+            className={`relative flex min-w-0 flex-1 items-end gap-1 border-l border-white/25 pl-2 sm:gap-2 sm:pl-3 ${
               compact ? "h-36" : "h-44 sm:h-52 md:h-64"
             }`}
           >

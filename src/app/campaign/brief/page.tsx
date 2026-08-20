@@ -25,7 +25,7 @@ export default async function BriefPage() {
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
-            <header className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-white/10 pb-6 sm:flex-row">
+            <header className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-white/25 pb-6 sm:flex-row">
               <div>
                 <div className="text-2xl font-medium text-white">Noros</div>
                 <div className="mt-1 font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
@@ -101,14 +101,14 @@ export default async function BriefPage() {
                 ["14 days", "Trial window"],
                 ["Read-only", "Cloud access"],
               ].map(([v, l]) => (
-                <div key={l} className="border border-white/10 px-3 py-4 text-center">
+                <div key={l} className="border border-white/25 px-3 py-4 text-center">
                   <div className="text-xl font-medium text-mint">{v}</div>
                   <div className="mt-1 font-mono text-[11px] text-neue uppercase">{l}</div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-10 border border-white/10 p-5">
+            <div className="mt-10 border border-white/25 p-5">
               <div className="text-lg font-medium text-white">Next step</div>
               <p className="mt-2 text-[15px] text-neue">
                 See a 5-minute demo—or ask Noros what your cloud costs, and why. {campaignLine}

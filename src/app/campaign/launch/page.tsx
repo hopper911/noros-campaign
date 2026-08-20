@@ -43,7 +43,7 @@ export default async function LaunchPage() {
               ].map((t) => (
                 <div
                   key={t}
-                  className="border border-white/10 bg-black/40 px-4 py-3 text-lg font-medium tracking-tight text-white"
+                  className="border border-white/25 bg-black/40 px-4 py-3 text-lg font-medium tracking-tight text-white"
                 >
                   {t}
                 </div>

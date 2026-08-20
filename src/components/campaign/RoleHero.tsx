@@ -21,6 +21,7 @@ export function RoleHero({ audience }: { audience: Audience }) {
         <img
           src={audience.heroImageUrl}
           alt=""
+          aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover object-[center_32%] opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/40" />
@@ -36,7 +37,7 @@ export function RoleHero({ audience }: { audience: Audience }) {
             ))}
           </ul>
           <div className="accent-mint mt-8 max-w-[36rem]">
-            <div className="button-rail flex h-12 items-stretch gap-1.5 rounded-[8rem] p-1 sm:h-14 sm:p-1.5">
+            <div className="button-rail flex min-h-12 flex-col items-stretch gap-1.5 rounded-[2rem] p-1 sm:h-14 sm:flex-row sm:rounded-[8rem] sm:p-1.5">
               <Link href="/campaign/meet" className="hero-cta hero-cta-compact hero-cta-trial">
                 {audience.cta}
               </Link>

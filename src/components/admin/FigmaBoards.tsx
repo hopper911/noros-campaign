@@ -232,7 +232,7 @@ export function FigmaBoards({
                 const customBg = backgrounds[file] ?? null;
                 return (
                   <div key={file} className="min-w-0">
-                    <div className="relative overflow-hidden border border-white/10 bg-black">
+                    <div className="relative overflow-hidden border border-white/25 bg-black">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={`/figma-kit/${file}`}

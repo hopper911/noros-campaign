@@ -55,17 +55,17 @@ export function StoryboardImageSlot({
   return (
     <div>
       <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">{label}</p>
-      <div className="group relative mt-2 block aspect-video overflow-hidden border border-white/10">
+      <div className="group relative mt-2 block aspect-video overflow-hidden border border-white/25">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={src} alt={`${label} preview`} className="absolute inset-0 h-full w-full object-cover" />
         ) : (
           <div className="absolute inset-0 bg-white/[0.03]" />
         )}
         <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/15" />
         <button
           type="button"
-          className="absolute inset-x-3 bottom-3 rounded-full bg-black/80 px-3 py-1.5 text-center font-mono text-[10px] tracking-[0.08em] text-mint uppercase"
+          className="absolute inset-x-3 bottom-3 min-h-11 rounded-full bg-black/80 px-3 py-2 text-center font-mono text-[10px] tracking-[0.08em] text-mint uppercase"
           disabled={!!uploading}
           onClick={() => fileRef.current?.click()}
         >

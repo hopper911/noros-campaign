@@ -22,6 +22,7 @@ export function Hero({
       <motion.img
         src={imageUrl}
         alt=""
+        aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover object-[center_32%] sm:object-center"
         initial={reduce ? false : { scale: 1 }}
         animate={reduce ? undefined : { scale: 1.04 }}
@@ -48,7 +49,7 @@ export function Hero({
         </motion.div>
 
         <motion.p
-          className="mt-6 w-full max-w-[40rem] text-center font-mono text-[11px] leading-[1.55] tracking-[0.04em] text-neue uppercase sm:text-[11px] md:mt-8 md:self-end md:text-right md:text-xs"
+          className="mt-6 w-full max-w-[40rem] text-center font-mono text-[13px] leading-[1.55] tracking-[0.04em] text-neue uppercase sm:text-[12px] md:mt-8 md:self-end md:text-right md:text-sm"
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.16 }}

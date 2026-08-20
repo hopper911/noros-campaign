@@ -64,8 +64,8 @@ export default async function CloudWasteWebinarPage() {
                 </ol>
               </div>
 
-              <div className="mt-auto border-t border-white/10 pt-6">
-                <p className="font-mono text-[10px] tracking-[0.12em] text-neue/50 uppercase">
+              <div className="mt-auto border-t border-white/25 pt-6">
+                <p className="font-mono text-[10px] tracking-[0.12em] text-neue/70 uppercase">
                   Speaker
                 </p>
                 <p className="mt-2 text-lg text-white">{cloudWaste.webinar.speaker.name}</p>
@@ -78,13 +78,13 @@ export default async function CloudWasteWebinarPage() {
                 <p className="font-mono text-[10px] tracking-[0.14em] text-mint uppercase">
                   Reserve your seat
                 </p>
-                <p className="mt-2 text-sm text-white/60">
+                <p className="mt-2 text-sm text-white/80">
                   30 minutes. No pitch deck spam — just the waste sources most teams miss.
                 </p>
                 <div className="mt-6 space-y-3">
                   {["First name", "Last name", "Work email", "Company", "Role"].map((field) => (
                     <label key={field} className="block">
-                      <span className="font-mono text-[10px] tracking-[0.08em] text-neue/55 uppercase">
+                      <span className="font-mono text-[10px] tracking-[0.08em] text-neue/70 uppercase">
                         {field}
                       </span>
                       <span className="mt-1.5 block h-11 border border-white/12 bg-white/[0.04]" />
@@ -97,7 +97,7 @@ export default async function CloudWasteWebinarPage() {
                 >
                   Register now
                 </button>
-                <p className="mt-3 text-center font-mono text-[10px] text-neue/40 uppercase">
+                <p className="mt-3 text-center font-mono text-[10px] text-neue/70 uppercase">
                   Visual mock · no data collected
                 </p>
               </div>

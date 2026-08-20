@@ -22,8 +22,8 @@ export function CloudWasteSubNav({ current }: { current?: string }) {
               aria-current={active ? "page" : undefined}
               className={
                 active
-                  ? "rounded-full border border-mint bg-mint/15 px-4 py-2 font-mono text-[10px] tracking-[0.08em] text-mint uppercase"
-                  : "rounded-full border border-mint/30 px-4 py-2 font-mono text-[10px] tracking-[0.08em] text-mint uppercase hover:bg-mint/10"
+                  ? "inline-flex min-h-11 items-center rounded-full border border-mint bg-mint/15 px-4 py-2.5 font-mono text-[11px] tracking-[0.08em] text-mint uppercase"
+                  : "inline-flex min-h-11 items-center rounded-full border border-mint/50 px-4 py-2.5 font-mono text-[11px] tracking-[0.08em] text-mint uppercase hover:bg-mint/10"
               }
             >
               {label}

@@ -115,13 +115,13 @@ export default async function CloudWasteHeroPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href={cloudWaste.hero.primaryCta.href}
-                className="inline-flex items-center rounded-full bg-mint px-5 py-2.5 font-mono text-[11px] font-semibold tracking-[0.08em] text-black uppercase"
+                className="inline-flex min-h-11 items-center rounded-full bg-mint px-5 py-2.5 font-mono text-[11px] font-semibold tracking-[0.08em] text-black uppercase"
               >
                 {cloudWaste.hero.primaryCta.label}
               </Link>
               <Link
                 href={cloudWaste.hero.secondaryCta.href}
-                className="inline-flex items-center rounded-full border border-mint/40 px-5 py-2.5 font-mono text-[11px] tracking-[0.08em] text-mint uppercase hover:bg-mint/10"
+                className="inline-flex min-h-11 items-center rounded-full border border-mint/50 px-5 py-2.5 font-mono text-[11px] tracking-[0.08em] text-mint uppercase hover:bg-mint/10"
               >
                 {cloudWaste.hero.secondaryCta.label}
               </Link>
@@ -143,7 +143,7 @@ export default async function CloudWasteHeroPage() {
                 <p className="mt-3 text-sm leading-relaxed text-neue/80">{aud.promise}</p>
                 <ul className="mt-4 flex flex-col gap-1.5">
                   {aud.proof.map((p) => (
-                    <li key={p} className="flex items-start gap-2 text-xs text-neue/60">
+                    <li key={p} className="flex items-start gap-2 text-sm text-neue/70">
                       <span className="mt-1 block h-1 w-1 shrink-0 rounded-full bg-mint" />
                       {p}
                     </li>
@@ -167,7 +167,7 @@ export default async function CloudWasteHeroPage() {
           <div className="mt-6 grid gap-6 md:grid-cols-5">
             {framework.map((f) => (
               <div key={f.label}>
-                <p className="font-mono text-[10px] tracking-[0.12em] text-white/60 uppercase">
+                <p className="font-mono text-[10px] tracking-[0.12em] text-white/80 uppercase">
                   {f.label}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-neue/80">{f.body}</p>

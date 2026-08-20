@@ -31,21 +31,31 @@ export default async function CloudWasteReportPage() {
             lines={[cloudWaste.report.title, cloudWaste.report.subtitle]}
           />
           <p className="t5 mt-4 text-neue">{cloudWaste.stat}</p>
-          <p className="mt-1 font-mono text-[10px] text-neue/50">
+          <p className="mt-1 font-mono text-[11px] text-neue/70">
             Source: {cloudWaste.statSource}
           </p>
-          {/* Form (visual only) */}
-          <div className="mt-8 max-w-sm rounded-lg border border-mint/20 bg-white/[0.02] p-5">
-            <p className="mb-4 font-mono text-[10px] tracking-[0.12em] text-mint uppercase">
+          {/* Form preview only — not a live lead-gen form */}
+          <div
+            className="mt-8 max-w-sm rounded-lg border border-mint/40 bg-white/[0.02] p-5"
+            role="group"
+            aria-label="Report download form preview"
+          >
+            <p className="mb-1 font-mono text-[10px] tracking-[0.12em] text-mint uppercase">
               Get the report
             </p>
+            <p className="mb-4 text-xs text-neue/70">Visual concept only — fields are not interactive.</p>
             {["Name", "Work email", "Company"].map((f) => (
-              <div key={f} className="mb-3">
-                <label className="block text-xs text-neue/60">{f}</label>
-                <div className="mt-1 h-9 rounded border border-white/10 bg-white/[0.03]" />
+              <div key={f} className="mb-3" aria-hidden="true">
+                <p className="block text-xs text-neue/70">{f}</p>
+                <div className="mt-1 h-11 rounded border border-white/25 bg-white/[0.03]" />
               </div>
             ))}
-            <button className="mt-2 w-full rounded-full bg-mint py-2.5 font-mono text-[11px] font-semibold tracking-[0.08em] text-black uppercase">
+            <button
+              type="button"
+              disabled
+              aria-disabled="true"
+              className="mt-2 min-h-11 w-full rounded-full bg-mint/80 py-2.5 font-mono text-[11px] font-semibold tracking-[0.08em] text-black uppercase opacity-80"
+            >
               Download Report
             </button>
           </div>
@@ -60,7 +70,7 @@ export default async function CloudWasteReportPage() {
             <RevealItem key={page.n}>
               <GridFrame borders="rb" ink="mint" strength={40}>
                 <article className="flex min-h-[320px] flex-col p-5 sm:p-6 print:min-h-0 print:break-after-page">
-                  <p className="font-mono text-[10px] text-neue/40">Page {page.n}</p>
+                  <p className="font-mono text-[10px] text-neue/70">Page {page.n}</p>
                   <h3 className="t5 mt-2 text-white">{page.title}</h3>
                   {page.n === 1 && (
                     <div className="mt-4">
@@ -78,7 +88,7 @@ export default async function CloudWasteReportPage() {
                           <p className="font-mono text-[10px] tracking-[0.08em] text-mint uppercase">
                             {item.label}
                           </p>
-                          <p className="mt-0.5 text-xs leading-relaxed text-neue/60">
+                          <p className="mt-0.5 text-xs leading-relaxed text-neue/70">
                             {item.body}
                           </p>
                         </li>
@@ -88,10 +98,10 @@ export default async function CloudWasteReportPage() {
                   {"before" in page && page.before && (
                     <div className="mt-4 grid grid-cols-2 gap-4">
                       <div>
-                        <p className="font-mono text-[10px] text-neue/40">Before</p>
+                        <p className="font-mono text-[10px] text-neue/70">Before</p>
                         <p className="mt-1 text-xs text-neue/70">Monthly: {page.before.monthly}</p>
                         <p className="text-xs text-red-400">Waste: {page.before.waste}</p>
-                        <p className="text-xs text-neue/50">{page.before.detected}</p>
+                        <p className="text-xs text-neue/70">{page.before.detected}</p>
                       </div>
                       <div>
                         <p className="font-mono text-[10px] text-mint">After (90 days)</p>

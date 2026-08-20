@@ -25,6 +25,7 @@ export function Testimonials({
               <img
                 src={imageUrl}
                 alt=""
+                aria-hidden="true"
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </div>

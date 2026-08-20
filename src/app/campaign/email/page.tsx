@@ -66,7 +66,7 @@ export default async function EmailPage() {
             </p>
           </div>
 
-          <div className="border-t border-white/10 px-6 py-4 font-mono text-[10px] leading-snug text-neue/70 uppercase">
+          <div className="border-t border-white/25 px-6 py-4 font-mono text-[10px] leading-snug text-neue/70 uppercase">
             {disclaimer}
           </div>
         </Reveal>

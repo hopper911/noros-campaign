@@ -17,7 +17,7 @@ export function ValueProps({
           <div className="relative min-h-0 overflow-hidden p-4 sm:min-h-[28rem] sm:p-6 md:min-h-[36rem] md:p-10">
             <div className="pointer-events-none absolute top-10 right-4 hidden w-[32%] max-w-[20rem] sm:block md:top-16 md:right-16 md:w-[40%]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imageUrl} alt="" className="w-full object-contain" />
+              <img src={imageUrl} alt="" aria-hidden="true" className="w-full object-contain" />
             </div>
             <Reveal className="relative max-w-[52rem]">
               <BoxedTitle

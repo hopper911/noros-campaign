@@ -132,7 +132,9 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
       </GridFrame>
 
       {status ? (
-        <p className="font-mono text-[12px] tracking-[0.04em] text-mint">{status}</p>
+        <p className="font-mono text-[12px] tracking-[0.04em] text-mint" role="status" aria-live="polite">
+          {status}
+        </p>
       ) : null}
 
       <nav className="flex snap-x gap-2 overflow-x-auto pb-1">
@@ -182,11 +184,11 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
             const kind = `ad-${id}`;
             return (
               <div key={id} className="space-y-4">
-                <div className="relative aspect-[1.91/1] overflow-hidden border border-white/10">
+                <div className="relative aspect-[1.91/1] overflow-hidden border border-white/25">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={ad.adImageUrl}
-                    alt=""
+                    alt={`${ad.shortLabel} ad creative preview`}
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
@@ -320,7 +322,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
         <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">Carousel</p>
         <div className="mt-4 grid gap-6 md:grid-cols-2">
           {content.carouselSlides.map((slide, i) => (
-            <div key={slide.label} className="space-y-3 border border-white/10 p-4">
+            <div key={slide.label} className="space-y-3 border border-white/25 p-4">
               <ImageSlot
                 label={`Slide ${i + 1} still`}
                 src={slide.imageUrl}
@@ -358,7 +360,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
         </p>
         <div className="mt-4 grid gap-6 md:grid-cols-2">
           {content.storyboardFrames.map((frame, i) => (
-            <div key={frame.t} className="space-y-3 border border-white/10 p-4">
+            <div key={frame.t} className="space-y-3 border border-white/25 p-4">
               <StoryboardImageSlot
                 label={`${frame.t} still`}
                 src={frame.imageUrl}
@@ -675,7 +677,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
               {cwAudienceIds.map((id) => {
                 const aud = content.cloudWaste.audiences[id];
                 return (
-                  <div key={id} className="space-y-3 border border-white/10 p-4">
+                  <div key={id} className="space-y-3 border border-white/25 p-4">
                     <Field
                       label="Role label"
                       value={aud.label}
@@ -914,7 +916,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
             </p>
             <div className="mt-4 grid gap-6 lg:grid-cols-3">
               {content.cloudWaste.ads.static.map((ad, i) => (
-                <div key={`cw-ad-${i}`} className="space-y-4 border border-white/10 p-4">
+                <div key={`cw-ad-${i}`} className="space-y-4 border border-white/25 p-4">
                   <ImageSlot
                     label={`Ad ${i + 1} image or video`}
                     src={content.cloudWaste.media.ads[i]}
@@ -979,7 +981,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
 
             <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {content.cloudWaste.ads.carousel.map((slide, i) => (
-                <div key={`cw-carousel-${i}`} className="space-y-3 border border-white/10 p-4">
+                <div key={`cw-carousel-${i}`} className="space-y-3 border border-white/25 p-4">
                   <ImageSlot
                     label={`Carousel ${i + 1} image or video`}
                     src={content.cloudWaste.media.carousel[i]}
@@ -1033,7 +1035,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
             </p>
             <div className="mt-4 grid gap-6 lg:grid-cols-3">
               {content.cloudWaste.emails.map((email, i) => (
-                <div key={`cw-email-${i}`} className="space-y-3 border border-white/10 p-4">
+                <div key={`cw-email-${i}`} className="space-y-3 border border-white/25 p-4">
                   <Field
                     label="Subject"
                     value={email.subject}
@@ -1288,7 +1290,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
               />
               <div className="space-y-3">
                 {content.cloudWaste.dashboard.kpis.map((kpi, i) => (
-                  <div key={`kpi-${i}`} className="grid gap-3 border border-white/10 p-4 md:grid-cols-2">
+                  <div key={`kpi-${i}`} className="grid gap-3 border border-white/25 p-4 md:grid-cols-2">
                     <Field
                       label="Label"
                       value={kpi.label}
@@ -1408,7 +1410,7 @@ function ImageSlot({
   return (
     <div>
       <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">{label}</p>
-      <label className={`group relative mt-2 block cursor-pointer overflow-hidden border border-white/10 ${aspect}`}>
+      <label className={`group relative mt-2 block cursor-pointer overflow-hidden border border-white/25 ${aspect}`}>
         {url ? (
           isVideo ? (
             <video
@@ -1420,7 +1422,7 @@ function ImageSlot({
             />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={url} alt="" className="absolute inset-0 h-full w-full object-cover" />
+            <img src={url} alt={`${label} preview`} className="absolute inset-0 h-full w-full object-cover" />
           )
         ) : (
           <div className="absolute inset-0 bg-white/[0.03]" />

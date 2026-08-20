@@ -70,7 +70,7 @@ export default async function CloudWasteAdsPage() {
           </p>
           <div className="mt-4 grid grid-cols-5 gap-2">
             {cloudWaste.ads.carousel.map((slide, i) => (
-              <div key={slide.slide} className="relative aspect-square overflow-hidden rounded border border-mint/20 bg-white/[0.02] p-3 flex flex-col justify-end">
+              <div key={slide.slide} className="relative aspect-square overflow-hidden rounded border border-mint/40 bg-white/[0.02] p-3 flex flex-col justify-end">
                 <CloudWasteMedia
                   asset={cloudWaste.media.carousel[i] ?? null}
                   className="absolute inset-0 h-full w-full object-cover"
@@ -78,9 +78,9 @@ export default async function CloudWasteAdsPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                 <div className="relative">
-                <p className="font-mono text-[9px] text-neue/40">Slide {slide.slide}</p>
+                <p className="font-mono text-[9px] text-neue/70">Slide {slide.slide}</p>
                 <p className="mt-1 text-[11px] font-semibold leading-tight text-white">{slide.title}</p>
-                <p className="mt-0.5 text-[9px] text-neue/60">{slide.body}</p>
+                <p className="mt-0.5 text-[9px] text-neue/70">{slide.body}</p>
                 </div>
               </div>
             ))}
@@ -98,10 +98,10 @@ export default async function CloudWasteAdsPage() {
             {Object.entries(cloudWaste.ads.display).map(([name, size]) => (
               <div key={name} className="flex flex-col items-center gap-1">
                 <div
-                  className="rounded border border-mint/20 bg-white/[0.02]"
+                  className="rounded border border-mint/40 bg-white/[0.02]"
                   style={{ width: `${size.w / 4}px`, height: `${size.h / 4}px` }}
                 />
-                <p className="font-mono text-[9px] text-neue/50">
+                <p className="font-mono text-[9px] text-neue/70">
                   {name} · {size.w}×{size.h}
                 </p>
               </div>
@@ -116,10 +116,10 @@ export default async function CloudWasteAdsPage() {
           <RevealItem key={email.n}>
             <GridFrame borders="rb" ink="mint" strength={40}>
               <article className="flex h-full flex-col p-5 sm:p-6">
-                <p className="font-mono text-[10px] text-neue/40">Email {email.n}</p>
+                <p className="font-mono text-[10px] text-neue/70">Email {email.n}</p>
                 <h3 className="mt-2 text-sm font-semibold text-white">{email.subject}</h3>
-                <p className="mt-1 text-[10px] text-neue/50 italic">{email.preview}</p>
-                <p className="mt-3 whitespace-pre-line text-xs leading-relaxed text-neue/60">
+                <p className="mt-1 text-[10px] text-neue/70 italic">{email.preview}</p>
+                <p className="mt-3 whitespace-pre-line text-xs leading-relaxed text-neue/70">
                   {email.body}
                 </p>
                 <p className="mt-auto pt-4 font-mono text-[10px] tracking-[0.08em] text-mint uppercase">
