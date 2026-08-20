@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  serverExternalPackages: ["pg"],
+  serverExternalPackages: ["pg", "sharp"],
   turbopack: {
     root: process.cwd(),
   },

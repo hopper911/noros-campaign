@@ -140,6 +140,12 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
             <a href={FIGMA_FILE} target="_blank" rel="noreferrer" className="btn-nav">
               Open Figma file
             </a>
+            <a href="/api/admin/figma-kit/jpeg-zip" className="btn-trial">
+              Download JPEG zip
+            </a>
+            <a href="/api/admin/figma-kit/jpeg-zip?variant=plain" className="btn-nav">
+              Download background JPEG zip
+            </a>
             <a href="/figma-kit.zip" download className="btn-nav">
               Download SVG zip
             </a>
@@ -157,13 +163,9 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
             <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {group.items.map((file) => {
                 const meta = labels[file];
+                const jpegName = file.replace(/\.svg$/i, ".jpg");
                 return (
-                  <a
-                    key={file}
-                    href={`/figma-kit/${file}`}
-                    download
-                    className="group block min-w-0"
-                  >
+                  <div key={file} className="min-w-0">
                     <div className="relative overflow-hidden border border-white/10 bg-black">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -173,14 +175,33 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
                       />
                     </div>
                     <div className="mt-2 flex items-baseline justify-between gap-2">
-                      <span className="text-sm text-white group-hover:text-mint">
+                      <span className="text-sm text-white">
                         {meta?.label ?? file}
                       </span>
                       <span className="font-mono text-[10px] tracking-[0.08em] text-neue uppercase">
                         {meta?.size}
                       </span>
                     </div>
-                  </a>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      <a
+                        href={`/api/admin/figma-kit/jpeg?file=${encodeURIComponent(file)}`}
+                        download={jpegName}
+                        className="btn-nav"
+                      >
+                        JPEG
+                      </a>
+                      <a
+                        href={`/api/admin/figma-kit/jpeg?file=${encodeURIComponent(file)}&variant=plain`}
+                        download={file.replace(/\.svg$/i, "-bg.jpg")}
+                        className="btn-nav"
+                      >
+                        Background
+                      </a>
+                      <a href={`/figma-kit/${file}`} download={file} className="btn-nav">
+                        SVG
+                      </a>
+                    </div>
+                  </div>
                 );
               })}
             </div>
