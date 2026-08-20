@@ -1,7 +1,7 @@
 "use client";
 
 import { StoryboardCropModal } from "@/components/admin/StoryboardCropModal";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function StoryboardImageSlot({
   label,
@@ -16,12 +16,9 @@ export function StoryboardImageSlot({
   uploading: string | null;
   onUpload: (kind: string, file: File) => void;
 }) {
+  const fileRef = useRef<HTMLInputElement>(null);
   const [cropSrc, setCropSrc] = useState<string | null>(null);
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
-
-  function openFilePicker(input: HTMLInputElement | null) {
-    input?.click();
-  }
 
   function onFileChosen(file: File | undefined) {
     if (!file) return;
@@ -43,7 +40,6 @@ export function StoryboardImageSlot({
       setObjectUrl(url);
       setCropSrc(url);
     } catch {
-      // Fall back to URL directly (may taint canvas if cross-origin)
       setCropSrc(src);
     }
   }
@@ -59,9 +55,7 @@ export function StoryboardImageSlot({
   return (
     <div>
       <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">{label}</p>
-      <div
-        className={`group relative mt-2 block overflow-hidden border border-white/10 aspect-video`}
-      >
+      <div className="group relative mt-2 block aspect-video overflow-hidden border border-white/10">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
@@ -73,17 +67,12 @@ export function StoryboardImageSlot({
           type="button"
           className="absolute inset-x-3 bottom-3 rounded-full bg-black/80 px-3 py-1.5 text-center font-mono text-[10px] tracking-[0.08em] text-mint uppercase"
           disabled={!!uploading}
-          onClick={(e) => {
-            const input = (e.currentTarget.parentElement?.querySelector(
-              'input[data-role="storyboard-file"]',
-            ) ?? null) as HTMLInputElement | null;
-            openFilePicker(input);
-          }}
+          onClick={() => fileRef.current?.click()}
         >
           {uploading === kind ? "Uploading…" : "Upload / replace media"}
         </button>
         <input
-          data-role="storyboard-file"
+          ref={fileRef}
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif"
           className="hidden"
@@ -95,19 +84,14 @@ export function StoryboardImageSlot({
         />
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
-        <label className="btn-nav inline-flex cursor-pointer">
+        <button
+          type="button"
+          className="btn-nav"
+          disabled={!!uploading}
+          onClick={() => fileRef.current?.click()}
+        >
           {uploading === kind ? "Uploading…" : "Choose file"}
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/gif"
-            className="hidden"
-            disabled={!!uploading}
-            onChange={(e) => {
-              onFileChosen(e.target.files?.[0]);
-              e.target.value = "";
-            }}
-          />
-        </label>
+        </button>
         <button
           type="button"
           className="btn-nav"
