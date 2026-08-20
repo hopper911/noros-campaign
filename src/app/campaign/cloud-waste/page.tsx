@@ -2,7 +2,6 @@ import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
@@ -101,13 +100,15 @@ export default async function CloudWasteHeroPage() {
               <ServerRackSVG />
             </CloudWasteMedia>
           </div>
+          {/* Soft scrim so copy stays readable on busy photo backgrounds.
+              Avoid the solid HeaderBar mark — on photos it reads as a grey line. */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
           <div className="relative z-10 p-5 sm:p-8 md:p-10 lg:p-14">
-            <HeaderBar />
-            <p className="mt-8 font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
+            <p className="font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
               {cloudWaste.hero.eyebrow}
             </p>
             <BoxedTitle size="t2" className="mt-4" lines={campaignLines} />
-            <p className="t6 mt-6 max-w-2xl text-neue">
+            <p className="t6 mt-6 max-w-2xl text-white/90">
               {cloudWaste.product.support}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
