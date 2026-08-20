@@ -18,7 +18,6 @@ const kitLinks = [
   ["/campaign/announce", "Exec announcement"],
   ["/campaign/ui", "Product UI graphic"],
   ["/campaign/meet", "Meet Noros hero"],
-  ["/campaign/figma", "Figma boards"],
   ["/campaign/cloud-waste", "Cloud waste campaign"],
 ] as const;
 

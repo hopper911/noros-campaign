@@ -15,7 +15,6 @@ const links = [
   { href: "/campaign/storyboard", label: "Storyboard" },
   { href: "/campaign/launch", label: "Launch" },
   { href: "/campaign/announce", label: "Announce" },
-  { href: "/campaign/figma", label: "Figma" },
   { href: "/campaign/cfo", label: "CFO" },
   { href: "/campaign/finops", label: "FinOps" },
   { href: "/campaign/engineers", label: "Engineers" },
