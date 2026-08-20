@@ -75,7 +75,7 @@ export function SiteNav() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black">
+    <header className="sticky top-0 z-50 bg-black">
       <div className="flex min-w-0 items-center justify-between gap-2 px-site py-3 md:gap-4">
         <Link href="/" className="logo-link min-w-0 shrink-0 text-white" aria-label="Home">
           <NorthLogo />

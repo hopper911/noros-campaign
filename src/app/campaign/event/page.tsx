@@ -26,7 +26,7 @@ export default async function EventPage() {
             <p className="font-mono text-[11px] tracking-[0.2em] text-mint uppercase">Noros</p>
             <div className="mt-4">
               <BoxedTitle
-                className="items-center [&_.boxed-line]:self-center"
+                className="items-center [&_.title-line]:self-center"
                 lines={boxedLines(campaignLine)}
               />
             </div>

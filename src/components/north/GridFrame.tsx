@@ -19,8 +19,8 @@ export function GridFrame({
     ink === "mint" ? "var(--mint)" : ink === "neue" ? "var(--neue)" : "var(--black)";
   const showL = borders.includes("l");
   const showR = borders.includes("r");
-  const showT = borders.includes("t");
   const showB = borders.includes("b");
+  // Top borders intentionally ignored — they read as grey hairlines on photo heroes.
 
   return (
     <div
@@ -32,9 +32,6 @@ export function GridFrame({
         } as React.CSSProperties
       }
     >
-      {showT && (
-        <span className="pointer-events-none absolute inset-x-0 top-0 h-px border-t border-dotted border-[color:var(--bc-border,var(--bc-border-default))]" />
-      )}
       {showB && (
         <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px border-b border-dotted border-[color:var(--bc-border,var(--bc-border-default))]" />
       )}
@@ -46,15 +43,6 @@ export function GridFrame({
       )}
       {!showL && (
         <span className="fake-left pointer-events-none absolute inset-y-0 left-0 w-px bg-[color:var(--bc-border,var(--bc-border-default))]" />
-      )}
-      {showT && showL && (
-        <Cross className="top-0 left-0 -translate-x-1/2 -translate-y-1/2" />
-      )}
-      {showT && !showL && (
-        <Cross className="top-0 left-0 -translate-x-1/2 -translate-y-1/2" />
-      )}
-      {showT && showR && (
-        <Cross className="top-0 right-0 translate-x-1/2 -translate-y-1/2 rotate-90" />
       )}
       {showB && showL && (
         <Cross className="bottom-0 left-0 -translate-x-1/2 translate-y-1/2 -rotate-90" />

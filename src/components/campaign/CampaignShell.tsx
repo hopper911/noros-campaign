@@ -37,7 +37,7 @@ export async function CampaignShell({
   return (
     <>
       <SiteNav />
-      <div className="border-b border-white/10 bg-black">
+      <div className="bg-black">
         <div className="mx-auto flex max-w-[1440px] items-baseline gap-3 px-site py-3">
           <Link
             href="/"

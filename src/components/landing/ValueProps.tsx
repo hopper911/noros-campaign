@@ -23,7 +23,7 @@ export function ValueProps({
               <BoxedTitle
                 size="t1"
                 align="split"
-                className="[&_.boxed-line]:text-black"
+                className="[&_.title-line]:text-black"
                 lines={boxedLines(value.eyebrow)}
               />
               <p className="t6 mt-8 max-w-[34rem] text-black/80">

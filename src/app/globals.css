@@ -253,11 +253,13 @@ body {
   padding: 0 1rem;
 }
 
-.boxed-line {
+.title-line {
   display: inline-block;
   max-width: 100%;
   overflow-wrap: break-word;
   color: var(--white);
+  background: none;
+  padding: 0;
 }
 
 .header-line {
