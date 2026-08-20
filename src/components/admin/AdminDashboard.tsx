@@ -1,5 +1,6 @@
 "use client";
 
+import { StoryboardImageSlot } from "@/components/admin/StoryboardImageSlot";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import type { AudienceId, CloudWasteMediaAsset, SiteContent } from "@/lib/site-content";
@@ -358,11 +359,10 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
         <div className="mt-4 grid gap-6 md:grid-cols-2">
           {content.storyboardFrames.map((frame, i) => (
             <div key={frame.t} className="space-y-3 border border-white/10 p-4">
-              <ImageSlot
+              <StoryboardImageSlot
                 label={`${frame.t} still`}
                 src={frame.imageUrl}
                 kind={`storyboard-${i}`}
-                aspect="aspect-video"
                 uploading={uploading}
                 onUpload={upload}
               />
