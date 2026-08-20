@@ -44,7 +44,7 @@ export async function svgToJpeg(
   if (!safe) throw new Error("Invalid file");
   let svg = await readFile(path.join(KIT_DIR, safe), "utf8");
   if (variant === "plain") svg = stripSvgText(svg);
-  return sharp(Buffer.from(svg), { density: 192 })
+  return sharp(Buffer.from(svg), { density: 72 })
     .flatten({ background: "#121314" })
     .jpeg({ quality: 92, mozjpeg: true })
     .toBuffer();

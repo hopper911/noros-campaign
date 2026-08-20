@@ -17,8 +17,13 @@ export async function GET(req: Request) {
   try {
     const names = await listKitSvgNames();
     const zip = new JSZip();
-    for (const name of names) {
-      zip.file(jpegNameFromSvg(name, variant), await svgToJpeg(name, variant));
+    const batchSize = 4;
+    for (let i = 0; i < names.length; i += batchSize) {
+      const batch = names.slice(i, i + batchSize);
+      const jpegs = await Promise.all(batch.map((name) => svgToJpeg(name, variant)));
+      batch.forEach((name, index) => {
+        zip.file(jpegNameFromSvg(name, variant), jpegs[index]);
+      });
     }
     const body = await zip.generateAsync({
       type: "nodebuffer",

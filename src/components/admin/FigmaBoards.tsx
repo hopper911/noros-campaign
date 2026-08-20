@@ -1,3 +1,4 @@
+import { DownloadButton } from "@/components/admin/DownloadButton";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
@@ -140,15 +141,22 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
             <a href={FIGMA_FILE} target="_blank" rel="noreferrer" className="btn-nav">
               Open Figma file
             </a>
-            <a href="/api/admin/figma-kit/jpeg-zip" className="btn-trial">
+            <DownloadButton
+              href="/api/admin/figma-kit/jpeg-zip"
+              filename="figma-kit-jpegs.zip"
+              className="btn-trial"
+            >
               Download JPEG zip
-            </a>
-            <a href="/api/admin/figma-kit/jpeg-zip?variant=plain" className="btn-nav">
+            </DownloadButton>
+            <DownloadButton
+              href="/api/admin/figma-kit/jpeg-zip?variant=plain"
+              filename="figma-kit-backgrounds.zip"
+            >
               Download background JPEG zip
-            </a>
-            <a href="/figma-kit.zip" download className="btn-nav">
+            </DownloadButton>
+            <DownloadButton href="/figma-kit.zip" filename="figma-kit.zip">
               Download SVG zip
-            </a>
+            </DownloadButton>
           </div>
           <p className="mt-6 font-mono text-[11px] text-neue/70 uppercase">{disclaimer}</p>
         </Reveal>
@@ -183,23 +191,21 @@ export function FigmaBoards({ disclaimer }: { disclaimer: string }) {
                       </span>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      <a
+                      <DownloadButton
                         href={`/api/admin/figma-kit/jpeg?file=${encodeURIComponent(file)}`}
-                        download={jpegName}
-                        className="btn-nav"
+                        filename={jpegName}
                       >
                         JPEG
-                      </a>
-                      <a
+                      </DownloadButton>
+                      <DownloadButton
                         href={`/api/admin/figma-kit/jpeg?file=${encodeURIComponent(file)}&variant=plain`}
-                        download={file.replace(/\.svg$/i, "-bg.jpg")}
-                        className="btn-nav"
+                        filename={file.replace(/\.svg$/i, "-bg.jpg")}
                       >
                         Background
-                      </a>
-                      <a href={`/figma-kit/${file}`} download={file} className="btn-nav">
+                      </DownloadButton>
+                      <DownloadButton href={`/figma-kit/${file}`} filename={file}>
                         SVG
-                      </a>
+                      </DownloadButton>
                     </div>
                   </div>
                 );
