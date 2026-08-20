@@ -257,17 +257,7 @@ body {
   display: inline-block;
   max-width: 100%;
   overflow-wrap: break-word;
-  background: var(--black);
   color: var(--white);
-  padding: 0.12em 0.2em 0.18em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-@media (min-width: 640px) {
-  .boxed-line {
-    padding: 0.12em 0.28em 0.18em;
-  }
 }
 
 .header-line {
