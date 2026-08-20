@@ -1,4 +1,5 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
+import { CloudWasteSubNav } from "@/components/campaign/CloudWasteSubNav";
 import { getSiteContent } from "@/lib/get-site-content";
 import { DashboardMetrics } from "./DashboardMetrics";
 
@@ -11,6 +12,7 @@ export default async function CloudWasteDashboardPage() {
         funnel={cloudWaste.dashboard.funnel}
         media={cloudWaste.media.dashboard}
       />
+      <CloudWasteSubNav current="/campaign/cloud-waste/dashboard" />
     </CampaignShell>
   );
 }

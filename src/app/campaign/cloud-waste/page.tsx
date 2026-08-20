@@ -1,5 +1,6 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
+import { CloudWasteSubNav } from "@/components/campaign/CloudWasteSubNav";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
@@ -176,26 +177,7 @@ export default async function CloudWasteHeroPage() {
         </Reveal>
       </GridFrame>
 
-      {/* Sub-pages nav */}
-      <GridFrame borders="rb" ink="mint" strength={40}>
-        <div className="flex flex-wrap gap-2 p-5 sm:p-8">
-          {[
-            ["/campaign/cloud-waste/report", "Lead-gen Report"],
-            ["/campaign/cloud-waste/ads", "Ads & Email"],
-            ["/campaign/cloud-waste/webinar", "Webinar & Deck"],
-            ["/campaign/cloud-waste/ooh", "Out-of-Home"],
-            ["/campaign/cloud-waste/dashboard", "Dashboard"],
-          ].map(([href, label]) => (
-            <Link
-              key={href}
-              href={href}
-              className="rounded-full border border-mint/30 px-4 py-2 font-mono text-[10px] tracking-[0.08em] text-mint uppercase hover:bg-mint/10"
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-      </GridFrame>
+      <CloudWasteSubNav />
     </CampaignShell>
   );
 }

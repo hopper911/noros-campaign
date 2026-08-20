@@ -1,5 +1,6 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
+import { CloudWasteSubNav } from "@/components/campaign/CloudWasteSubNav";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
@@ -131,6 +132,7 @@ export default async function CloudWasteAdsPage() {
           </RevealItem>
         ))}
       </RevealStagger>
+      <CloudWasteSubNav current="/campaign/cloud-waste/ads" />
     </CampaignShell>
   );
 }

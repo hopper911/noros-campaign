@@ -1,5 +1,6 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
+import { CloudWasteSubNav } from "@/components/campaign/CloudWasteSubNav";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
@@ -110,6 +111,7 @@ export default async function CloudWasteOohPage() {
           </dl>
         </Reveal>
       </GridFrame>
+      <CloudWasteSubNav current="/campaign/cloud-waste/ooh" />
     </CampaignShell>
   );
 }
