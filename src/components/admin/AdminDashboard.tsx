@@ -1176,7 +1176,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                 />
               </div>
               <ImageSlot
-                label="Webinar image or video"
+                label="Webinar page background (image or video)"
                 src={content.cloudWaste.media.webinar}
                 kind="cw-webinar"
                 aspect="aspect-video"
@@ -1278,7 +1278,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
             </p>
             <div className="mt-4 grid gap-6 lg:grid-cols-2">
               <ImageSlot
-                label="Dashboard image or video"
+                label="Dashboard page background (image or video)"
                 src={content.cloudWaste.media.dashboard}
                 kind="cw-dashboard"
                 aspect="aspect-[16/10]"
