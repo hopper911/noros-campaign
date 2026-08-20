@@ -4,6 +4,7 @@ import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
+import { getIsAdminSession } from "@/lib/admin-auth";
 import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
@@ -22,7 +23,14 @@ const kitLinks = [
 ] as const;
 
 export default async function CampaignHubPage() {
-  const { campaignLine, disclaimer, audiences } = await getSiteContent();
+  const [{ campaignLine, disclaimer, audiences }, isAdmin] = await Promise.all([
+    getSiteContent(),
+    getIsAdminSession(),
+  ]);
+
+  const surfaces = isAdmin
+    ? [...kitLinks, ["/admin/figma", "Figma boards"] as const]
+    : kitLinks;
 
   return (
     <CampaignShell title="Campaign concept & messaging">
@@ -89,7 +97,7 @@ export default async function CampaignHubPage() {
             Kit surfaces · {campaignLine}
           </p>
           <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {kitLinks.map(([href, label]) => (
+            {surfaces.map(([href, label]) => (
               <Link key={href} href={href} className="nav-item w-full justify-start">
                 {label}
               </Link>

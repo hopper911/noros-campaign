@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 const encoder = new TextEncoder();
 
 export const ADMIN_COOKIE = "noros_admin";
@@ -28,6 +30,14 @@ export async function isValidAdminSession(
     mismatch |= cookie.charCodeAt(i) ^ expected.charCodeAt(i);
   }
   return mismatch === 0;
+}
+
+export async function getIsAdminSession(): Promise<boolean> {
+  const cookieStore = await cookies();
+  return isValidAdminSession(
+    cookieStore.get(ADMIN_COOKIE)?.value,
+    process.env.ADMIN_PASSWORD,
+  );
 }
 
 export function adminCookieOptions() {

@@ -1,6 +1,7 @@
 import { CampaignNav } from "@/components/campaign/CampaignNav";
 import { SiteFooter } from "@/components/landing/SiteFooter";
 import { SiteNav } from "@/components/landing/SiteNav";
+import { getIsAdminSession } from "@/lib/admin-auth";
 import Link from "next/link";
 
 const links = [
@@ -21,13 +22,18 @@ const links = [
   { href: "/campaign/cloud-waste", label: "Cloud Waste" },
 ];
 
-export function CampaignShell({
+const adminLink = { href: "/admin/figma", label: "Figma" };
+
+export async function CampaignShell({
   title,
   children,
 }: {
   title: string;
   children: React.ReactNode;
 }) {
+  const isAdmin = await getIsAdminSession();
+  const navLinks = isAdmin ? [...links, adminLink] : links;
+
   return (
     <>
       <SiteNav />
@@ -43,7 +49,7 @@ export function CampaignShell({
             {title}
           </h1>
         </div>
-        <CampaignNav links={links} />
+        <CampaignNav links={navLinks} />
       </div>
       <main id="main-content" className="min-w-0 overflow-x-clip bg-black px-site py-site">{children}</main>
       <SiteFooter />
