@@ -3,7 +3,6 @@ import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { CloudWasteSubNav } from "@/components/campaign/CloudWasteSubNav";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 
@@ -23,8 +22,7 @@ export default async function CloudWasteReportPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/55" />
           </div>
           <div className="relative">
-          <HeaderBar />
-          <p className="mt-8 font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
+          <p className="font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
             Lead-Generation Landing · Downloadable Report
           </p>
           <BoxedTitle

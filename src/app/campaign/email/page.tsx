@@ -1,6 +1,5 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
@@ -20,8 +19,7 @@ export default async function EmailPage() {
             />
             <div className="absolute inset-0 bg-black/70" />
             <div className="relative">
-              <HeaderBar />
-              <p className="mt-6 font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+              <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
                 Launch announcement
               </p>
               <div className="mt-2 text-xl font-medium text-white">Noros</div>

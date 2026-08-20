@@ -1,7 +1,6 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 import { getIsAdminSession } from "@/lib/admin-auth";
@@ -36,8 +35,7 @@ export default async function CampaignHubPage() {
     <CampaignShell title="Campaign concept & messaging">
       <GridFrame borders="trb" ink="mint" strength={40}>
         <Reveal className="p-5 sm:p-8 md:p-10">
-          <HeaderBar />
-          <p className="mt-8 font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
+          <p className="font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
             Application add-on · Noros
           </p>
           <BoxedTitle size="t2" className="mt-4" lines={boxedLines(campaignLine)} />

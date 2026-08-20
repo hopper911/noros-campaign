@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="720" viewBox="0 0 1440 720">
+<rect width="1440" height="720" fill="#121314"/>
+<text x="72" y="80" fill="#a2f2e3" font-size="13" letter-spacing="3" font-family="Cygnito Mono, ui-monospace, monospace">PRICING</text>
+<text x="72" y="140" fill="#f8fcfd" font-size="40">Start in five minutes.</text>
+<text x="72" y="190" fill="#afb8c2" font-size="16">Portfolio demo—no live checkout. Every plan opens the Noros console.</text>
+<rect x="72" y="250" width="400" height="380" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="96" y="300" fill="#a2f2e3" font-size="12" letter-spacing="2" font-family="Cygnito Mono, ui-monospace, monospace">14-day trial</text>
+<text x="96" y="350" fill="#f8fcfd" font-size="28">Free</text>
+<text x="96" y="400" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Read-only connect. Answers</text>
+<text x="96" y="422" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">within hours—not another</text>
+<text x="96" y="444" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">quarter of exports.</text>
+<rect x="96" y="540" width="160" height="40" rx="20" fill="#a2f2e3"/>
+<text x="118" y="566" fill="#121314" font-size="13">Start trial</text>
+<rect x="512" y="250" width="400" height="380" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="536" y="300" fill="#a2f2e3" font-size="12" letter-spacing="2" font-family="Cygnito Mono, ui-monospace, monospace">Team</text>
+<text x="536" y="350" fill="#f8fcfd" font-size="28">Talk to us</text>
+<text x="536" y="400" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">FinOps, finance, and</text>
+<text x="536" y="422" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">engineering in one workspace.</text>
+<text x="536" y="444" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Slack delivery included.</text>
+<rect x="536" y="540" width="160" height="40" rx="20" fill="#a2f2e3"/>
+<text x="558" y="566" fill="#121314" font-size="13">Free Demo</text>
+<rect x="952" y="250" width="400" height="380" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="976" y="300" fill="#a2f2e3" font-size="12" letter-spacing="2" font-family="Cygnito Mono, ui-monospace, monospace">Enterprise</text>
+<text x="976" y="350" fill="#f8fcfd" font-size="28">Custom</text>
+<text x="976" y="400" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">SSO, dedicated support, and</text>
+<text x="976" y="422" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">multi-account governance at</text>
+<text x="976" y="444" fill="#afb8c2" font-size="14" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">scale.</text>
+<rect x="976" y="540" width="160" height="40" rx="20" fill="#a2f2e3"/>
+<text x="998" y="566" fill="#121314" font-size="13">Meet Noros</text>
+</svg>

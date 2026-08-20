@@ -1,6 +1,5 @@
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { boxedLines, type LandingContent } from "@/lib/site-content";
 
@@ -16,12 +15,11 @@ export function ValueProps({
       <div className="px-site">
         <GridFrame borders="trl" ink="black" strength={50}>
           <div className="relative min-h-0 overflow-hidden p-4 sm:min-h-[28rem] sm:p-6 md:min-h-[36rem] md:p-10">
-            <HeaderBar />
             <div className="pointer-events-none absolute top-10 right-4 hidden w-[32%] max-w-[20rem] sm:block md:top-16 md:right-16 md:w-[40%]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={imageUrl} alt="" className="w-full object-contain" />
             </div>
-            <Reveal className="relative mt-10 max-w-[52rem]">
+            <Reveal className="relative max-w-[52rem]">
               <BoxedTitle
                 size="t1"
                 align="split"

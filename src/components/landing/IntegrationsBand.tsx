@@ -1,5 +1,4 @@
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 
 const clouds = [
@@ -23,8 +22,7 @@ export function IntegrationsBand() {
       <div className="px-site">
         <GridFrame borders="tr" ink="mint" strength={40}>
           <Reveal className="p-5 sm:p-8 md:p-10">
-            <HeaderBar />
-            <p className="mt-8 font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
+            <p className="font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
               Integrations
             </p>
             <h2 className="t2 mt-4 text-white">AWS, GCP, and Azure.</h2>

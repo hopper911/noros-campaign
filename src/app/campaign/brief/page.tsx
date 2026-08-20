@@ -1,7 +1,6 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 import { boxedLines } from "@/lib/site-content";
@@ -18,8 +17,7 @@ export default async function BriefPage() {
       <div className="space-y-8">
         <GridFrame borders="trb" ink="mint" strength={40}>
           <Reveal className="mx-auto max-w-[8.5in] p-5 sm:p-8 md:p-12 print:border-0">
-            <HeaderBar />
-            <div className="relative mt-8 aspect-[16/7] overflow-hidden">
+            <div className="relative aspect-[16/7] overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={kit.briefImageUrl}

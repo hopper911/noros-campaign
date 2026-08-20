@@ -1,6 +1,5 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 
@@ -11,8 +10,7 @@ export default async function CarouselPage() {
     <CampaignShell title="Five-slide LinkedIn carousel">
       <GridFrame borders="tr" ink="mint" strength={40}>
         <div className="p-5 sm:p-8 md:p-10">
-          <HeaderBar />
-          <p className="mt-8 font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
+          <p className="font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
             1080 × 1080
           </p>
           <p className="t6 mt-4 max-w-2xl text-neue">

@@ -2,7 +2,6 @@ import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { ProductMock } from "@/components/ui/ProductMock";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 import { boxedLines } from "@/lib/site-content";
@@ -23,8 +22,7 @@ export default async function MeetPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
           <Reveal className="relative grid min-w-0 gap-8 p-5 sm:p-8 md:grid-cols-2 md:items-center md:p-10">
             <div>
-              <HeaderBar />
-              <p className="mt-8 font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
+              <p className="font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
                 Meet Noros
               </p>
               <BoxedTitle

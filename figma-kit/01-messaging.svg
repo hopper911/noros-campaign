@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="900" viewBox="0 0 1440 900">
+<rect width="1440" height="900" fill="#121314"/>
+<text x="80" y="90" fill="#a2f2e3" font-size="13" letter-spacing="3" font-family="Cygnito Mono, ui-monospace, monospace">01  MESSAGING FRAMEWORK</text>
+<text x="80" y="160" fill="#f8fcfd" font-size="36" font-weight="500" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Ask your cloud what it costs—and why.</text>
+<rect x="80" y="240" width="400" height="560" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="104" y="280" fill="#a2f2e3" font-size="13" letter-spacing="2" font-family="Cygnito Mono, ui-monospace, monospace">CFO</text>
+<text x="104" y="330" fill="#f8fcfd" font-size="22" font-weight="500" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Forecast confidence. Savings</text>
+<text x="104" y="358" fill="#f8fcfd" font-size="22" font-weight="500" font-family="Untitled Sans, Helvetica, Arial, sans-serif">you can defend.</text>
+<text x="104" y="430" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">See where cloud spend is heading,</text>
+<text x="104" y="452" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">why variance appeared, and which</text>
+<text x="104" y="474" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">risks matter to the business—before</text>
+<text x="104" y="496" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">the board deck.</text>
+<text x="104" y="560" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Budget pacing and threshold drift in plain language</text><text x="104" y="588" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Variance explained by drivers, not dumps</text><text x="104" y="616" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Savings ROI framed for finance and the board</text>
+<rect x="520" y="240" width="400" height="560" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="544" y="280" fill="#a2f2e3" font-size="13" letter-spacing="2" font-family="Cygnito Mono, ui-monospace, monospace">FinOps</text>
+<text x="544" y="330" fill="#f8fcfd" font-size="22" font-weight="500" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Allocation, governance, and</text>
+<text x="544" y="358" fill="#f8fcfd" font-size="22" font-weight="500" font-family="Untitled Sans, Helvetica, Arial, sans-serif">the optimize loop.</text>
+<text x="544" y="430" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Catch anomalies early, close</text>
+<text x="544" y="452" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">coverage gaps, and move from alert</text>
+<text x="544" y="474" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">to action with a workflow your team</text>
+<text x="544" y="496" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">can run.</text>
+<text x="544" y="560" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Anomalies flagged with context on what changed</text><text x="544" y="588" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Commitment coverage and idle waste surfaced continuously</text><text x="544" y="616" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Alert → allocate → optimize without rebuilding reports</text>
+<rect x="960" y="240" width="400" height="560" fill="none" stroke="rgba(162,242,227,0.25)"/>
+<text x="984" y="280" fill="#a2f2e3" font-size="13" letter-spacing="2" font-family="Cygnito Mono, ui-monospace, monospace">Engineer</text>
+<text x="984" y="330" fill="#f8fcfd" font-size="22" font-weight="500" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Ask like a teammate. Get the</text>
+<text x="984" y="358" fill="#f8fcfd" font-size="22" font-weight="500" font-family="Untitled Sans, Helvetica, Arial, sans-serif">resource context.</text>
+<text x="984" y="430" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Skip exports and query languages.</text>
+<text x="984" y="452" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">Get answers grounded in services,</text>
+<text x="984" y="474" fill="#afb8c2" font-size="15" font-weight="400" font-family="Untitled Sans, Helvetica, Arial, sans-serif">regions, and tags.</text>
+<text x="984" y="560" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Plain-language Q&amp;A on real cloud data</text><text x="984" y="588" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Drivers by service, region, and tag</text><text x="984" y="616" fill="#afb8c2" font-size="12" font-family="Cygnito Mono, ui-monospace, monospace">— Rightsizing and waste cues you can ship</text>
+</svg>

@@ -3,7 +3,6 @@ import { CloudWasteMedia } from "@/components/campaign/CloudWasteMedia";
 import { CloudWasteSubNav } from "@/components/campaign/CloudWasteSubNav";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 
@@ -56,8 +55,7 @@ export default async function CloudWasteOohPage() {
     <CampaignShell title="Cloud Waste — Out-of-Home">
       <GridFrame borders="trb" ink="mint" strength={40}>
         <Reveal className="p-5 sm:p-8 md:p-10">
-          <HeaderBar />
-          <p className="mt-8 font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
+          <p className="font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
             Out-of-Home Concept · Conference Placement
           </p>
           <BoxedTitle size="t2" className="mt-4" lines={["Conference", "OOH Concept"]} />

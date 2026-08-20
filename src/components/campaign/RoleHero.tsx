@@ -1,7 +1,6 @@
 import { ProductMock } from "@/components/ui/ProductMock";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import type { AudienceContent } from "@/lib/site-content";
 import Link from "next/link";
@@ -26,8 +25,7 @@ export function RoleHero({ audience }: { audience: Audience }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/40" />
         <Reveal className="relative p-5 sm:p-8 md:p-10">
-          <HeaderBar />
-          <p className="mt-8 font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
+          <p className="font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
             Noros for {audience.shortLabel}
           </p>
           <BoxedTitle size="t2" className="mt-4" lines={lines} />

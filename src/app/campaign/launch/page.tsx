@@ -1,7 +1,6 @@
 import { CampaignShell } from "@/components/campaign/CampaignShell";
 import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
 import Link from "next/link";
@@ -13,8 +12,7 @@ export default async function LaunchPage() {
       <div className="grid lg:grid-cols-2">
         <GridFrame borders="trb" ink="mint" strength={40}>
           <Reveal className="p-5 sm:p-8 md:p-10">
-            <HeaderBar />
-            <p className="mt-8 font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+            <p className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
               Gallery card
             </p>
             <div className="relative mt-4 aspect-[2/1] overflow-hidden">
