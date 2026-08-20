@@ -13,7 +13,7 @@ export default async function EventPage() {
       <p className="mb-6 font-mono text-[11px] tracking-[0.16em] text-neue uppercase">
         1920×1080 stage / lobby screen
       </p>
-      <GridFrame borders="trb" ink="mint" strength={50}>
+      <GridFrame borders="rb" ink="mint" strength={50}>
         <div className="relative aspect-video w-full overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

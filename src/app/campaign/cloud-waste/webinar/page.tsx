@@ -18,7 +18,7 @@ export default async function CloudWasteWebinarPage() {
 
   return (
     <CampaignShell title="Cloud Waste — Webinar & Sales Deck">
-      <GridFrame borders="trb" ink="mint" strength={40}>
+      <GridFrame borders="rb" ink="mint" strength={40}>
         <Reveal className="relative overflow-hidden">
           <div className="absolute inset-0">
             {cloudWaste.media.webinar ? (

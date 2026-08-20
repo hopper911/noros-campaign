@@ -15,7 +15,7 @@ export function RoleHero({ audience }: { audience: Audience }) {
       : [audience.headline];
 
   return (
-    <GridFrame borders="trb" ink="mint" strength={40}>
+    <GridFrame borders="rb" ink="mint" strength={40}>
       <div className="relative overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

@@ -11,7 +11,7 @@ export default async function AnnouncePage() {
   return (
     <CampaignShell title="Executive announcement graphic">
       <div className="grid lg:grid-cols-2">
-        <GridFrame borders="trb" ink="mint" strength={40}>
+        <GridFrame borders="rb" ink="mint" strength={40}>
           <Reveal>
             <article className="relative aspect-square overflow-hidden lg:aspect-auto lg:min-h-[28rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -43,7 +43,7 @@ export default async function AnnouncePage() {
           </Reveal>
         </GridFrame>
 
-        <GridFrame borders="trb" ink="mint" strength={40}>
+        <GridFrame borders="rb" ink="mint" strength={40}>
           <Reveal delay={0.08}>
             <article className="relative min-h-[20rem] overflow-hidden lg:min-h-[28rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}

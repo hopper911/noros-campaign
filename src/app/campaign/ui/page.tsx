@@ -9,7 +9,7 @@ export default async function UIHeroPage() {
   const { kit } = await getSiteContent();
   return (
     <CampaignShell title="Product UI hero graphic">
-      <GridFrame borders="trb" ink="mint" strength={40}>
+      <GridFrame borders="rb" ink="mint" strength={40}>
         <div className="relative overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

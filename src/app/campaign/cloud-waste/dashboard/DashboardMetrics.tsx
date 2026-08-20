@@ -72,7 +72,7 @@ export function DashboardMetrics({
 
   return (
     <>
-      <GridFrame borders="trb" ink="mint" strength={40}>
+      <GridFrame borders="rb" ink="mint" strength={40}>
         <div className="relative overflow-hidden">
           <div className="absolute inset-0">
             {media ? (

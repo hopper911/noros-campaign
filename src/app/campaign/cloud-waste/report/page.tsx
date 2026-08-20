@@ -11,7 +11,7 @@ export default async function CloudWasteReportPage() {
   return (
     <CampaignShell title="Cloud Waste — Hidden Cost Report">
       {/* Landing hero */}
-      <GridFrame borders="trb" ink="mint" strength={40}>
+      <GridFrame borders="rb" ink="mint" strength={40}>
         <Reveal className="relative overflow-hidden p-5 sm:p-8 md:p-10 lg:p-14">
           <div className="absolute inset-0">
             <CloudWasteMedia

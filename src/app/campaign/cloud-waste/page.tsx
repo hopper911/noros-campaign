@@ -89,20 +89,20 @@ export default async function CloudWasteHeroPage() {
   ];
   return (
     <CampaignShell title="Cloud Waste Campaign">
-      {/* Hero visual */}
-      <GridFrame borders="trb" ink="mint" strength={40}>
+      {/* Hero visual — no top frame border (reads as a grey line on photos).
+          Hero media may be a multi-panel color board; zoom into one panel so
+          baked-in grid lines don't cut across the headline. */}
+      <GridFrame borders="rb" ink="mint" strength={40}>
         <Reveal className="relative overflow-hidden">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 overflow-hidden">
             <CloudWasteMedia
               asset={cloudWaste.media.hero}
-              className="h-full w-full object-cover"
+              className="h-full w-full origin-[18%_12%] scale-[2.2] object-cover"
               alt="Cloud Waste campaign hero media"
             >
               <ServerRackSVG />
             </CloudWasteMedia>
           </div>
-          {/* Soft scrim so copy stays readable on busy photo backgrounds.
-              Avoid the solid HeaderBar mark — on photos it reads as a grey line. */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
           <div className="relative z-10 p-5 sm:p-8 md:p-10 lg:p-14">
             <p className="font-mono text-[11px] tracking-[0.18em] text-mint uppercase">
