@@ -79,13 +79,11 @@ function OohFrame({
   headline,
   subline,
   label,
-  showCopy,
 }: {
   asset: CloudWasteMediaAsset | null;
   headline: string;
   subline: string;
   label: string;
-  showCopy: boolean;
 }) {
   return (
     <div className="min-w-0">
@@ -98,19 +96,20 @@ function OohFrame({
         >
           <OohSVG />
         </CloudWasteMedia>
-        {showCopy ? (
-          <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8">
-            <div>
-              <p className="font-mono text-[12px] tracking-[0.16em] text-mint uppercase">Noros</p>
-            </div>
-            <div className="mb-12 sm:mb-16">
-              <h2 className="text-xl font-semibold leading-tight text-white sm:text-2xl">
-                {headline}
-              </h2>
-              <p className="mt-2 text-sm text-neue/70">{subline}</p>
-            </div>
+        {/* Brand overlay — always on so uploaded backgrounds stay on-brief */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/20"
+          aria-hidden
+        />
+        <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-8">
+          <p className="font-mono text-[12px] tracking-[0.16em] text-mint uppercase">Noros</p>
+          <div className="mb-10 sm:mb-14">
+            <h2 className="text-xl font-semibold leading-[1.15] tracking-tight text-white sm:text-2xl">
+              {headline}
+            </h2>
+            <p className="mt-3 max-w-[18rem] text-sm leading-snug text-neue/80">{subline}</p>
           </div>
-        ) : null}
+        </div>
       </div>
     </div>
   );
@@ -122,8 +121,6 @@ export default async function CloudWasteOohPage() {
     { asset: cloudWaste.media.ooh, label: "Frame 1" },
     { asset: cloudWaste.media.oohSecondary, label: "Frame 2" },
   ];
-  // If media already carries baked-in copy, skip HTML overlay for that frame.
-  const showCopyFor = (asset: CloudWasteMediaAsset | null) => !asset;
 
   return (
     <CampaignShell title="Cloud Waste — Out-of-Home">
@@ -145,7 +142,6 @@ export default async function CloudWasteOohPage() {
               label={frame.label}
               headline={cloudWaste.ooh.headline}
               subline={cloudWaste.ooh.subline}
-              showCopy={showCopyFor(frame.asset)}
             />
           ))}
         </div>
