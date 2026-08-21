@@ -28,7 +28,7 @@ export default async function HomePage() {
         <Testimonials testimonials={landing.testimonials} imageUrl={landing.quotesImageUrl} />
         <IntegrationsBand />
         <PricingSection />
-        <ClosingCta cta={landing.cta} imageUrl={landing.ctaImageUrl} />
+        <ClosingCta cta={landing.cta} />
         <FAQ faqs={landing.faqs} />
       </main>
       <SiteFooter />

@@ -10,9 +10,9 @@ export function FAQ({ faqs }: { faqs: LandingContent["faqs"] }) {
   return (
     <section className="bg-section-black py-site" aria-labelledby="faq-heading">
       <div className="px-site">
-        <GridFrame borders="tr" ink="mint" strength={40}>
+        <GridFrame borders="tr" ink="nebula" strength={55} top>
           <div className="p-6 md:p-10">
-            <h2 id="faq-heading" className="t2 text-white">
+            <h2 id="faq-heading" className="t2 text-white uppercase">
               FAQs
             </h2>
             <p className="t6 mt-4 text-neue">
@@ -20,8 +20,8 @@ export function FAQ({ faqs }: { faqs: LandingContent["faqs"] }) {
             </p>
           </div>
         </GridFrame>
-        <GridFrame borders="trb" ink="mint" strength={40}>
-          <div className="divide-y divide-white/10">
+        <GridFrame borders="trb" ink="nebula" strength={55} top>
+          <div className="divide-y divide-[color-mix(in_srgb,var(--nebula)_35%,transparent)]">
             {faqs.map((faq, i) => {
               const isOpen = open === i;
               const panelId = `faq-panel-${i}`;
@@ -31,7 +31,7 @@ export function FAQ({ faqs }: { faqs: LandingContent["faqs"] }) {
                   <button
                     id={buttonId}
                     type="button"
-                    className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                    className="flex min-h-14 w-full items-center justify-between gap-4 py-5 text-left"
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     aria-controls={panelId}
@@ -39,7 +39,7 @@ export function FAQ({ faqs }: { faqs: LandingContent["faqs"] }) {
                     <span className="min-w-0 text-[15px] font-medium text-white md:text-base">
                       {faq.q}
                     </span>
-                    <span className="text-mint" aria-hidden>
+                    <span className="text-nebula-light" aria-hidden>
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>

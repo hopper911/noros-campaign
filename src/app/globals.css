@@ -253,13 +253,28 @@ body {
   padding: 0 1rem;
 }
 
-.title-line {
+.title-line,
+.headline-line {
   display: inline-block;
   max-width: 100%;
   overflow-wrap: break-word;
   color: var(--white);
-  background: none;
-  padding: 0;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-decoration-break: unset;
+  -webkit-box-decoration-break: unset;
+  padding: 0 !important;
+}
+
+/* Retired — keep transparent so stale caches never repaint black slabs */
+.boxed-line {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  color: var(--white);
+  background: transparent !important;
+  background-color: transparent !important;
+  padding: 0 !important;
 }
 
 .header-line {

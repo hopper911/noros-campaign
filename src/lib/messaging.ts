@@ -233,8 +233,8 @@ export const landingCopy = {
     ],
   },
   cta: {
-    title: "Cloud with confidence.",
-    body: "Put Noros to work on your cloud and see savings in minutes.",
+    title: "See your cloud spend live.",
+    body: "Start using Noros capabilities today.",
     primary: "Start your Free trial",
     secondary: "Schedule a Free Demo",
   },

@@ -5,7 +5,7 @@ export function NorthLogo({ className = "" }: { className?: string }) {
         <use href="#logo" />
       </svg>
       <span
-        className="pointer-events-none absolute top-[-2px] left-[32px] text-[8px] leading-none text-white sm:left-[38px] sm:text-[9px]"
+        className="pointer-events-none absolute top-[-2px] left-[32px] text-[8px] leading-none text-current sm:left-[38px] sm:text-[9px]"
         aria-hidden
       >
         ˆ
