@@ -115,7 +115,7 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <a href="/admin/figma" className="btn-nav">
+            <a href="/campaign/figma" className="btn-nav">
               Figma boards
             </a>
             <button type="button" onClick={save} disabled={busy} className="btn-trial">

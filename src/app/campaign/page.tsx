@@ -3,7 +3,6 @@ import { BoxedTitle } from "@/components/north/BoxedTitle";
 import { GridFrame } from "@/components/north/GridFrame";
 import { Reveal, RevealItem, RevealStagger } from "@/components/motion/Reveal";
 import { getSiteContent } from "@/lib/get-site-content";
-import { getIsAdminSession } from "@/lib/admin-auth";
 import { boxedLines } from "@/lib/site-content";
 import Link from "next/link";
 
@@ -19,17 +18,13 @@ const kitLinks = [
   ["/campaign/ui", "Product UI graphic"],
   ["/campaign/meet", "Meet Noros hero"],
   ["/campaign/cloud-waste", "Cloud waste campaign"],
+  ["/campaign/figma", "Figma boards"],
 ] as const;
 
 export default async function CampaignHubPage() {
-  const [{ campaignLine, disclaimer, audiences }, isAdmin] = await Promise.all([
-    getSiteContent(),
-    getIsAdminSession(),
-  ]);
+  const { campaignLine, disclaimer, audiences } = await getSiteContent();
 
-  const surfaces = isAdmin
-    ? [...kitLinks, ["/admin/figma", "Figma boards"] as const]
-    : kitLinks;
+  const surfaces = kitLinks;
 
   return (
     <CampaignShell title="Campaign concept & messaging">

@@ -1,20 +1,15 @@
-"use client";
-
 import { GridFrame } from "@/components/north/GridFrame";
-import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 const FIGMA_FILE = "https://www.figma.com/design/CTMlP9TsdTpS9MrKtaAp0m";
 
 const groups = [
   {
-    title: "Cover & framework · in Figma",
+    title: "Cover & framework",
     items: ["00-cover.svg", "01-messaging.svg"],
   },
   {
-    title: "Landing · 1440",
+    title: "Landing",
     items: [
       "landing-nav.svg",
       "landing-hero.svg",
@@ -31,11 +26,11 @@ const groups = [
     ],
   },
   {
-    title: "Ads · 1200×628",
+    title: "Ads",
     items: ["ad-cfo.svg", "ad-finops.svg", "ad-engineer.svg"],
   },
   {
-    title: "Carousel · 1080×1080",
+    title: "Carousel",
     items: [
       "carousel-01.svg",
       "carousel-02.svg",
@@ -53,7 +48,7 @@ const groups = [
     items: ["brief-p1.svg", "brief-p2.svg", "email.svg", "event.svg"],
   },
   {
-    title: "Storyboard · 1920×1080",
+    title: "Storyboard",
     items: [
       "storyboard-01.svg",
       "storyboard-02.svg",
@@ -116,102 +111,46 @@ const labels: Record<string, { label: string; size: string }> = {
   "landing-footer.svg": { label: "Landing footer", size: "1440×560" },
 };
 
-export function FigmaBoards({
-  disclaimer,
-  initialBackgrounds,
-}: {
-  disclaimer: string;
-  initialBackgrounds: Record<string, string | null>;
-}) {
-  const router = useRouter();
-  const [backgrounds, setBackgrounds] = useState(initialBackgrounds);
-  const [uploading, setUploading] = useState<string | null>(null);
-  const [status, setStatus] = useState("");
-
-  async function uploadBackground(frame: string, file: File) {
-    setUploading(frame);
-    setStatus("");
-    try {
-      const form = new FormData();
-      form.set("frame", frame);
-      form.set("file", file);
-      const res = await fetch("/api/admin/figma-kit/background", {
-        method: "POST",
-        body: form,
-        credentials: "include",
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setStatus(data.error ?? "Upload failed");
-        return;
-      }
-      setBackgrounds(data.backgrounds);
-      router.refresh();
-    } finally {
-      setUploading(null);
-    }
-  }
-
-  async function clearBackground(frame: string) {
-    setUploading(frame);
-    setStatus("");
-    try {
-      const res = await fetch(
-        `/api/admin/figma-kit/background?frame=${encodeURIComponent(frame)}`,
-        { method: "DELETE", credentials: "include" },
-      );
-      const data = await res.json();
-      if (!res.ok) {
-        setStatus(data.error ?? "Clear failed");
-        return;
-      }
-      setBackgrounds(data.backgrounds);
-      router.refresh();
-    } finally {
-      setUploading(null);
-    }
-  }
-
+export function FigmaGallery({ disclaimer }: { disclaimer: string }) {
   return (
     <>
-      <GridFrame borders="trb" ink="mint" strength={40}>
+      <GridFrame borders="trb" ink="nebula" strength={45} top>
         <Reveal className="p-5 sm:p-8 md:p-10">
-          <HeaderBar />
-          <p className="mt-8 font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
-            Figma boards · view only
+          <p className="font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
+            Design boards
           </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            <a href={FIGMA_FILE} target="_blank" rel="noreferrer" className="btn-nav">
-              Open Figma file
+          <h2 className="t2 mt-4 text-white">Campaign kit gallery</h2>
+          <p className="t6 mt-4 max-w-2xl text-neue">
+            View-only previews of the Noros campaign surfaces — aligned to the North Analyze
+            layout language.
+          </p>
+          <div className="mt-6">
+            <a
+              href={FIGMA_FILE}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-nav"
+            >
+              Open in Figma
             </a>
           </div>
-          {status ? (
-            <p
-              className="mt-4 font-mono text-[11px] tracking-normal text-red-400 normal-case"
-              role="status"
-              aria-live="polite"
-            >
-              {status}
-            </p>
-          ) : null}
           <p className="mt-6 font-mono text-[11px] text-neue/70 uppercase">{disclaimer}</p>
         </Reveal>
       </GridFrame>
 
       {groups.map((group) => (
-        <GridFrame key={group.title} borders="rb" ink="mint" strength={40}>
+        <GridFrame key={group.title} borders="rb" ink="nebula" strength={40}>
           <section className="p-5 sm:p-8">
-            <h2 className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
+            <h3 className="font-mono text-[11px] tracking-[0.14em] text-mint uppercase">
               {group.title}
-            </h2>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            </h3>
+            <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {group.items.map((file) => {
                 const meta = labels[file];
-                const customBg = backgrounds[file] ?? null;
                 return (
-                  <div key={file} className="min-w-0">
+                  <article key={file} className="min-w-0">
                     <div
-                      className="asset-protect relative overflow-hidden border border-white/25 bg-black"
+                      className="asset-protect relative overflow-hidden border border-white/20 bg-black"
                       data-asset-protect
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -222,56 +161,13 @@ export function FigmaBoards({
                         className="pointer-events-none h-auto w-full select-none"
                       />
                     </div>
-                    {customBg ? (
-                      <div
-                        className="asset-protect mt-2 overflow-hidden border border-mint/30"
-                        data-asset-protect
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={customBg}
-                          alt={`Custom background for ${meta?.label ?? file}`}
-                          draggable={false}
-                          className="pointer-events-none h-20 w-full object-cover select-none"
-                        />
-                        <p className="px-2 py-1 font-mono text-[10px] tracking-[0.08em] text-mint uppercase">
-                          Custom background
-                        </p>
-                      </div>
-                    ) : null}
-                    <div className="mt-2 flex items-baseline justify-between gap-2">
-                      <span className="text-sm text-white">{meta?.label ?? file}</span>
-                      <span className="font-mono text-[10px] tracking-[0.08em] text-neue uppercase">
+                    <div className="mt-3 flex items-baseline justify-between gap-2">
+                      <h4 className="text-sm font-medium text-white">{meta?.label ?? file}</h4>
+                      <span className="shrink-0 font-mono text-[10px] tracking-[0.08em] text-neue/70 uppercase">
                         {meta?.size}
                       </span>
                     </div>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      <label className="btn-nav cursor-pointer">
-                        {uploading === file ? "Uploading…" : "Upload background"}
-                        <input
-                          type="file"
-                          accept="image/jpeg,image/png,image/webp"
-                          className="hidden"
-                          disabled={!!uploading}
-                          onChange={(e) => {
-                            const picked = e.target.files?.[0];
-                            if (picked) void uploadBackground(file, picked);
-                            e.target.value = "";
-                          }}
-                        />
-                      </label>
-                      {customBg ? (
-                        <button
-                          type="button"
-                          className="btn-nav"
-                          disabled={!!uploading}
-                          onClick={() => void clearBackground(file)}
-                        >
-                          Clear custom
-                        </button>
-                      ) : null}
-                    </div>
-                  </div>
+                  </article>
                 );
               })}
             </div>

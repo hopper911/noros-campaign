@@ -20,9 +20,10 @@ const links = [
   { href: "/campaign/finops", label: "FinOps" },
   { href: "/campaign/engineers", label: "Engineers" },
   { href: "/campaign/cloud-waste", label: "Cloud Waste" },
+  { href: "/campaign/figma", label: "Figma" },
 ];
 
-const adminLink = { href: "/admin/figma", label: "Figma" };
+const adminLink = { href: "/admin", label: "Admin" };
 
 export async function CampaignShell({
   title,

@@ -1,4 +1,4 @@
-import { FigmaBoards } from "@/components/admin/FigmaBoards";
+import { FigmaGallery } from "@/components/campaign/FigmaGallery";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { getSiteContent } from "@/lib/get-site-content";
 import type { Metadata } from "next";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminFigmaPage() {
-  const { disclaimer, figmaKit } = await getSiteContent();
+  const { disclaimer } = await getSiteContent();
   return (
     <AdminShell
       title="Figma design boards"
@@ -22,7 +22,7 @@ export default async function AdminFigmaPage() {
         </Link>
       }
     >
-      <FigmaBoards disclaimer={disclaimer} initialBackgrounds={figmaKit.backgrounds} />
+      <FigmaGallery disclaimer={disclaimer} />
     </AdminShell>
   );
 }
