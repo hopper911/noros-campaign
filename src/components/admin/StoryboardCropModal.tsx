@@ -2,16 +2,30 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const ASPECT = 16 / 9;
-const OUTPUT_WIDTH = 1920;
-
 type Props = {
   imageSrc: string;
   onCancel: () => void;
   onCropped: (file: File) => void;
+  /** Width / height, e.g. 16/9 or 9/16 */
+  aspect?: number;
+  outputWidth?: number;
+  title?: string;
+  hint?: string;
+  frameClassName?: string;
+  filePrefix?: string;
 };
 
-export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
+export function StoryboardCropModal({
+  imageSrc,
+  onCancel,
+  onCropped,
+  aspect = 16 / 9,
+  outputWidth = 1920,
+  title = "Crop",
+  hint = "Drag to reposition. Zoom to frame the crop.",
+  frameClassName = "aspect-video",
+  filePrefix = "crop",
+}: Props) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -126,13 +140,13 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
       const sw = frame.w * scaleX;
       const sh = frame.h * scaleY;
 
-      const outH = Math.round(OUTPUT_WIDTH / ASPECT);
+      const outH = Math.round(outputWidth / aspect);
       const canvas = document.createElement("canvas");
-      canvas.width = OUTPUT_WIDTH;
+      canvas.width = outputWidth;
       canvas.height = outH;
       const ctx = canvas.getContext("2d");
       if (!ctx) throw new Error("Canvas unavailable");
-      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, OUTPUT_WIDTH, outH);
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, outputWidth, outH);
 
       const blob = await new Promise<Blob>((resolve, reject) => {
         canvas.toBlob(
@@ -142,7 +156,7 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
         );
       });
       onCropped(
-        new File([blob], `storyboard-crop-${Date.now()}.jpg`, { type: "image/jpeg" }),
+        new File([blob], `${filePrefix}-${Date.now()}.jpg`, { type: "image/jpeg" }),
       );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Crop failed");
@@ -159,7 +173,7 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 p-4"
       role="dialog"
       aria-modal="true"
-      aria-label="Crop storyboard image"
+      aria-label={title}
       onMouseUp={() => setDragging(false)}
       onMouseLeave={() => setDragging(false)}
     >
@@ -167,11 +181,9 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
-              Storyboard · Crop
+              {title}
             </p>
-            <p className="mt-1 text-sm text-neue">
-              Drag to reposition. Zoom to frame the 16:9 beat still.
-            </p>
+            <p className="mt-1 text-sm text-neue">{hint}</p>
           </div>
           <button type="button" className="btn-nav" onClick={onCancel} disabled={busy}>
             Cancel
@@ -180,7 +192,7 @@ export function StoryboardCropModal({ imageSrc, onCancel, onCropped }: Props) {
 
         <div
           ref={frameRef}
-          className="relative mt-5 aspect-video w-full cursor-grab overflow-hidden border border-white/25 active:cursor-grabbing"
+          className={`relative mt-5 w-full max-h-[min(70vh,36rem)] cursor-grab overflow-hidden border border-white/25 active:cursor-grabbing ${frameClassName}`}
           tabIndex={0}
           role="img"
           aria-label="Drag to reposition crop. Use zoom slider below."
