@@ -1262,15 +1262,26 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                   }
                 />
               </div>
-              <ImageSlot
-                label="OOH image or video"
-                src={content.cloudWaste.media.ooh}
-                kind="cw-ooh"
-                aspect="aspect-[9/16]"
-                uploading={uploading}
-                onUpload={upload}
-                accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
-              />
+              <div className="space-y-6">
+                <ImageSlot
+                  label="OOH frame 1 · image or video"
+                  src={content.cloudWaste.media.ooh}
+                  kind="cw-ooh"
+                  aspect="aspect-[9/16]"
+                  uploading={uploading}
+                  onUpload={upload}
+                  accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+                />
+                <ImageSlot
+                  label="OOH frame 2 · image or video"
+                  src={content.cloudWaste.media.oohSecondary}
+                  kind="cw-ooh-2"
+                  aspect="aspect-[9/16]"
+                  uploading={uploading}
+                  onUpload={upload}
+                  accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+                />
+              </div>
             </div>
           </div>
 

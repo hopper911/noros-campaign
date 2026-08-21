@@ -165,6 +165,7 @@ export type CloudWasteContent = {
     carousel: (CloudWasteMediaAsset | null)[];
     webinar: CloudWasteMediaAsset | null;
     ooh: CloudWasteMediaAsset | null;
+    oohSecondary: CloudWasteMediaAsset | null;
     dashboard: CloudWasteMediaAsset | null;
   };
 };
@@ -290,6 +291,7 @@ export function defaultSiteContent(): SiteContent {
         carousel: CW_ADS.carousel.map(() => null),
         webinar: null,
         ooh: null,
+        oohSecondary: null,
         dashboard: null,
       },
     },
@@ -630,6 +632,10 @@ export function mergeSiteContent(stored: unknown): SiteContent {
           : base.cloudWaste.media.carousel,
         webinar: cloudWasteMedia(cwMediaIn.webinar, base.cloudWaste.media.webinar),
         ooh: cloudWasteMedia(cwMediaIn.ooh, base.cloudWaste.media.ooh),
+        oohSecondary: cloudWasteMedia(
+          cwMediaIn.oohSecondary,
+          base.cloudWaste.media.oohSecondary,
+        ),
         dashboard: cloudWasteMedia(cwMediaIn.dashboard, base.cloudWaste.media.dashboard),
       },
     },
@@ -706,6 +712,7 @@ export const MEDIA_KINDS = [
   "cw-carousel-4",
   "cw-webinar",
   "cw-ooh",
+  "cw-ooh-2",
   "cw-dashboard",
 ] as const;
 
@@ -781,6 +788,7 @@ export function applyMediaUrl(content: SiteContent, kind: MediaKind, url: string
   }
   if (kind === "cw-webinar" && mediaAsset) next.cloudWaste.media.webinar = mediaAsset;
   if (kind === "cw-ooh" && mediaAsset) next.cloudWaste.media.ooh = mediaAsset;
+  if (kind === "cw-ooh-2" && mediaAsset) next.cloudWaste.media.oohSecondary = mediaAsset;
   if (kind === "cw-dashboard" && mediaAsset) next.cloudWaste.media.dashboard = mediaAsset;
   return next;
 }
