@@ -25,11 +25,13 @@ export function CloudWasteMedia({
         muted
         playsInline
         controls={controls}
+        controlsList="nodownload noplaybackrate"
+        disablePictureInPicture
         aria-label={alt || "Campaign video"}
         aria-hidden={!controls && !alt ? true : undefined}
       />
     );
   }
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={asset.url} alt={alt} className={className} />;
+  return <img src={asset.url} alt={alt} className={className} draggable={false} />;
 }

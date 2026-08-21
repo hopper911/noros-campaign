@@ -18,7 +18,9 @@ export async function GET(
   return new NextResponse(new Uint8Array(row.bytes), {
     headers: {
       "Content-Type": row.mime,
+      "Content-Disposition": "inline",
       "X-Content-Type-Options": "nosniff",
+      "X-Robots-Tag": "noindex",
       "Cache-Control": "public, max-age=31536000, immutable",
     },
   });

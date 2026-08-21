@@ -98,6 +98,24 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Soft asset protection — media is view-only */
+img,
+video,
+picture,
+canvas,
+.asset-protect,
+[data-asset-protect] {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+img,
+video {
+  pointer-events: auto;
+}
+
 ::selection {
   background: color-mix(in srgb, var(--nebula) 45%, transparent);
   color: var(--white);

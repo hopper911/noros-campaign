@@ -1,6 +1,5 @@
 "use client";
 
-import { DownloadButton } from "@/components/admin/DownloadButton";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import { Reveal } from "@/components/motion/Reveal";
@@ -179,39 +178,19 @@ export function FigmaBoards({
         <Reveal className="p-5 sm:p-8 md:p-10">
           <HeaderBar />
           <p className="mt-8 font-mono text-[11px] tracking-[0.16em] text-mint uppercase">
-            Admin only · 40 export frames · kit assembled
-          </p>
-          <p className="t6 mt-4 max-w-2xl text-neue">
-            Cover and messaging already live in{" "}
-            <a href={FIGMA_FILE} className="text-mint underline-offset-2 hover:underline">
-              Noros Campaign Kit — Portfolio
-            </a>
-            . Upload a custom background on any frame to override the auto-generated text-free
-            JPEG. Custom backgrounds are used for Background downloads and the background zip.
+            Figma boards · view only
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             <a href={FIGMA_FILE} target="_blank" rel="noreferrer" className="btn-nav">
               Open Figma file
             </a>
-            <DownloadButton
-              href="/api/admin/figma-kit/jpeg-zip"
-              filename="figma-kit-jpegs.zip"
-              className="btn-trial"
-            >
-              Download JPEG zip
-            </DownloadButton>
-            <DownloadButton
-              href="/api/admin/figma-kit/jpeg-zip?variant=plain"
-              filename="figma-kit-backgrounds.zip"
-            >
-              Download background JPEG zip
-            </DownloadButton>
-            <DownloadButton href="/figma-kit.zip" filename="figma-kit.zip">
-              Download SVG zip
-            </DownloadButton>
           </div>
           {status ? (
-            <p className="mt-4 font-mono text-[11px] tracking-normal text-red-400 normal-case">
+            <p
+              className="mt-4 font-mono text-[11px] tracking-normal text-red-400 normal-case"
+              role="status"
+              aria-live="polite"
+            >
               {status}
             </p>
           ) : null}
@@ -228,25 +207,32 @@ export function FigmaBoards({
             <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {group.items.map((file) => {
                 const meta = labels[file];
-                const jpegName = file.replace(/\.svg$/i, ".jpg");
                 const customBg = backgrounds[file] ?? null;
                 return (
                   <div key={file} className="min-w-0">
-                    <div className="relative overflow-hidden border border-white/25 bg-black">
+                    <div
+                      className="asset-protect relative overflow-hidden border border-white/25 bg-black"
+                      data-asset-protect
+                    >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={`/figma-kit/${file}`}
                         alt={meta?.label ?? file}
-                        className="h-auto w-full"
+                        draggable={false}
+                        className="pointer-events-none h-auto w-full select-none"
                       />
                     </div>
                     {customBg ? (
-                      <div className="mt-2 overflow-hidden border border-mint/30">
+                      <div
+                        className="asset-protect mt-2 overflow-hidden border border-mint/30"
+                        data-asset-protect
+                      >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={customBg}
                           alt={`Custom background for ${meta?.label ?? file}`}
-                          className="h-20 w-full object-cover"
+                          draggable={false}
+                          className="pointer-events-none h-20 w-full object-cover select-none"
                         />
                         <p className="px-2 py-1 font-mono text-[10px] tracking-[0.08em] text-mint uppercase">
                           Custom background
@@ -260,21 +246,6 @@ export function FigmaBoards({
                       </span>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      <DownloadButton
-                        href={`/api/admin/figma-kit/jpeg?file=${encodeURIComponent(file)}`}
-                        filename={jpegName}
-                      >
-                        JPEG
-                      </DownloadButton>
-                      <DownloadButton
-                        href={`/api/admin/figma-kit/jpeg?file=${encodeURIComponent(file)}&variant=plain`}
-                        filename={file.replace(/\.svg$/i, "-bg.jpg")}
-                      >
-                        Background
-                      </DownloadButton>
-                      <DownloadButton href={`/figma-kit/${file}`} filename={file}>
-                        SVG
-                      </DownloadButton>
                       <label className="btn-nav cursor-pointer">
                         {uploading === file ? "Uploading…" : "Upload background"}
                         <input

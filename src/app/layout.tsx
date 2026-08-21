@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DisclaimerBanner } from "@/components/shell/DisclaimerBanner";
+import { AssetProtect } from "@/components/shell/AssetProtect";
 import { SpriteIcons } from "@/components/north/SpriteIcons";
 import { PageTransition } from "@/components/motion/PageTransition";
 import "./globals.css";
@@ -34,6 +35,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <PageTransition />
+        <AssetProtect />
         <SpriteIcons />
         <DisclaimerBanner />
         {children}

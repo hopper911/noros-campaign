@@ -2,8 +2,33 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/admin-auth";
 
+function blockDownload(pathname: string): boolean {
+  if (pathname === "/figma-kit.zip") return true;
+  if (pathname.startsWith("/figma-kit/") && pathname.toLowerCase().endsWith(".zip")) {
+    return true;
+  }
+  return false;
+}
+
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  if (blockDownload(pathname)) {
+    return new NextResponse("Downloads disabled", {
+      status: 403,
+      headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" },
+    });
+  }
+
+  // Serve kit previews inline only (discourage Save As as attachment)
+  if (pathname.startsWith("/figma-kit/")) {
+    const res = NextResponse.next();
+    res.headers.set("Content-Disposition", "inline");
+    res.headers.set("X-Content-Type-Options", "nosniff");
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
+
   const isLoginPage = pathname === "/admin/login";
   const isLoginApi = pathname === "/api/admin/login";
   const isAdminPage = pathname === "/admin" || pathname.startsWith("/admin/");
@@ -35,5 +60,11 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/:path*", "/api/admin/:path*"],
+  matcher: [
+    "/admin",
+    "/admin/:path*",
+    "/api/admin/:path*",
+    "/figma-kit.zip",
+    "/figma-kit/:path*",
+  ],
 };
