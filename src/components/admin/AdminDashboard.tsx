@@ -1,7 +1,6 @@
 "use client";
 
 import { StoryboardImageSlot } from "@/components/admin/StoryboardImageSlot";
-import { CroppableImageSlot } from "@/components/admin/CroppableImageSlot";
 import { GridFrame } from "@/components/north/GridFrame";
 import { HeaderBar } from "@/components/north/HeaderBar";
 import type { AudienceId, CloudWasteMediaAsset, SiteContent } from "@/lib/site-content";
@@ -1264,33 +1263,23 @@ export function AdminDashboard({ initial }: { initial: SiteContent }) {
                 />
               </div>
               <div className="space-y-6">
-                <CroppableImageSlot
+                <ImageSlot
                   label="OOH frame 1 · image or video"
                   src={content.cloudWaste.media.ooh}
                   kind="cw-ooh"
-                  aspectClass="aspect-[9/16]"
-                  aspect={9 / 16}
-                  outputWidth={1080}
-                  cropTitle="OOH frame 1 · Crop"
-                  cropHint="Drag to reposition. Zoom to frame the 9:16 portrait unit."
-                  filePrefix="ooh-1-crop"
-                  allowVideo
+                  aspect="aspect-[9/16]"
                   uploading={uploading}
                   onUpload={upload}
+                  accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
                 />
-                <CroppableImageSlot
+                <ImageSlot
                   label="OOH frame 2 · image or video"
                   src={content.cloudWaste.media.oohSecondary}
                   kind="cw-ooh-2"
-                  aspectClass="aspect-[9/16]"
-                  aspect={9 / 16}
-                  outputWidth={1080}
-                  cropTitle="OOH frame 2 · Crop"
-                  cropHint="Drag to reposition. Zoom to frame the 9:16 portrait unit."
-                  filePrefix="ooh-2-crop"
-                  allowVideo
+                  aspect="aspect-[9/16]"
                   uploading={uploading}
                   onUpload={upload}
+                  accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
                 />
               </div>
             </div>
